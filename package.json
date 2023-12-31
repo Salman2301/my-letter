@@ -11,6 +11,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
 		"format": "prettier --write .",
+		"db:gen:type": "npx supabase gen types typescript --linked > src/database.types.ts",
 		"test:integration": "playwright test",
 		"test:unit": "vitest"
 	},
@@ -41,6 +42,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@supabase/supabase-js": "^2.39.1",
 		"clsx": "^2.1.0",
 		"lucide-svelte": "^0.303.0",
 		"tailwind-merge": "^2.2.0",
