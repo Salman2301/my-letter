@@ -1,2 +1,10 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+    // cni-alert
+  import * as Alert from "$lib/components/ui/alert"
+</script>
+<Alert.Root>
+  <Alert.Title>Heads up!</Alert.Title>
+  <Alert.Description>
+    You can add components to your app using the cli.
+  </Alert.Description>
+</Alert.Root>
