@@ -34,7 +34,220 @@ export interface Database {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      contact: {
+        Row: {
+          created_at: string
+          fav: boolean | null
+          first_name: string | null
+          id: number
+          image: string | null
+          last_name: string | null
+          nick_name: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          fav?: boolean | null
+          first_name?: string | null
+          id?: number
+          image?: string | null
+          last_name?: string | null
+          nick_name?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          fav?: boolean | null
+          first_name?: string | null
+          id?: number
+          image?: string | null
+          last_name?: string | null
+          nick_name?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contact_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      letter: {
+        Row: {
+          audio: string | null
+          background: string | null
+          body: Json | null
+          created_at: string
+          delete_on_read: boolean | null
+          folder: string | null
+          id: string
+          is_publish: boolean | null
+          public_link: string | null
+          read: boolean | null
+          send_via_email: string | null
+          send_via_phone: string | null
+          signature: string | null
+          sticker_photo: string | null
+          sticker_position: string | null
+          title: string | null
+          trigger_date: string | null
+          trigger_link: string | null
+          trigger_method: string | null
+        }
+        Insert: {
+          audio?: string | null
+          background?: string | null
+          body?: Json | null
+          created_at?: string
+          delete_on_read?: boolean | null
+          folder?: string | null
+          id?: string
+          is_publish?: boolean | null
+          public_link?: string | null
+          read?: boolean | null
+          send_via_email?: string | null
+          send_via_phone?: string | null
+          signature?: string | null
+          sticker_photo?: string | null
+          sticker_position?: string | null
+          title?: string | null
+          trigger_date?: string | null
+          trigger_link?: string | null
+          trigger_method?: string | null
+        }
+        Update: {
+          audio?: string | null
+          background?: string | null
+          body?: Json | null
+          created_at?: string
+          delete_on_read?: boolean | null
+          folder?: string | null
+          id?: string
+          is_publish?: boolean | null
+          public_link?: string | null
+          read?: boolean | null
+          send_via_email?: string | null
+          send_via_phone?: string | null
+          signature?: string | null
+          sticker_photo?: string | null
+          sticker_position?: string | null
+          title?: string | null
+          trigger_date?: string | null
+          trigger_link?: string | null
+          trigger_method?: string | null
+        }
+        Relationships: []
+      }
+      letter_likes: {
+        Row: {
+          created_at: string
+          id: string
+          letter_id: string | null
+          user: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          letter_id?: string | null
+          user?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          letter_id?: string | null
+          user?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "letter_likes_letter_id_fkey"
+            columns: ["letter_id"]
+            isOneToOne: false
+            referencedRelation: "letter"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "letter_likes_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      letter_rates: {
+        Row: {
+          created_at: string
+          id: string
+          letter_id: string | null
+          rate: number | null
+          types: string | null
+          user: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          letter_id?: string | null
+          rate?: number | null
+          types?: string | null
+          user?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          letter_id?: string | null
+          rate?: number | null
+          types?: string | null
+          user?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "letter_rates_letter_id_fkey"
+            columns: ["letter_id"]
+            isOneToOne: false
+            referencedRelation: "letter"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "letter_rates_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      letter_views: {
+        Row: {
+          created_at: string
+          id: string
+          ip: string | null
+          letter_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          ip?: string | null
+          letter_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          ip?: string | null
+          letter_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "letter_views_letter_id_fkey"
+            columns: ["letter_id"]
+            isOneToOne: false
+            referencedRelation: "letter"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
