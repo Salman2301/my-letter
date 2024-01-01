@@ -1,10 +1,12 @@
 <script context="module" lang="ts">
-	import { CircleIcon, PenToolIcon, SettingsIcon, UsersIcon } from 'svelte-feather-icons';
+	import { BookIcon, CircleIcon, LoaderIcon, PenToolIcon, SettingsIcon, UsersIcon } from 'svelte-feather-icons';
 
 	export const iconMap = {
 		circle: CircleIcon,
 		users: UsersIcon,
 		setting: SettingsIcon,
-		'pen-tool': PenToolIcon
+		'pen-tool': PenToolIcon,
+		book: BookIcon,
+		loader: LoaderIcon
 	} as const;
 </script>

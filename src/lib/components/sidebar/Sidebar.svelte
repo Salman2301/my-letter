@@ -49,6 +49,7 @@
 		@apply rounded-sm;
 		@apply border border-secondary;
 		@apply px-2 py-2 pl-4;
+		@apply text-center;
 	}
 
 	.sidebar-item > a:hover,

@@ -7,7 +7,8 @@
   export let label: string = "Label";
   export let value: string = "";
   export let icon: keyof typeof iconMap | undefined = undefined;
-  export let type: "email" | "password" | "text" = "text";
+  export let type: "email" | "password" | "text" | "phone"= "text";
+  export let disabled: boolean = false;
 
   let inputInstance: HTMLInputElement;
   onMount(()=>{
@@ -22,7 +23,7 @@
       <svelte:component this={iconMap[icon]} size="14"/>
     </div>
   {/if}
-  <input type="text" bind:value id={id} bind:this={inputInstance}>
+  <input type="text" bind:value id={id} bind:this={inputInstance} {disabled}>
 </div>
 
 <style lang="postcss">
@@ -43,5 +44,9 @@
     @apply bg-background;
     @apply rounded-sm;
     @apply text-xs;
+  }
+
+  input:disabled {
+    @apply cursor-not-allowed;
   }
 </style>

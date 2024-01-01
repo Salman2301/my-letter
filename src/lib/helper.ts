@@ -1,3 +1,6 @@
+import { asString } from "$lib/module/formatDate";
+
+
 export function genId(len?: number): string {
   if (typeof len !== "number") len = 6;
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -20,3 +23,9 @@ export function sleep(ms: number) {
   })
 }
 
+export function formatDate(date: Date | string | number, format?: string) {
+  if (!(date instanceof Date)) date = new Date(date ?? null);
+  if (!format) format = "dd/MM/yyyy";
+
+  return asString(format, date)
+}

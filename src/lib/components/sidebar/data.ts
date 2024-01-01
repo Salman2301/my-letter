@@ -16,9 +16,15 @@ const data: SidebarData[] = [
 		theme: 'cta'
 	},
 	{
+		title: 'My Letter',
+		icon: 'book',
+		href: '/app/my-letters',
+		theme: 'default'
+	},
+	{
 		title: 'My Contact',
 		icon: 'users',
-		href: '/app/contact',
+		href: '/app/my-contacts',
 		theme: 'default'
 	},
 	{

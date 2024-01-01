@@ -1,8 +1,9 @@
 <script lang="ts">
-	import { ArrowLeftIcon, MenuIcon, XIcon } from 'svelte-feather-icons';
-	import { showSidebar, toggleSidebar } from '../sidebar/store';
 	import Menu from './Menu.svelte';
 	import Heading from '../text/Heading.svelte';
+	
+	import { ArrowLeftIcon, MenuIcon, XIcon } from 'svelte-feather-icons';
+	import { showSidebar, toggleSidebar } from '../sidebar/store';
 	import { page } from '$app/stores';
 	import data from '../sidebar/data';
 	

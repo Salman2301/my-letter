@@ -15,15 +15,9 @@
     e?.preventDefault();
     const redirectTo = `${env.PUBLIC_BASE_URL}/auth/reset-password`
 		let { data, error } = await supabase.auth.updateUser({ password: form.password });
-    // TODO: show a popup that says reset password has sent to the email
 
-    if( error ) {
-      formInstance.setErrorMessage(`Invalid password!`)
-    }
-    else {
-      console.log("Password updated! show a popup?")
-      goto("/app")
-    }
+		if( error ) { formInstance.setErrorMessage(`Invalid password!`) }
+    else { goto("/app") }
 	}
 </script>
 

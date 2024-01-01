@@ -1,10 +1,8 @@
-<div class="app">page</div>
+<script lang="ts">
+	import { goto } from "$app/navigation";
+	import { onMount } from "svelte";
 
-<style lang="postcss">
-	.app {
-		width: 100%;
-		height: 100%;
-		border: 1px solid #ccc;
-		@apply flex items-center justify-center;
-	}
-</style>
+	onMount(()=>{
+		goto("/app/my-letters")
+	});
+</script>
