@@ -26,7 +26,7 @@
 
 	<div class="footer">
 		<div class="sidebar-item">
-			<a href="/logout" aria-label="logout">
+			<a href="/auth/logout" aria-label="logout">
 				<div class="icon">
 					<LogOutIcon size="14" />
 				</div>

@@ -11,7 +11,9 @@
 			<MenuIcon />
 		{/if}
 	</button>
-	<div class="image"></div>
+	<div class="image">
+		
+	</div>
 </div>
 
 <style lang="postcss">
