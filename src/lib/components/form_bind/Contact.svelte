@@ -4,6 +4,7 @@
 	import { goto } from "$app/navigation";
   import { supabase } from "$lib/supabase";
 	import { onMount } from "svelte";
+  
   import type { Tables } from "$lib/database.types";
 	
   let form = {

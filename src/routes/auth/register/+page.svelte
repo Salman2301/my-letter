@@ -1,10 +1,9 @@
 <script lang="ts">
 	import FormContainer from "$lib/components/form/FormContainer.svelte";
 	import Input from "$lib/components/form/Input.svelte";
-  import { supabase } from '$lib/supabase';
 	import LinkText from "$lib/components/text/LinkText.svelte";
+  import { supabase } from '$lib/supabase';
 	import { goto } from "$app/navigation";
-
 
   let form = {
     email: "",
@@ -18,8 +17,12 @@
       email: form.email,
       password: form.password
     });
-    if( error ) {
-      formInstance.setErrorMessage("Please check all the input and try again!")
+    if( !data.user ) return;
+
+    const { data: profileData, error: profileError } = await supabase.from("users").insert({ email: form.email, _owner:data.user.id })
+    
+    if( error || profileError ) {
+      formInstance.setErrorMessage("Please check all the input and try again!");
     }
     else {
       goto("/app")

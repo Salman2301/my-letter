@@ -5,9 +5,9 @@
 	import { supabase } from "$lib/supabase";
 	import { LoaderIcon, PlusIcon } from "svelte-feather-icons";
 	import { formatDate } from "$lib/helper";
+	import { goto } from "$app/navigation";
 
   import type { Tables } from "$lib/database.types";
-	import { goto } from "$app/navigation";
   
   let isLoading:boolean = true;
   let contacts: Tables<"contact">[] = [];
