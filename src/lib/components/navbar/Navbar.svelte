@@ -2,6 +2,17 @@
 	import { ArrowLeftIcon, MenuIcon, XIcon } from 'svelte-feather-icons';
 	import { showSidebar, toggleSidebar } from '../sidebar/store';
 	import Menu from './Menu.svelte';
+	import Heading from '../text/Heading.svelte';
+	import { page } from '$app/stores';
+	import data from '../sidebar/data';
+	
+	let navbarTitle = "";
+	page.subscribe(($page)=>{
+		let path =  new URL($page.url).pathname;
+		console.log("p", new URL($page.url).pathname)
+		navbarTitle = data?.find(item=>item.href === path)?.title || "";
+	});
+
 </script>
 
 <div class="navbar">
@@ -12,7 +23,9 @@
 			<MenuIcon />
 		{/if}
 	</button>
-	<div class="title"></div>
+
+	<Heading content={navbarTitle}></Heading>
+	
 	<div class="menubar">
 		<Menu />
 	</div>
