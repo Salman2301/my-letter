@@ -29,6 +29,12 @@ const data: SidebarData[] = [
 		theme: 'default'
 	},
 	{
+		title: 'My Assets',
+		icon: 'package',
+		href: '/app/my-assets',
+		theme: 'default'
+	},
+	{
 		title: 'My Settings',
 		icon: 'setting',
 		href: '/app/settings',

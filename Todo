@@ -1,4 +1,31 @@
+https://www.tldraw.com/r/bL7lR8TgCgB3FrsnPwP33?viewport=-202,94,2200,1062&page=page:page
+
 This is could be a long project, This is for sending and saving letter and personal information easily.
+
+Todo:
+  ☐ Asset page
+    ☐ Upload font
+    ☐ Upload custom footer?
+    ☐ Upload custom background
+    ☐ Create a customer letter template?
+  ☐ Build all the Letter UI Form
+    ☐ Check if the CK editor will work for us
+  ☐ Test the public letter
+  ☐ Setup proper email
+  ☐ Setup proper sms
+  ☐ Set CRON trigger to send email on exact time
+  ☐ Group Contact / Contact with wildcard support?
+  ☐ Upload Contact using CSV
+  ☐ Template
+    ☐ New year
+    ☐ Christmas
+    ☐ Upcoming templates pre-create
+  ☐ Landing page
+  ☐ Usecase page
+    ☐ For different event
+    ☐ For different use cases
+  ☐ Launch 🎉
+
 
 Feature:
   ☐ Letter

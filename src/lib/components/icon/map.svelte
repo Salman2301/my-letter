@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-	import { BookIcon, CircleIcon, LoaderIcon, PenToolIcon, SettingsIcon, UsersIcon } from 'svelte-feather-icons';
+	import { BookIcon, CircleIcon, LoaderIcon, PackageIcon, PenToolIcon, SettingsIcon, UsersIcon } from 'svelte-feather-icons';
 
 	export const iconMap = {
 		circle: CircleIcon,
@@ -7,6 +7,7 @@
 		setting: SettingsIcon,
 		'pen-tool': PenToolIcon,
 		book: BookIcon,
-		loader: LoaderIcon
+		loader: LoaderIcon,
+		package: PackageIcon
 	} as const;
 </script>
