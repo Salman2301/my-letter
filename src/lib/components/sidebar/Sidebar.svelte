@@ -8,7 +8,7 @@
 
 <div class="sidebar" transition:slide={{ axis : "x"}}>
 	<div class="sidebar-top">
-		{#each data as item}
+		{#each data.filter(item=>!item.hideSidebar) as item}
 			<div class="sidebar-item">
 				<a
 					href={item.href}

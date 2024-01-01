@@ -43,7 +43,7 @@
     @apply flex-col;
     @apply gap-1;
     max-width: 680px;
-    @apply pb-10 px-4 pt-2;
+    @apply pb-10 px-4 pt-4;
   }
   .text-error {
     @apply text-red-500;

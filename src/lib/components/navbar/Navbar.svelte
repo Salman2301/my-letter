@@ -10,7 +10,10 @@
 	let navbarTitle = "";
 	page.subscribe(($page)=>{
 		let path =  $page.url.pathname;
-		navbarTitle = data?.find(item=>item.href === path)?.title || "";
+		navbarTitle = data?.find(item=>{
+			if( item.href.startsWith("/app/my-contact/") ) return path.startsWith("/app/my-contact/")
+			return item.href === path;
+		})?.title || "";
 	});
 
 </script>
@@ -19,6 +22,7 @@
 	<button class="menu-icon" on:click={toggleSidebar}>
 		{#if $showSidebar}
 			<ArrowLeftIcon />
+			<div class="w-[250px]"></div>
 		{:else}
 			<MenuIcon />
 		{/if}

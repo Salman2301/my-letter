@@ -115,7 +115,6 @@
 
 <div class="container">
   <FormContainer
-    title="{isEditMode ? "Update Contact" : "New Contact"}"
     submitLabel="{isEditMode ? "Update Contact" : "Add Contact"}"
     disabled={isLoading}
     on:submit={handleSubmit}

@@ -6,6 +6,7 @@ interface SidebarData {
 	icon: keyof typeof iconMap;
 	place?: 'footer' | 'header';
 	theme: 'cta' | 'default';
+	hideSidebar?: boolean;
 }
 
 const data: SidebarData[] = [
@@ -32,7 +33,22 @@ const data: SidebarData[] = [
 		icon: 'setting',
 		href: '/app/settings',
 		theme: 'default'
-	}
+	},
+	{
+		title: 'Update Contact',
+		icon: 'pen-tool',
+		href: '/app/my-contact/[id]',
+		theme: 'default',
+		hideSidebar: true
+	},
+	{
+		title: 'New Contact',
+		icon: 'pen-tool',
+		href: '/app/new-contact',
+		theme: 'default',
+		hideSidebar: true
+	},
+	 
 ];
 
 export default data;
