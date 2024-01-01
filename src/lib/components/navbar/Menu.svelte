@@ -23,7 +23,7 @@
 </script>
 
 <div class="dropdown" use:clickOutside={{ cb: hide }}>
-  <button class="button" on:click={handleToggle}>
+  <button class="button" on:click|stopPropagation={handleToggle}>
     <div class="image">
       {initial}
     </div>
