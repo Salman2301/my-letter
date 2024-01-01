@@ -6,6 +6,7 @@
   export let title: string = "";
   export let errorMessage: string = "";
   export let submitLabel: string = "Submit";
+  export let disabled: boolean = false;
 
   let timer: number;
   export function setErrorMessage(newMessage: string) {
@@ -30,7 +31,7 @@
   {/if}
 
   <div class="action-bar">
-    <Button label={submitLabel}/>
+    <Button label={submitLabel} {disabled}/>
   </div>
 </form>
 

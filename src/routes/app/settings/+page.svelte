@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
 	import FormContainer from "$lib/components/form/FormContainer.svelte";
 	import Input from "$lib/components/form/Input.svelte";
 	import { supabase } from "$lib/supabase";
@@ -16,6 +15,7 @@
     id: ""
   } satisfies Partial<Tables<"users">> 
 
+  export let isLoading: boolean = true;
   let formInstance: any;
 
   onMount(async ()=>{
@@ -24,9 +24,11 @@
       .from('users')
       .select("*")
 
-    console.log({ data }); 
     if(!data || !data[0]) return;
     form = data[0] as any;
+    
+    isLoading = false;
+
   })
   
   async function handleSubmit(e: any) {
@@ -49,7 +51,13 @@
 </script>
 
 <div class="container">
-  <FormContainer title="My Profile" submitLabel="Update" on:submit={handleSubmit} bind:this={formInstance}>
+  <FormContainer
+    title="My Profile"
+    submitLabel="Update"
+    on:submit={handleSubmit}
+    bind:this={formInstance}
+    disabled={isLoading}
+  >
     <Input bind:value={form.nick_name} label="Nick name"/>
     <Input bind:value={form.first_name} label="First name"/>
     <Input bind:value={form.last_name} label="Last name"/>
