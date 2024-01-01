@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { ArrowDownIcon, ArrowUpIcon, ChevronDownIcon, ChevronUpIcon } from "svelte-feather-icons";
   import { onMount } from "svelte";
+  import { env } from '$env/dynamic/public';
   import { slide } from "svelte/transition";
 	import { supabase } from "$lib/supabase";
   import clickOutside from "$lib/action/click-outside";
@@ -8,11 +9,13 @@
   export let show: boolean = false;
   export let email: string = "loading...";
   export let initial: string = "..";
-
+  let userPhoto: string = "";
   onMount(async ()=>{
-    const { data, error } = await supabase.auth.getUser();
-    if( data.user ) {
-      email = data.user.email as string;
+    const { data, error } = await supabase.from("users").select("*");
+    if( data ) {
+      const [ firstItem ]= data;
+      email = firstItem.email;
+      userPhoto = firstItem.photo;
       initial = email?.[0]?.toUpperCase() || "A";
     }
   })
@@ -25,7 +28,14 @@
 <div class="dropdown" use:clickOutside={{ cb: hide }}>
   <button class="button" on:click|stopPropagation={handleToggle}>
     <div class="image">
-      {initial}
+      {#if userPhoto}
+        <img
+          src="{env.PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_photo/{userPhoto}"
+          alt="menu dropdown"
+        />
+      {:else}
+        {initial}
+      {/if}
     </div>
     {#if show}
       <ChevronUpIcon size="12"/>
@@ -59,6 +69,7 @@
     height: 30px;
     @apply bg-primary;
     @apply rounded-md;
+    @apply overflow-hidden;
     @apply flex items-center justify-center;
   }
   .item {

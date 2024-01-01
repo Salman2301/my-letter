@@ -1,6 +1,7 @@
 <script lang="ts">
-	import FormContainer from "$lib/components/form/FormContainer.svelte";
 	import Input from "$lib/components/form/Input.svelte";
+	import ImageInput from "$lib/components/form/ImageInput.svelte";
+	import FormContainer from "$lib/components/form/FormContainer.svelte";
 	import { supabase } from "$lib/supabase";
 	import { onMount } from "svelte";
 
@@ -12,14 +13,17 @@
     last_name: "",
     email: "",
     phone: "",
-    id: ""
+    id: "",
+    photo: ""
   } satisfies Partial<Tables<"users">> 
+
+  let profileFiles: FileList;
+  let currentImageValue: string | undefined;
 
   export let isLoading: boolean = true;
   let formInstance: any;
 
   onMount(async ()=>{
-    
     const { data, error } = await supabase
       .from('users')
       .select("*")
@@ -27,12 +31,56 @@
     if(!data || !data[0]) return;
     form = data[0] as any;
     
+    if( form.photo ) {
+      const { data: blob, error } = await supabase
+        .storage
+        .from('profile_photo')
+        .download(form.photo);
+
+      if( !error ) {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+          const dataUrl = reader.result;
+          currentImageValue = dataUrl as string;
+        };
+        reader.readAsDataURL(blob);
+      }
+    }
     isLoading = false;
 
   })
   
   async function handleSubmit(e: any) {
     e?.preventDefault();
+
+    if( profileFiles.length > 0 ) {
+      const file = profileFiles[0];
+      const { type } = file;
+      let ext = "png";
+      if( type === "image/png" ) {
+        ext = "png"
+      } 
+      else {
+        ext = "jpg"
+      }
+      let fileLocation = `${form.id}.${ext}`;
+      
+      const { data, error } = await supabase
+        .storage
+        .from('profile_photo')
+        .upload(fileLocation, profileFiles[0], {
+          cacheControl: 'no-cache',
+          upsert: true
+        });
+      
+        if( error ) {
+          formInstance.setErrorMessage("Failed to upload photo!");
+          console.error(error);
+          console.log(fileLocation)
+          throw new Error("Failed to upload photo")
+        }
+      form.photo = fileLocation;
+    }
 
     const { data, error } = await supabase
       .from('users')
@@ -58,6 +106,7 @@
     bind:this={formInstance}
     disabled={isLoading}
   >
+    <ImageInput bind:files={profileFiles} currentImageValue={currentImageValue} />
     <Input bind:value={form.nick_name} label="Nick name"/>
     <Input bind:value={form.first_name} label="First name"/>
     <Input bind:value={form.last_name} label="Last name"/>
@@ -70,6 +119,6 @@
 .container {
   @apply flex w-full justify-center;
   @apply my-4;
-  height: 420px;
+  height: 100%;
 }
 </style>
