@@ -22,9 +22,9 @@ const data: SidebarData[] = [
 		theme: 'default'
 	},
 	{
-		title: 'Setting',
+		title: 'Settings',
 		icon: 'setting',
-		href: '/app/setting',
+		href: '/app/settings',
 		theme: 'default'
 	}
 ];
