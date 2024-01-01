@@ -37,7 +37,7 @@
         .from('profile_photo')
         .download(form.photo);
 
-      if( !error ) {
+      if( !error && blob ) {
         const reader = new FileReader();
         reader.onloadend = function () {
           const dataUrl = reader.result;

@@ -14,8 +14,8 @@
     const { data, error } = await supabase.from("users").select("*");
     if( data ) {
       const [ firstItem ]= data;
-      email = firstItem.email;
-      userPhoto = firstItem.photo;
+      email = firstItem.email as string;
+      userPhoto = firstItem.photo as string;
       initial = email?.[0]?.toUpperCase() || "A";
     }
   })
