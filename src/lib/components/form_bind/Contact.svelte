@@ -1,32 +1,36 @@
 <script lang="ts">
-	import FormContainer from "$lib/components/form/FormContainer.svelte";
 	import Input from "$lib/components/form/Input.svelte";
-	import { supabase } from "$lib/supabase";
-	import { onMount } from "svelte";
+	import FormContainer from "$lib/components/form/FormContainer.svelte";
 	import { goto } from "$app/navigation";
-
+  import { supabase } from "$lib/supabase";
+	import { onMount } from "svelte";
   import type { Tables } from "$lib/database.types";
-
+	
   let form = {
-    title: "",
-  } satisfies Partial<Tables<"letter">> 
+    nick_name: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
 
+  } satisfies  Partial<Tables<"contact">> 
+
+  let formInstance: any;
+  
   export let isEditMode: boolean = false;
   export let editId: string = "";
   export let isLoading: boolean = true;
-
-  let formInstance: any;
-
+  
   onMount(async ()=>{
     if( isEditMode && editId ) {
       const { data, error } = await supabase
-        .from('letter')
+        .from('contact')
         .select("*")
         .eq("id", editId)
-      
+
       if(!data?.[0]) {
         // error failed to retrieve data
-        goto("/app/my-letters");
+        goto("/app/my-contacts");
         return;
       };
 
@@ -38,9 +42,8 @@
   
   async function handleSubmit(e: any) {
     e?.preventDefault();
-
     const { data, error } = await supabase
-      .from('letter')
+      .from('contact')
       .upsert(form)
       .select();
 
@@ -50,19 +53,24 @@
       return;
     }
 
-    goto("/app/my-letters");
+    goto("/app/my-contacts")
   }
 
 </script>
 
 <div class="container">
   <FormContainer
-    submitLabel="{isEditMode ? "Update" : "Submit" }"
+    title="{isEditMode ? "Update Contact" : "New Contact"}"
+    submitLabel="{isEditMode ? "Update Contact" : "Add Contact"}"
+    disabled={isLoading}
     on:submit={handleSubmit}
     bind:this={formInstance}
-    disabled={isLoading}
   >
-    <Input bind:value={form.title} label="Title"/>
+    <Input bind:value={form.nick_name} label="Nick name"/>
+    <Input bind:value={form.first_name} label="First name"/>
+    <Input bind:value={form.last_name} label="Last name"/>
+    <Input bind:value={form.email} label="Email" type="email"/>
+    <Input bind:value={form.phone} label="phone" type="phone"/>
   </FormContainer>
 </div>
 

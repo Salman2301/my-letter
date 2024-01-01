@@ -7,6 +7,7 @@
 	import { formatDate } from "$lib/helper";
 
   import type { Tables } from "$lib/database.types";
+	import { goto } from "$app/navigation";
   
   let isLoading:boolean = true;
   let contacts: Tables<"contact">[] = [];
@@ -53,7 +54,7 @@
             </Table.Header>
             <Table.Body>
               {#each contacts as contact}
-                <Table.Row>
+                <Table.Row on:click={()=>goto(`/app/my-contact/${contact.id}`)}>
                   <Table.Cell class="font-medium">{contact.nick_name}</Table.Cell>
                   <Table.Cell class="font-medium">{contact.first_name  + " " + contact.last_name }</Table.Cell>
                   <Table.Cell>{formatDate(contact.created_at)}</Table.Cell>

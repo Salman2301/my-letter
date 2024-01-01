@@ -16,13 +16,13 @@ const data: SidebarData[] = [
 		theme: 'cta'
 	},
 	{
-		title: 'My Letter',
+		title: 'My Letters',
 		icon: 'book',
 		href: '/app/my-letters',
 		theme: 'default'
 	},
 	{
-		title: 'My Contact',
+		title: 'My Contacts',
 		icon: 'users',
 		href: '/app/my-contacts',
 		theme: 'default'
