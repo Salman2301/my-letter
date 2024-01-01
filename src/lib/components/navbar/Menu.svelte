@@ -5,6 +5,7 @@
   import { slide } from "svelte/transition";
 	import { supabase } from "$lib/supabase";
   import clickOutside from "$lib/action/click-outside";
+	import { page } from "$app/stores";
 
   export let show: boolean = false;
   export let email: string = "loading...";
@@ -50,7 +51,7 @@
     <div class="options" transition:slide on:click={hide}>
       <div class="item"> {email}</div>
       <div class="divider my-2"></div>
-      <a href="/app/settings"><div class="item">Settings</div></a>
+      <a href="/app/settings"><div class="item" class:active={$page.url.pathname === "/app/settings"}>Settings</div></a>
       <a href="/auth/logout"><div class="item">Logout</div></a>
     </div>
   {/if}
@@ -95,7 +96,10 @@
   .options > a:hover {
     @apply underline;
   }
-  .options > a:hover > .item {
+
+  
+  .options > a:hover > .item,
+  .options > a > .item.active {
     @apply bg-secondary;
   }
 </style>

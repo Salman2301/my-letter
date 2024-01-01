@@ -1,4 +1,5 @@
 import { asString } from "$lib/module/formatDate";
+import { supabase } from "./supabase";
 
 
 export function genId(len?: number): string {
@@ -28,4 +29,26 @@ export function formatDate(date: Date | string | number, format?: string) {
   if (!format) format = "dd/MM/yyyy";
 
   return asString(format, date)
+}
+
+type Bucket = "profile_photo" | "contact_photo";
+
+export async function returnPhotoBlob(bucket: Bucket, fileLocation: string): Promise<string> {
+  return new Promise(async (res, rej) => {
+    setTimeout(rej, 20_000);
+    const { data: blob, error } = await supabase
+      .storage
+      .from(bucket)
+      .download(fileLocation);
+  
+    if (!error && blob) {
+      const reader = new FileReader();
+      reader.onloadend = function () {
+        const dataUrl = reader.result;
+        res(dataUrl as string);
+      };
+      reader.readAsDataURL(blob);
+    }
+
+  });
 }

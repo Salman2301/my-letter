@@ -42,7 +42,7 @@
     @apply flex items-center justify-center;
     @apply flex-col;
     @apply gap-1;
-    max-width: 680px;
+    width: 100%;
     @apply pb-10 px-4 pt-4;
   }
   .text-error {

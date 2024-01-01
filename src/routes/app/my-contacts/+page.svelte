@@ -143,10 +143,10 @@
     max-width: 50px;
     max-height: 50px;
     @apply rounded-full;
+    @apply bg-secondary text-primary-foreground;
   }
 
   .no-image {
     @apply flex items-center justify-center;
-    @apply bg-secondary text-primary-foreground;
   }
 </style>

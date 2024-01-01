@@ -6,6 +6,7 @@
 	import { onMount } from "svelte";
 
   import type { Tables } from "$lib/database.types";
+	import { returnPhotoBlob } from "$lib/helper";
 
   let form = {
     nick_name: "",
@@ -31,69 +32,88 @@
     if(!data || !data[0]) return;
     form = data[0] as any;
     
-    if( form.photo ) {
-      const { data: blob, error } = await supabase
-        .storage
-        .from('profile_photo')
-        .download(form.photo);
-
-      if( !error && blob ) {
-        const reader = new FileReader();
-        reader.onloadend = function () {
-          const dataUrl = reader.result;
-          currentImageValue = dataUrl as string;
-        };
-        reader.readAsDataURL(blob);
-      }
+    if( form.photo) {
+      currentImageValue = await returnPhotoBlob("profile_photo", form.photo);
     }
+    // if( form.photo ) {
+    //   const { data: blob, error } = await supabase
+    //     .storage
+    //     .from('profile_photo')
+    //     .download(form.photo);
+
+    //   if( !error && blob ) {
+    //     const reader = new FileReader();
+    //     reader.onloadend = function () {
+    //       const dataUrl = reader.result;
+    //       currentImageValue = dataUrl as string;
+    //     };
+    //     reader.readAsDataURL(blob);
+    //   }
+    // }
     isLoading = false;
 
   })
+
+  let uploadedBtnInstance: any;
+  let isSubmitting: boolean = false;
   
   async function handleSubmit(e: any) {
-    e?.preventDefault();
+    try {
+      e?.preventDefault();
+      isSubmitting = true;
 
-    if( profileFiles.length > 0 ) {
-      const file = profileFiles[0];
-      const { type } = file;
-      let ext = "png";
-      if( type === "image/png" ) {
-        ext = "png"
-      } 
-      else {
-        ext = "jpg"
-      }
-      let fileLocation = `${form.id}.${ext}`;
-      
-      const { data, error } = await supabase
-        .storage
-        .from('profile_photo')
-        .upload(fileLocation, profileFiles[0], {
-          cacheControl: 'no-cache',
-          upsert: true
-        });
-      
-        if( error ) {
-          formInstance.setErrorMessage("Failed to upload photo!");
-          console.error(error);
-          console.warn(fileLocation)
-          throw new Error("Failed to upload photo")
+      if( profileFiles.length > 0 ) {
+        const file = profileFiles[0];
+        const { type } = file;
+        let ext = "png";
+        if( type === "image/png" ) {
+          ext = "png"
+        } 
+        else {
+          ext = "jpg"
         }
-      form.photo = fileLocation;
+        let fileLocation = `${form.id}.${ext}`;
+        
+        const { data, error } = await supabase
+          .storage
+          .from('profile_photo')
+          .upload(fileLocation, profileFiles[0], {
+            cacheControl: 'no-cache',
+            upsert: true
+          });
+        
+          if( error ) {
+            formInstance.setErrorMessage("Failed to upload photo!");
+            console.error(error);
+            console.warn(fileLocation)
+            throw new Error("Failed to upload photo")
+          }
+        form.photo = fileLocation;
+      }
+
+      const { data, error } = await supabase
+        .from('users')
+        .update(form)
+        .eq("id", form.id)
+
+      if( error ) {
+        console.error({error, form });    
+        formInstance.setErrorMessage("Invalid form data: Please check and try again!");
+        return;
+      }
+
+      if( form.photo) {
+        currentImageValue = await returnPhotoBlob("profile_photo", form.photo);
+      }
+      uploadedBtnInstance.uploaded(form.photo)
+      alert("Updated info!")
+      isSubmitting = false;
+    
     }
-
-    const { data, error } = await supabase
-      .from('users')
-      .update(form)
-      .eq("id", form.id)
-
-    if( error ) {
-      console.error({error, form });    
-      formInstance.setErrorMessage("Invalid form data: Please check and try again!");
-      return;
+    catch(e) {
+      console.error(e);
+      isSubmitting = false;
     }
-
-    alert("Updated info!");
   }
 
 </script>
@@ -104,9 +124,9 @@
     submitLabel="Update"
     on:submit={handleSubmit}
     bind:this={formInstance}
-    disabled={isLoading}
+    disabled={isLoading || isSubmitting}
   >
-    <ImageInput bind:files={profileFiles} currentImageValue={currentImageValue} />
+    <ImageInput bind:files={profileFiles} currentImageValue={currentImageValue} bind:this={uploadedBtnInstance}/>
     <Input bind:value={form.nick_name} label="Nick name"/>
     <Input bind:value={form.first_name} label="First name"/>
     <Input bind:value={form.last_name} label="Last name"/>
@@ -120,5 +140,6 @@
   @apply flex w-full justify-center;
   @apply my-4;
   height: 100%;
+  max-width: 380px;
 }
 </style>

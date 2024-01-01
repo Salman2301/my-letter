@@ -68,8 +68,7 @@
 
 <style lang="postcss">
 .container {
-  @apply flex w-full justify-center;
+  @apply flex w-full  h-full justify-center;
   @apply my-4;
-  height: 420px;
 }
 </style>

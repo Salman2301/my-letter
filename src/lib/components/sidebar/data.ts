@@ -48,7 +48,13 @@ const data: SidebarData[] = [
 		theme: 'default',
 		hideSidebar: true
 	},
-	 
+	{
+		title: 'Update letter',
+		icon: 'pen-tool',
+		href: '/app/my-letter/[id]',
+		theme: 'default',
+		hideSidebar: true
+	},
 ];
 
 export default data;

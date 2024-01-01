@@ -10,7 +10,11 @@
   
   $: isFileSelected = files && (files.length > 0);
 
-  function reset() {
+  export function uploaded(newImage: string) {
+    reset();
+  }
+
+  export function reset() {
     files=undefined;
     previewImageValue = undefined;
     if(fileInput) fileInput.value = "";
@@ -78,6 +82,7 @@
     min-height: 80px;  
     width: 80px;
     height: 80px;
+    @apply rounded-full;
     filter: brightness(0.8)
   }
 

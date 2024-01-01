@@ -1,12 +1,13 @@
 <script lang="ts">
 	import Input from "$lib/components/form/Input.svelte";
 	import FormContainer from "$lib/components/form/FormContainer.svelte";
+	import ImageInput from "../form/ImageInput.svelte";
+  
 	import { goto } from "$app/navigation";
   import { supabase } from "$lib/supabase";
 	import { onMount } from "svelte";
   
   import type { Tables } from "$lib/database.types";
-	import ImageInput from "../form/ImageInput.svelte";
 	
   let form = {
     nick_name: "",
@@ -63,52 +64,60 @@
     isLoading = false;
   });
   
+  let isSubmitting: boolean = false;
   async function handleSubmit(e: any) {
-    e?.preventDefault();
-
-    
-    if( profileFiles.length > 0 ) {
-      const file = profileFiles[0];
-      const { type } = file;
-      let ext = "png";
-      if( type === "image/png" ) { ext = "png" } 
-      else { ext = "jpg" }
-      const { data: userData } = await supabase.from("users").select("*");
-
-      if( !userData || userData.length === 0 ) throw new Error("Failed to get the current user!");
-
-      const user = userData[0];
-      let fileLocation = `${user.id}/${form.id}.${ext}`;
+    try {
+      e?.preventDefault();
+      isSubmitting = true;
       
+      if( profileFiles.length > 0 ) {
+        const file = profileFiles[0];
+        const { type } = file;
+        let ext = "png";
+        if( type === "image/png" ) { ext = "png" } 
+        else { ext = "jpg" }
+        const { data: userData } = await supabase.from("users").select("*");
+
+        if( !userData || userData.length === 0 ) throw new Error("Failed to get the current user!");
+
+        const user = userData[0];
+        let fileLocation = `${user.id}/${form.id}.${ext}`;
+        
+        const { data, error } = await supabase
+          .storage
+          .from('contact_photo')
+          .upload(fileLocation, profileFiles[0], {
+            cacheControl: 'no-cache',
+            upsert: true
+          });
+        
+          if( error ) {
+            formInstance.setErrorMessage("Failed to upload photo!");
+            console.error(error);
+            console.warn(fileLocation)
+            throw new Error("Failed to upload photo")
+          }
+        form.photo = fileLocation;
+      }
+
       const { data, error } = await supabase
-        .storage
-        .from('contact_photo')
-        .upload(fileLocation, profileFiles[0], {
-          cacheControl: 'no-cache',
-          upsert: true
-        });
+        .from('contact')
+        .upsert(form)
+        .select();
+
+      if( error ) {
+        console.error({error, form });    
+        formInstance.setErrorMessage("Invalid form data: Please check and try again!");
+        return;
+      }
+      isSubmitting = true;
+      goto("/app/my-contacts")
       
-        if( error ) {
-          formInstance.setErrorMessage("Failed to upload photo!");
-          console.error(error);
-          console.warn(fileLocation)
-          throw new Error("Failed to upload photo")
-        }
-      form.photo = fileLocation;
     }
-
-    const { data, error } = await supabase
-      .from('contact')
-      .upsert(form)
-      .select();
-
-    if( error ) {
-      console.error({error, form });    
-      formInstance.setErrorMessage("Invalid form data: Please check and try again!");
-      return;
+    catch(e) {
+      console.error(e);
+      isSubmitting = true;
     }
-
-    goto("/app/my-contacts")
   }
 
 </script>
@@ -116,7 +125,7 @@
 <div class="container">
   <FormContainer
     submitLabel="{isEditMode ? "Update Contact" : "Add Contact"}"
-    disabled={isLoading}
+    disabled={isLoading || isSubmitting}
     on:submit={handleSubmit}
     bind:this={formInstance}
   >
@@ -135,5 +144,6 @@
   @apply flex w-full justify-center;
   @apply my-4;
   height: 100%;
+  max-width: 380px;
 }
 </style>
