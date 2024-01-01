@@ -3,9 +3,10 @@
 	import { page } from '$app/stores';
 	import { iconMap } from '$lib/components/icon/map.svelte';
 	import { LogOutIcon } from 'svelte-feather-icons';
+	import { slide } from "svelte/transition";
 </script>
 
-<div class="sidebar">
+<div class="sidebar" transition:slide={{ axis : "x"}}>
 	<div class="sidebar-top">
 		{#each data as item}
 			<div class="sidebar-item">
@@ -45,11 +46,12 @@
 		@apply flex flex-col justify-between;
 	}
 	.sidebar-item > a {
-		@apply flex items-center gap-2;
+		@apply flex items-center gap-2 justify-start;
 		@apply rounded-sm;
 		@apply border border-secondary;
-		@apply px-2 py-2 pl-4;
+		@apply px-2 py-2 pl-14;
 		@apply text-center;
+		width: 200px;
 	}
 
 	.sidebar-item > a:hover,
