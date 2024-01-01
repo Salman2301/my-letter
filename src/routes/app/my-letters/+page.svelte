@@ -7,6 +7,7 @@
 	import { formatDate } from "$lib/helper";
 
   import type { Tables } from "$lib/database.types";
+	import { goto } from "$app/navigation";
   
   let isLoading:boolean = true;
   let letters: Tables<"letter">[] = [];
@@ -41,7 +42,7 @@
             </Table.Header>
             <Table.Body>
               {#each letters as letter}
-                <Table.Row>
+                <Table.Row on:click={()=>goto(`/app/my-letter/${letter.id}`)}>
                   <Table.Cell class="font-medium">{letter.title}</Table.Cell>
                   <Table.Cell>{formatDate(letter.created_at)}</Table.Cell>
                   <Table.Cell>{letter.to || "-"}</Table.Cell>
