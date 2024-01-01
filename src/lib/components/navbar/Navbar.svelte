@@ -8,8 +8,7 @@
 	
 	let navbarTitle = "";
 	page.subscribe(($page)=>{
-		let path =  new URL($page.url).pathname;
-		console.log("p", new URL($page.url).pathname)
+		let path =  $page.url.pathname;
 		navbarTitle = data?.find(item=>item.href === path)?.title || "";
 	});
 

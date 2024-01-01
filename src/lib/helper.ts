@@ -10,3 +10,13 @@ export function genId(len?: number): string {
 
   return result;
 }
+
+export function sleep(ms: number) {
+  const MAX_SLEEP = 20_000;
+  if (typeof ms !== "number") ms = 500;
+  return new Promise((res, rej) => {
+    setTimeout(res, ms); 
+    setTimeout(rej, MAX_SLEEP)
+  })
+}
+

@@ -12,7 +12,7 @@
 				<a
 					href={item.href}
 					aria-label="menu {item.title}"
-					class:active={new URL($page.url).pathname === item.href}
+					class:active={$page.url.pathname === item.href}
 					class="theme-{item.theme}"
 				>
 					<div class="icon">

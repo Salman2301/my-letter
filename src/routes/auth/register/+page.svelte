@@ -11,7 +11,6 @@
   }
 
   async function handleSubmit() {
-    console.log({ form })
     let { data, error } = await supabase.auth.signUp({
       email: form.email,
       password: form.password

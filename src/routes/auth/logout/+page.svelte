@@ -2,9 +2,10 @@
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/supabase';
 	import { goto } from '$app/navigation';
+	import { sleep } from '$lib/helper';
 
 	onMount(async () => {
-		let { error } = await supabase.auth.signOut();
-		goto("/")
+		await supabase.auth.signOut();
+		goto("/auth/login")
 	});
 </script>
