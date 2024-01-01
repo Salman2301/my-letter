@@ -42,8 +42,6 @@
 
       form = data[0] as any;
 
-      console.log({ form })
-
       if( form.photo ) {
         const { data: blob, error } = await supabase
           .storage
@@ -93,7 +91,7 @@
         if( error ) {
           formInstance.setErrorMessage("Failed to upload photo!");
           console.error(error);
-          console.log(fileLocation)
+          console.warn(fileLocation)
           throw new Error("Failed to upload photo")
         }
       form.photo = fileLocation;

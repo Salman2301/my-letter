@@ -76,7 +76,7 @@
         if( error ) {
           formInstance.setErrorMessage("Failed to upload photo!");
           console.error(error);
-          console.log(fileLocation)
+          console.warn(fileLocation)
           throw new Error("Failed to upload photo")
         }
       form.photo = fileLocation;
