@@ -39,7 +39,7 @@
   input {
     width: 280px;
     @apply py-1.5 px-1;
-    @apply border;
+    @apply border border-background;
     @apply bg-background;
     @apply rounded-sm;
     @apply text-xs;

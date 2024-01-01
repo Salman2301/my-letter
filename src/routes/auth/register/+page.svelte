@@ -5,22 +5,30 @@
 	import LinkText from "$lib/components/text/LinkText.svelte";
 	import { goto } from "$app/navigation";
 
+
   let form = {
     email: "",
     password: ""
   }
 
-  async function handleSubmit() {
+  let formInstance: any;
+  async function handleSubmit(e: any) {
+    e?.preventDefault();
     let { data, error } = await supabase.auth.signUp({
       email: form.email,
       password: form.password
     });
-    goto("/app")
+    if( error ) {
+      formInstance.setErrorMessage("Please check all the input and try again!")
+    }
+    else {
+      goto("/app")
+    }
   }
  
 </script>
 
-<FormContainer title="Register" submitLabel="Register" on:submit={handleSubmit}>
+<FormContainer title="Register" submitLabel="Register" on:submit={handleSubmit} bind:this={formInstance}>
   <Input label="Email" bind:value={form.email} type="email" />
   <Input label="Password" bind:value={form.password }  type="password"/>
   <LinkText href="/auth/forget-password" content="Forget password" align="right"/>

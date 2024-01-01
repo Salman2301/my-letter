@@ -6,6 +6,17 @@
   export let title: string = "";
   export let errorMessage: string = "";
   export let submitLabel: string = "Submit";
+
+  let timer: number;
+  export function setErrorMessage(newMessage: string) {
+    clearInterval(timer);
+    errorMessage = newMessage;
+    
+    timer = setTimeout(()=>{
+      errorMessage = "";
+    }, 5000)
+  }
+
 </script>
 
 <form class="form-container" on:submit>
