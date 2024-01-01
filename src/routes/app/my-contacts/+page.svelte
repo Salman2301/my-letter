@@ -32,7 +32,7 @@
     </div>
   {:else}
     <div class="action">
-      <a href="{disabledContact? "#" : "/app/new-contact"}" class:disabled={disabledContact}>
+      <a href="{disabledContact? "#" : "/app/new-contact"}" class="btn-container" class:disabled={disabledContact}>
         <div class="btn">
           <div class="icon"> <PlusIcon size="22"/> </div>
           <div class="label">New contact ( {contacts.length}/10 ) </div>
@@ -85,7 +85,7 @@
     @apply my-2;
   }
 
-  a {
+  .btn-container {
     @apply bg-primary text-secondary-foreground;
     width: 220px;
     @apply py-2 px-4 rounded-sm;
@@ -94,14 +94,13 @@
     @apply flex gap-2 items-center justify-center;
   }
 
-  a:hover {
+  .btn-container:hover {
     @apply bg-primary-foreground;
   }
 
-  a.disabled {
+  .btn-container.disabled {
     @apply bg-accent;
     text-decoration: none; /* Remove underline */
-    /* pointer-events: none; Disable mouse events */
     cursor: not-allowed; /* Change cursor style */
   }
 
