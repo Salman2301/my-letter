@@ -7,6 +7,7 @@
 
   import type { Tables } from "$lib/database.types";
 	import { returnPhotoBlob } from "$lib/helper";
+	import Loader from "$lib/components/Loader.svelte";
 
   let form = {
     nick_name: "",
@@ -35,21 +36,6 @@
     if( form.photo) {
       currentImageValue = await returnPhotoBlob("profile_photo", form.photo);
     }
-    // if( form.photo ) {
-    //   const { data: blob, error } = await supabase
-    //     .storage
-    //     .from('profile_photo')
-    //     .download(form.photo);
-
-    //   if( !error && blob ) {
-    //     const reader = new FileReader();
-    //     reader.onloadend = function () {
-    //       const dataUrl = reader.result;
-    //       currentImageValue = dataUrl as string;
-    //     };
-    //     reader.readAsDataURL(blob);
-    //   }
-    // }
     isLoading = false;
 
   })
@@ -119,20 +105,24 @@
 </script>
 
 <div class="container">
-  <FormContainer
-    title="My Profile"
-    submitLabel="Update"
-    on:submit={handleSubmit}
-    bind:this={formInstance}
-    disabled={isLoading || isSubmitting}
-  >
-    <ImageInput bind:files={profileFiles} currentImageValue={currentImageValue} bind:this={uploadedBtnInstance}/>
-    <Input bind:value={form.nick_name} label="Nick name"/>
-    <Input bind:value={form.first_name} label="First name"/>
-    <Input bind:value={form.last_name} label="Last name"/>
-    <Input bind:value={form.email} label="Email" type="email" disabled="{true}"/>
-    <Input bind:value={form.phone} label="phone" type="phone"/>
-  </FormContainer>
+  {#if isLoading}
+    <Loader />
+  {:else}
+    <FormContainer
+      title="My Profile"
+      submitLabel="Update"
+      on:submit={handleSubmit}
+      bind:this={formInstance}
+      disabled={isLoading || isSubmitting}
+    >
+      <ImageInput bind:files={profileFiles} currentImageValue={currentImageValue} bind:this={uploadedBtnInstance}/>
+      <Input bind:value={form.nick_name} label="Nick name"/>
+      <Input bind:value={form.first_name} label="First name"/>
+      <Input bind:value={form.last_name} label="Last name"/>
+      <Input bind:value={form.email} label="Email" type="email" disabled="{true}"/>
+      <Input bind:value={form.phone} label="phone" type="phone"/>
+    </FormContainer>
+  {/if}
 </div>
 
 <style lang="postcss">
