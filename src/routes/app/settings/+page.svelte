@@ -78,7 +78,7 @@
           .storage
           .from('profile_photo')
           .upload(fileLocation, profileFiles[0], {
-            cacheControl: 'no-cache',
+            // cacheControl: 'no-cache', //TODO: REMOVE CACHE ON UPDATE
             upsert: true
           });
         

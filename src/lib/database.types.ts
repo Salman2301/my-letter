@@ -281,6 +281,27 @@ export interface Database {
           }
         ]
       }
+      template_background: {
+        Row: {
+          created_at: string
+          id: string
+          name: string | null
+          src: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name?: string | null
+          src?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string | null
+          src?: string | null
+        }
+        Relationships: []
+      }
       users: {
         Row: {
           _owner: string | null
