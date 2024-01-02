@@ -26,7 +26,13 @@
 	}
 </script>
 
-<FormContainer title="Forget password" submitLabel="Submit" on:submit={handleSubmit} bind:this={formInstance}>
+<FormContainer
+	title="Forget password"
+	submitLabel="Submit"
+	on:submit={handleSubmit}
+	bind:this={formInstance}
+	widthMode="compact"
+>
 	<Input label="Email" bind:value={form.email} type="email" />
 	<LinkText href="/auth/login" content="Click here to login" />
 </FormContainer>

@@ -9,6 +9,7 @@
   export let icon: keyof typeof iconMap | undefined = undefined;
   export let type: "email" | "password" | "text" | "phone"= "text";
   export let disabled: boolean = false;
+  export let maxInputWidth: boolean = false;
 
   let inputInstance: HTMLInputElement;
   onMount(()=>{
@@ -23,7 +24,7 @@
       <svelte:component this={iconMap[icon]} size="14"/>
     </div>
   {/if}
-  <input type="text" bind:value id={id} bind:this={inputInstance} {disabled}>
+  <input type="text" class:max-width={maxInputWidth} bind:value id={id} bind:this={inputInstance} {disabled}>
 </div>
 
 <style lang="postcss">
@@ -44,6 +45,13 @@
     @apply bg-background;
     @apply rounded-sm;
     @apply text-xs;
+  }
+  .max-width {
+    @apply min-w-full;
+  }
+  
+  .input-container:has( > .max-width ) {
+    @apply min-w-full;
   }
 
   input:disabled {

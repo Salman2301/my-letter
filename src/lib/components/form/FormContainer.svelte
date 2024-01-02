@@ -7,6 +7,7 @@
   export let errorMessage: string = "";
   export let submitLabel: string = "Submit";
   export let disabled: boolean = false;
+  export let widthMode: "full" | "compact" = "full";
 
   let timer: number;
   export function setErrorMessage(newMessage: string) {
@@ -20,7 +21,12 @@
 
 </script>
 
-<form class="form-container" on:submit>
+<form
+  class="form-container"
+  class:width-full={widthMode==="full"}
+  class:width-compact={widthMode==="compact"}
+  on:submit
+>
   {#if title}
     <Heading content={title}/>
   {/if}
@@ -42,8 +48,14 @@
     @apply flex items-center justify-center;
     @apply flex-col;
     @apply gap-1;
-    width: 100%;
     @apply pb-10 px-4 pt-4;
+  }
+
+  .width-full {
+    @apply w-full;
+  }
+  .width-compact {
+    width: 320px;
   }
   .text-error {
     @apply text-red-500;

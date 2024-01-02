@@ -6,6 +6,7 @@
 	import { goto } from "$app/navigation";
 
   import type { Tables } from "$lib/database.types";
+	import Button from "../button/Button.svelte";
 
   let form = {
     title: "",
@@ -62,7 +63,14 @@
     bind:this={formInstance}
     disabled={isLoading}
   >
-    <Input bind:value={form.title} label="Title"/>
+    <div class="flex justify-end w-full">
+      <Button label="Preview"></Button>
+    </div>
+    <Input
+      bind:value={form.title}
+      label="Title"
+      maxInputWidth={true}
+    />
   </FormContainer>
 </div>
 

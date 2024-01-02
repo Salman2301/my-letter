@@ -32,7 +32,13 @@
  
 </script>
 
-<FormContainer title="Login" submitLabel="Login" on:submit={handleSubmit} bind:this={formInstance}>
+<FormContainer
+  title="Login"
+  submitLabel="Login"
+  on:submit={handleSubmit}
+  bind:this={formInstance}
+  widthMode="compact"
+>
   <Input label="Email" bind:value={form.email} type="email" />
   <Input label="Password" bind:value={form.password }  type="password"/>
   <LinkText href="/auth/forget-password" content="Forget password?" align="right"/>
