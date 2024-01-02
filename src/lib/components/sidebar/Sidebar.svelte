@@ -39,11 +39,12 @@
 
 <style lang="postcss">
 	.sidebar {
-		height: calc(100vh - 40px);
+		height: 100vh;
 		width: 220px;
 		@apply bg-secondary;
-		@apply px-2 py-4;
+		@apply px-2 py-4 pt-10;
 		@apply flex flex-col justify-between;
+		@apply sticky top-0;
 	}
 	.sidebar-item > a {
 		@apply flex items-center gap-2 justify-start;

@@ -44,5 +44,7 @@
 		@apply bg-secondary;
 		@apply flex items-center justify-between;
 		@apply px-4;
+		@apply fixed top-0;
+		@apply z-50;
 	}
 </style>

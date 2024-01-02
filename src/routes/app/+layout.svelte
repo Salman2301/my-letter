@@ -22,12 +22,19 @@
 				<Sidebar />
 			{/if}
 		</div>
-		<slot />
+		<div class="app-layout-content">
+			<slot />
+		</div>
 	</div>
 
 <style lang="postcss">
 	.app {
 		@apply flex flex-grow;
 		min-height: calc(100vh - 40px);
+	}
+	.app-layout-content {
+		@apply border-t border-primary-foreground;
+		@apply w-full h-full;
+		@apply pt-10;
 	}
 </style>
