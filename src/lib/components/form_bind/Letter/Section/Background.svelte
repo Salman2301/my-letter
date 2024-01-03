@@ -12,6 +12,8 @@
   interface template_checked extends Tables<"template_background"> {
     checked: boolean;
   }
+
+  export let selected: string = "";
   let template: template_checked[] = [];
 
   let state: "LOADING" | "ERROR" | "EMPTY" | "DONE" = "LOADING";
@@ -30,12 +32,14 @@
       state = "DONE";
       template = data.map(e=>({...e, checked: false}));
       template[0].checked = true;
+      selected = template[0].src as string;
     }
   });
 
   function uncheckRest(itemId: string) {
     template = template.map(item=>{
       item.checked = itemId === item.id;
+      if(item.checked) selected = item.src as string;
       return item;
     });
   }
@@ -89,4 +93,5 @@
     @apply text-center;
     @apply my-1;
   }
+  
 </style>

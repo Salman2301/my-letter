@@ -4,9 +4,9 @@
 
   export let html: string = "";
 
-  export let conf: EditorOptions = {
+  export let conf = {
     menubar: false,
-    plugins: "quickbars emoticons lists wordcount autosave",
+    plugins: "quickbars emoticons lists wordcount autosave css",
     toolbar: [ 
       'bold italic strikethrough underline | blockquote hr | emoticons | align numlist bullist | undo redo',
       'fontfamily | blocks h1 h2 h3  | backcolor forecolor',
@@ -14,8 +14,9 @@
     quickbars_selection_toolbar: 'blocks | bold italic | blockquote | alignleft aligncenter alignright | forecolor',
     inline: true,
     quickbars_insert_toolbar: '',
-    content_css: 'default',
+    // content_css: 'default',
     skin: "oxide-dark",
+    content_css: "/asset/css/letter.css"
  }
 
 </script>

@@ -1,6 +1,6 @@
+import { env } from "$env/dynamic/public";
 import { asString } from "$lib/module/formatDate";
 import { supabase } from "./supabase";
-
 
 export function genId(len?: number): string {
   if (typeof len !== "number") len = 6;
@@ -49,6 +49,10 @@ export async function returnPhotoBlob(bucket: Bucket, fileLocation: string): Pro
       };
       reader.readAsDataURL(blob);
     }
-
   });
+}
+
+type StorageBucket = "letter_audio" | "profile_photo" | "Public" | "contact_phot" |  "template_background"
+export function publicFile(bucketName: StorageBucket, fileLocation: string) {
+  return `${env.PUBLIC_SUPABASE_URL}/storage/v1/object/public/${bucketName}/${fileLocation}`
 }
