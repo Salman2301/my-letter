@@ -15,8 +15,9 @@
     last_name: "",
     email: "",
     phone: "",
-    id: "",
-    photo: ""
+    id: undefined,
+    photo: "",
+    title: ""
   } satisfies  Partial<Tables<"contact">> 
 
   
@@ -134,6 +135,7 @@
     <Input bind:value={form.nick_name} label="Nick name"/>
     <Input bind:value={form.first_name} label="First name"/>
     <Input bind:value={form.last_name} label="Last name"/>
+    <Input bind:value={form.title} label="Title"/>
     <Input bind:value={form.email} label="Email" type="email"/>
     <Input bind:value={form.phone} label="phone" type="phone"/>
   </FormContainer>

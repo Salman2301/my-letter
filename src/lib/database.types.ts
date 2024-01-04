@@ -47,6 +47,7 @@ export interface Database {
           nick_name: string | null
           phone: string | null
           photo: string | null
+          title: string | null
         }
         Insert: {
           _owner?: string | null
@@ -60,6 +61,7 @@ export interface Database {
           nick_name?: string | null
           phone?: string | null
           photo?: string | null
+          title?: string | null
         }
         Update: {
           _owner?: string | null
@@ -73,6 +75,7 @@ export interface Database {
           nick_name?: string | null
           phone?: string | null
           photo?: string | null
+          title?: string | null
         }
         Relationships: [
           {
