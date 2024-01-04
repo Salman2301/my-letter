@@ -3,20 +3,33 @@
   import { env } from '$env/dynamic/public';
 
   export let html: string = "";
+  export let placeholder: string = "Your letter body....";
+  export let readonly: boolean = false;
 
   export let conf = {
-    menubar: false,
-    plugins: "quickbars emoticons lists wordcount autosave css",
-    toolbar: [ 
-      'bold italic strikethrough underline | blockquote hr | emoticons | align numlist bullist | undo redo',
-      'fontfamily | blocks h1 h2 h3  | backcolor forecolor',
-    ],
-    quickbars_selection_toolbar: 'blocks | bold italic | blockquote | alignleft aligncenter alignright | forecolor',
-    inline: true,
-    quickbars_insert_toolbar: '',
-    // content_css: 'default',
     skin: "oxide-dark",
-    content_css: "/asset/css/letter.css"
+    plugins: "quickbars emoticons lists wordcount autosave css",
+    // toolbar: [ 
+    //   'bold italic strikethrough underline | blockquote hr | emoticons | align numlist bullist | undo redo',
+    //   'fontfamily | blocks h1 h2 h3  | backcolor forecolor',
+    // ],
+    quickbars_selection_toolbar: 'blocks | bold italic | blockquote | alignleft aligncenter alignright | forecolor',
+    
+    toolbar_location: "top",
+    quickbars_insert_toolbar: '',
+    content_css: "/asset/css/letter.css",
+    mobile: {
+      menubar: true
+    },
+    min_height: 500,
+    promotion: false,
+    placeholder,
+    readonly,
+      
+    menubar: false,
+    inline: true,
+    statusbar: false,
+
  }
 
 </script>
@@ -24,7 +37,7 @@
 <div class="editor">
   <Editor
     apiKey="{env.PUBLIC_TINY_EDITOR_KEY}"
-    inline=true
+    inline={false}
     bind:value={html}
     conf={conf}
   />
@@ -32,7 +45,8 @@
 
 <style lang="postcss">
   .editor {
-    width: 100%;
-    @apply mt-1
+    @apply w-full;
+    @apply mt-10;
+    min-height: 500px;
   }
 </style>

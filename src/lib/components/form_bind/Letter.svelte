@@ -88,54 +88,25 @@
 </script>
 
 <div class="container">
+  <!-- Section 1 -->
+  <!-- Section 2 -->
+  <!-- Section 3 -->
   <FormContainer
     submitLabel="Publish"
     on:submit={handleSubmit}
     bind:this={formInstance}
     disabled={isLoading}
   >
-    <div class="flex justify-end w-full">
-      <Button label="Preview"></Button>
-    </div>
+    <Tiny bind:html={form.body}/>
+
     <Input
       bind:value={form.title}
       label="Title"
       maxInputWidth={true}
     />
 
-    <div class="label-letter">Letter :</div>
-    <Tiny bind:html={form.body}/>
+    <!-- <SectionBackground bind:selected={form.background}/> -->
 
-    <SectionBackground bind:selected={form.background}/>
-    
-
-    <Section1 title="Trigger" description="When should the letter be sent?">
-
-    </Section1>
-
-    <Section1 title="Contact"  description="Select who to sent this letter">
-
-    </Section1>
-
-    <Section1 title="Verification" description="Verify the contact">
-
-    </Section1>
-
-    <Section1 title="Delete on read" description="Delete on read">
-
-    </Section1>
-
-    <Section1 title="Record Audio" description="Add a personalize audio you reading">
-
-    </Section1>
-
-    <Section1 title="Add sticker" description="Add some stickers">
-
-    </Section1>
-
-    <Section1 title="Anonymous"  description="Hide your info? Make them guess">
-
-    </Section1>
   </FormContainer>
   <div class="preview-letter">
     <PreviewLetter body={form.body} background={form.background}/>
@@ -149,12 +120,6 @@
   @apply my-4;
   @apply gap-4;
 }
-.label-letter {
-  @apply font-bold text-sm;
-  @apply text-left;
-  @apply w-full;
-}
-
   .preview-letter {
     position: sticky;
     top: 4.5rem;
