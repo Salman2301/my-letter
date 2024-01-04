@@ -163,10 +163,10 @@
   }
   .section-item {
     @apply flex flex-col gap-2;
-    @apply text-popover-foreground;
+    @apply text-gray-500;
   }
   .complete {
-    @apply text-primary;
+    @apply text-white;
   }
   .section-item .title {
     @apply text-center;

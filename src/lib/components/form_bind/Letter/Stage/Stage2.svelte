@@ -79,7 +79,7 @@
     @apply items-center;
   }
   .tab-item.active {
-    @apply text-primary;
+    @apply text-white;
     @apply bg-secondary;
     @apply font-bold;
   }
