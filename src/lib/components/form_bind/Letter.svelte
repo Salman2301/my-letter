@@ -1,16 +1,17 @@
 <script lang="ts">
-	import Input from "$lib/components/form/Input.svelte";
-  import Tiny from "$lib/components/editor/Tiny.svelte"
 	import Button from "../button/Button.svelte";
+  import Stage1 from "./Letter/Stage/Stage1.svelte";
+  import Stage2 from "./Letter/Stage/Stage2.svelte";
+	import Stage3 from "./Letter/Stage/Stage3.svelte";
 
   import { supabase } from "$lib/supabase";
 	import { onMount } from "svelte";
 	import { goto } from "$app/navigation";
-
-  import type { Tables } from "$lib/database.types";
-	import PreviewLetter from "./PreviewLetter.svelte";
 	import { publicFile } from "$lib/helper";
 	import { Edit2Icon, SendIcon, TableIcon } from "svelte-feather-icons";
+
+
+  import type { Tables } from "$lib/database.types";
 
   type Stage = "1" | "2" | "3";
 
@@ -45,10 +46,7 @@
   export let isLoading: boolean = true;
   export let stage: Stage = "2";
 
-  let formInstance: any;
-
   onMount(async ()=>{
-
     if( isEditMode && editId ) {
       const { data, error } = await supabase
         .from('letter')
@@ -66,23 +64,6 @@
     
     isLoading = false;
   });
-
-  async function handleSection1Submit(e: any) {
-    e?.preventDefault();
-
-    const { data, error } = await supabase
-      .from('letter')
-      .upsert(form)
-      .select();
-
-    if( error ) {
-      console.error({error, form });    
-      formInstance.setErrorMessage("Invalid form data: Please check and try again!");
-      return;
-    }
-
-    goto("/app/my-letters");
-  }
 
   interface SectionMenu {
     title: string;
@@ -128,21 +109,6 @@
     };
   }
 
-  interface TabItem {
-    title: string;
-    id: string;
-  }
-  export let currTab = "template"
-  export let tabTemplate: TabItem[] = [
-    {
-      title: "Template",
-      id: "template"
-    },
-    {
-      title: "Customization",
-      id: "customization"
-    }
-  ]
 </script>
 
 <div class="container">
@@ -164,60 +130,11 @@
 
   <div class="stages">
     {#if stage === "1"}
-      <div class="section section-1">
-        <div class="form-content">
-          <Tiny bind:html={form.body}/>
-          <Input
-            bind:value={form.title}
-            label="Title"
-            maxInputWidth={true}
-            theme="light"
-            options={["My Apology letter"]}
-          />
-        </div>
-        
-        <div class="preview-letter">
-          <PreviewLetter
-            body={form.body}
-            background={form.background}
-            resizeWidth={400}
-          />
-        </div>
-      </div>
+      <Stage1 bind:body={form.body} bind:title={form.title} />
     {:else if stage === "2"}
-      <div class="section section-2">
-        <PreviewLetter body={form.body} background={form.background}/>
-        <div class="templateList">
-          <div class="tabs">
-            <div class="tab-menu">
-              {#each tabTemplate as item}
-                <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div
-                  class="tab-item"
-                  on:click={()=>{currTab=item.id}}
-                  class:active={currTab===item.id}
-                  role="button"
-                  tabindex="0"
-                >
-                  <p>{item.title}</p>
-                </div>
-              {/each}
-            </div>
-            <div class="tab-body">
-              {#if currTab === "template"}
-                <div class="tab">This is a template</div>
-              {/if}
-              {#if currTab === "customization"}
-                <div class="tab">This is setting!!1</div>
-              {/if}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Stage2 body={form.body} />
     {:else if stage === "3"}
-      <div class="section section-2">
-
-      </div>
+      <Stage3 />
     {/if}
     
     <div class="action">
@@ -237,6 +154,7 @@
   .stages {
     @apply bg-secondary;
     @apply rounded-md;
+    max-width: 1280px;
   }
 
   .section-menu {
@@ -264,61 +182,9 @@
   .section{
     @apply pb-8;
   }
-  .section.section-1 {
-    @apply flex w-full  h-full justify-center;
-    @apply gap-4;
-  }
-
-
-  .form-content {
-    @apply justify-between flex flex-col h-full;
-  }
-
-  .preview-letter {
-    height: 100%;
-    @apply my-10;
-    @apply flex items-center justify-center;
-  }
 
   .action {
     @apply flex gap-8 justify-center;
     @apply pb-2;
   }
-
-  .section-2 {
-    @apply p-2;
-    @apply flex gap-2;
-  }
-
-  .templateList {
-    @apply border border-secondary-foreground;
-    @apply w-full;
-  }
-
-  .tab-menu {
-    @apply flex;
-    @apply justify-evenly;
-    @apply h-10;
-  }
-
-
-  .tab-item {
-    @apply w-full h-full;
-    @apply flex items-center;
-    @apply bg-secondary-foreground;
-    @apply text-secondary;
-    @apply items-center;
-  }
-  .tab-item.active {
-    @apply text-primary;
-    @apply bg-secondary;
-    @apply font-bold;
-  }
-
-  .tab-item > p {
-    @apply text-center;
-    @apply w-full;
-  } 
-
-
 </style>

@@ -2,7 +2,9 @@
 	import { publicFile } from "$lib/helper";
 
   export let body: string = "";
-  export let background: string = publicFile("template_background", "blank.png");
+
+  // TODO: Instead of background use template
+  // export let background: string = publicFile("template_background", "blank.png");
 
   export let resizeWidth: number = 780;
 
@@ -18,7 +20,7 @@
     class="letter"
     style="scale:{resizeWidth/780}"
   >
-    <img src="{background}" alt="letter background">
+    <!-- <img src="{background}" alt="letter background"> -->
     <div class="content mce-content-body">{@html body}</div>
   </div>
 </div>
@@ -29,17 +31,15 @@
     left: 0;
     top: 0;
     position: sticky;
-    /* width: 400px; */
     aspect-ratio: 1 / 1.41;
-    /* height: 564px; */
   }
   .letter {
     @apply relative;
     width: 780px;
     aspect-ratio: 1 / 1.41;
-    /* scale: 0.51; */
     transform-origin:top left;
     @apply m-0;
+    @apply bg-white;
   }
   img {
     @apply absolute;
