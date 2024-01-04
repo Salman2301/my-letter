@@ -6,6 +6,7 @@
   export let placeholder: string = "Your letter body....";
   export let readonly: boolean = false;
 
+
   export let conf = {
     skin: "oxide-dark",
     plugins: "quickbars emoticons lists wordcount autosave css",
@@ -22,6 +23,7 @@
       menubar: true
     },
     min_height: 500,
+    min_width: 600,
     promotion: false,
     placeholder,
     readonly,
@@ -48,5 +50,6 @@
     @apply w-full;
     @apply mt-10;
     min-height: 500px;
+    min-width: 600px;
   }
 </style>

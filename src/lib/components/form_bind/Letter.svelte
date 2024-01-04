@@ -1,9 +1,6 @@
 <script lang="ts">
-	import FormContainer from "$lib/components/form/FormContainer.svelte";
-	import SectionBackground from "./Letter/Section/Background.svelte";
 	import Input from "$lib/components/form/Input.svelte";
   import Tiny from "$lib/components/editor/Tiny.svelte"
-	import Section1 from "../section/Section1.svelte";
 	import Button from "../button/Button.svelte";
 
   import { supabase } from "$lib/supabase";
@@ -13,6 +10,9 @@
   import type { Tables } from "$lib/database.types";
 	import PreviewLetter from "./PreviewLetter.svelte";
 	import { publicFile } from "$lib/helper";
+	import { Edit2Icon, SendIcon, TableIcon } from "svelte-feather-icons";
+
+  type Stage = "1" | "2" | "3";
 
   let form = {
     title: "",
@@ -43,6 +43,7 @@
   export let isEditMode: boolean = false;
   export let editId: string = "";
   export let isLoading: boolean = true;
+  export let stage: Stage = "2";
 
   let formInstance: any;
 
@@ -65,8 +66,8 @@
     
     isLoading = false;
   });
-  
-  async function handleSubmit(e: any) {
+
+  async function handleSection1Submit(e: any) {
     e?.preventDefault();
 
     const { data, error } = await supabase
@@ -83,46 +84,241 @@
     goto("/app/my-letters");
   }
 
+  interface SectionMenu {
+    title: string;
+    icon: any;
+    stage: Stage;
+  }
+  let sectionMenu: SectionMenu[] = [
+    {
+      title: "Content",
+      icon: Edit2Icon,
+      stage: "1"
+    },
+    {
+      title: "Template",
+      icon: TableIcon,
+      stage: "2"
+    },
+    {
+      title: "Send",
+      icon: SendIcon,
+      stage: "3"
+    }
+  ];
 
+  function handleNext() {
+    if( stage === "1"){
+      stage = "2";
+      return;
+    }
+    if( stage === "2") {
+      stage = "3"
+      return;
+    };
+  }
+  function handlePrev() {
+    if( stage === "3"){
+      stage = "2";
+      return;
+    }
+    if( stage === "2") {
+      stage = "1"
+      return;
+    };
+  }
 
+  interface TabItem {
+    title: string;
+    id: string;
+  }
+  export let currTab = "template"
+  export let tabTemplate: TabItem[] = [
+    {
+      title: "Template",
+      id: "template"
+    },
+    {
+      title: "Customization",
+      id: "customization"
+    }
+  ]
 </script>
 
 <div class="container">
-  <!-- Section 1 -->
-  <!-- Section 2 -->
-  <!-- Section 3 -->
-  <FormContainer
-    submitLabel="Publish"
-    on:submit={handleSubmit}
-    bind:this={formInstance}
-    disabled={isLoading}
-  >
-    <Tiny bind:html={form.body}/>
-
-    <Input
-      bind:value={form.title}
-      label="Title"
-      maxInputWidth={true}
-    />
-
-    <!-- <SectionBackground bind:selected={form.background}/> -->
-
-  </FormContainer>
-  <div class="preview-letter">
-    <PreviewLetter body={form.body} background={form.background}/>
+  <div class="section-menu">
+    {#each sectionMenu as item}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <div
+        class="section-item"
+        class:complete="{Number(stage) >= Number(item.stage)}"
+        on:click={()=>stage=item.stage}
+        role="button"
+        tabindex="0"
+      >
+        <div class="icon"><svelte:component this={item.icon}/></div>
+        <div class="title">{item.title}</div>
+      </div>
+    {/each}
   </div>
+
+  <div class="stages">
+    {#if stage === "1"}
+      <div class="section section-1">
+        <div class="form-content">
+          <Tiny bind:html={form.body}/>
+          <Input
+            bind:value={form.title}
+            label="Title"
+            maxInputWidth={true}
+            theme="light"
+            options={["My Apology letter"]}
+          />
+        </div>
+        
+        <div class="preview-letter">
+          <PreviewLetter
+            body={form.body}
+            background={form.background}
+            resizeWidth={400}
+          />
+        </div>
+      </div>
+    {:else if stage === "2"}
+      <div class="section section-2">
+        <PreviewLetter body={form.body} background={form.background}/>
+        <div class="templateList">
+          <div class="tabs">
+            <div class="tab-menu">
+              {#each tabTemplate as item}
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <div
+                  class="tab-item"
+                  on:click={()=>{currTab=item.id}}
+                  class:active={currTab===item.id}
+                  role="button"
+                  tabindex="0"
+                >
+                  <p>{item.title}</p>
+                </div>
+              {/each}
+            </div>
+            <div class="tab-body">
+              {#if currTab === "template"}
+                <div class="tab">This is a template</div>
+              {/if}
+              {#if currTab === "customization"}
+                <div class="tab">This is setting!!1</div>
+              {/if}
+            </div>
+          </div>
+        </div>
+      </div>
+    {:else if stage === "3"}
+      <div class="section section-2">
+
+      </div>
+    {/if}
+    
+    <div class="action">
+      <Button label="Prev" on:click={handlePrev} disabled={stage==="1"}/>  
+      <Button label="Next" on:click={handleNext} disabled={stage==="3"}/>
+    </div>
+  </div>
+  
 </div>
 
 
 <style lang="postcss">
-.container {
-  @apply flex w-full  h-full justify-center;
-  @apply my-4;
-  @apply gap-4;
-}
-  .preview-letter {
-    position: sticky;
-    top: 4.5rem;
-    height: 100%;
+  .container {
+    @apply my-4;
   }
+
+  .stages {
+    @apply bg-secondary;
+    @apply rounded-md;
+  }
+
+  .section-menu {
+    @apply flex gap-2 justify-evenly;
+    @apply my-4;
+  }
+  .section-item {
+    @apply flex flex-col gap-2;
+    @apply text-popover-foreground;
+  }
+  .complete {
+    @apply text-primary;
+  }
+  .section-item .title {
+    @apply text-center;
+  }
+  .icon {
+    @apply w-14 h-14;
+    @apply rounded-full;
+    @apply bg-secondary;
+    @apply text-center;
+    @apply flex items-center justify-center;
+  }
+  /* end of section menu  */
+  .section{
+    @apply pb-8;
+  }
+  .section.section-1 {
+    @apply flex w-full  h-full justify-center;
+    @apply gap-4;
+  }
+
+
+  .form-content {
+    @apply justify-between flex flex-col h-full;
+  }
+
+  .preview-letter {
+    height: 100%;
+    @apply my-10;
+    @apply flex items-center justify-center;
+  }
+
+  .action {
+    @apply flex gap-8 justify-center;
+    @apply pb-2;
+  }
+
+  .section-2 {
+    @apply p-2;
+    @apply flex gap-2;
+  }
+
+  .templateList {
+    @apply border border-secondary-foreground;
+    @apply w-full;
+  }
+
+  .tab-menu {
+    @apply flex;
+    @apply justify-evenly;
+    @apply h-10;
+  }
+
+
+  .tab-item {
+    @apply w-full h-full;
+    @apply flex items-center;
+    @apply bg-secondary-foreground;
+    @apply text-secondary;
+    @apply items-center;
+  }
+  .tab-item.active {
+    @apply text-primary;
+    @apply bg-secondary;
+    @apply font-bold;
+  }
+
+  .tab-item > p {
+    @apply text-center;
+    @apply w-full;
+  } 
+
+
 </style>

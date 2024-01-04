@@ -2,11 +2,22 @@
 	import { publicFile } from "$lib/helper";
 
   export let body: string = "";
-  export let background: string = publicFile("template_background", "blank.png"); 
+  export let background: string = publicFile("template_background", "blank.png");
+
+  export let resizeWidth: number = 780;
+
+  let aspectRatio = 1 / 1.41; // A4 sheet
+
 </script>
 
-<div class="letter-container">
-  <div class="letter">
+<div
+  class="letter-container"
+  style="width:{resizeWidth}px;height:{resizeWidth/aspectRatio}px"
+>
+  <div
+    class="letter"
+    style="scale:{resizeWidth/780}"
+  >
     <img src="{background}" alt="letter background">
     <div class="content mce-content-body">{@html body}</div>
   </div>
@@ -14,20 +25,21 @@
 
 <style lang="postcss" global>
   .letter-container {
-    width: 400px;
     top: 0;
     left: 0;
-    aspect-ratio: 1 / 1.41;
     top: 0;
     position: sticky;
-    height: 500px;
+    /* width: 400px; */
+    aspect-ratio: 1 / 1.41;
+    /* height: 564px; */
   }
   .letter {
     @apply relative;
     width: 780px;
     aspect-ratio: 1 / 1.41;
-    scale: 0.51;
+    /* scale: 0.51; */
     transform-origin:top left;
+    @apply m-0;
   }
   img {
     @apply absolute;
@@ -38,9 +50,6 @@
     @apply text-black;
     @apply w-full;
     @apply h-full;
-  }
-  .letter {
-    @apply m-2;
   }
 
 </style>

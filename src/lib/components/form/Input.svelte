@@ -10,6 +10,9 @@
   export let type: "email" | "password" | "text" | "phone"= "text";
   export let disabled: boolean = false;
   export let maxInputWidth: boolean = false;
+  export let theme: "light"| "default" = "default"; 
+
+  export let options: string[] = [];
 
   let inputInstance: HTMLInputElement;
   onMount(()=>{
@@ -17,14 +20,25 @@
   })
 </script>
 
-<div class="input-container">
+<div
+  class="input-container"
+  class:theme-default={theme==="default"}
+  class:theme-light={theme==="light"}
+>
   <label class="label" for="id">{label} :</label>
   {#if icon}
     <div class="icon">
       <svelte:component this={iconMap[icon]} size="14"/>
     </div>
   {/if}
-  <input type="text" class:max-width={maxInputWidth} bind:value id={id} bind:this={inputInstance} {disabled}>
+  <input type="text" class:max-width={maxInputWidth} bind:value id={id} bind:this={inputInstance} {disabled} list="list-{id}">
+  
+  <datalist id="list-{id}">
+    {#each options as item}
+      <option value="{item}"></option>
+    {/each}
+  </datalist>
+
 </div>
 
 <style lang="postcss">
@@ -41,9 +55,6 @@
   input {
     width: 280px;
     @apply py-1.5 px-2;
-    @apply border border-background;
-    @apply bg-background;
-    @apply rounded-sm;
     @apply text-xs;
   }
   .max-width {
@@ -56,5 +67,19 @@
 
   input:disabled {
     @apply cursor-not-allowed;
+  }
+
+  .input-container.theme-default > input {
+    @apply border border-background;
+    @apply bg-background;
+    @apply rounded-sm;
+    @apply text-secondary-foreground;
+  }
+  
+  .input-container.theme-light > input {
+    @apply border border-background;
+    @apply bg-secondary-foreground;
+    @apply rounded-sm;
+    @apply text-background;
   }
 </style>

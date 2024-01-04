@@ -50,7 +50,7 @@
 		@apply flex items-center gap-2 justify-start;
 		@apply rounded-sm;
 		@apply border border-secondary;
-		@apply px-2 py-2 pl-14;
+		@apply px-2 py-2 pl-12;
 		@apply text-center;
 		width: 200px;
 	}
