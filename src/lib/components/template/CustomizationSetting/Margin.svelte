@@ -1,24 +1,25 @@
 <script lang="ts">
+	import InputFour from "./InputFour.svelte";
+	import TitleCustomization from "./TitleCustomization.svelte";
   import { getContext } from "svelte";
 	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from "../store";
   
   import type { Writable } from "svelte/store";
 	import type { TemplateConfig } from "../types";
-	import InputFour from "./InputFour.svelte";
 
 
   const templateConfigStore: Writable<TemplateConfig> = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG);  
 
 </script>
 
-<div class="background-container">
-  <InputFour />
+<div class="margin-container">
+  <TitleCustomization content="Margin" textCenter={true} />
+  <InputFour hasColorInput={false} hasStrokeInput={false}/>
 </div>
 
 
 <style lang="postcss">
-  .background-container {
+  .margin-container {
     @apply w-full h-full;
-    @apply border border-white;
   }
 </style>

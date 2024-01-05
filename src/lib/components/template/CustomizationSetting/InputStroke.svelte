@@ -57,8 +57,6 @@
     dispatch("change", { event, type: "stroke", value: strokeValue })
     dispatch("stroke", { event, type: "stroke", value: strokeValue })
   }
-
-  $: console.log({ inputValue })
 </script>
 
 <div class="input-container">
@@ -66,20 +64,34 @@
     <input type="color" bind:value={colorValue} style="width:30px" on:change={handleColorChange}>
   {/if}
   {#if hasNumberInput }
-    <input type="number"bind:value={inputValue} style="width:30px" on:change={handleInputChange}>
+    <input
+      type="number"
+      class="num-input"
+      bind:value={inputValue}
+      on:change={handleInputChange}
+      min="0"
+    >
   {/if}
   {#if hasStrokeInput }
-    <Dropdown options={dropStrokeOptions} on:change={handleStrokeChange}/>
+    <Dropdown
+      options={dropStrokeOptions}
+      on:change={handleStrokeChange}
+      theme="border"
+      bind:value={strokeValue}
+    />
   {/if}
 </div>
 
 <style lang="postcss">
   .input-container {
     @apply flex items-center;
-    @apply gap-2;;
+    @apply gap-1;
   }
-  input {
-    @apply bg-background;
+  .num-input {
+    @apply border border-background bg-secondary;
     @apply text-center;
+    @apply pl-2;
+    height: 30px;
+    width: 50px;
   }
 </style>

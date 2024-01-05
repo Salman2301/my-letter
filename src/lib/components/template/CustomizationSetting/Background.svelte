@@ -11,7 +11,7 @@
 </script>
 
 <div class="background-container">
-background setting
+
 </div>
 
 

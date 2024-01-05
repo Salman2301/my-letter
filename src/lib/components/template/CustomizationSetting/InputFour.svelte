@@ -1,14 +1,16 @@
 <script lang="ts">
 	import IconCheckbox from "$lib/components/form/IconCheckbox.svelte";
-	import { LinkIcon } from "svelte-feather-icons";
-  import InputStroke from "./InputStroke.svelte";
-	import type { EventOnChange, InputType, Stroke } from "./InputStroke.svelte";
+	import InputStroke from "./InputStroke.svelte";
 	import LinkBroken from "$lib/components/icon/LinkBroken.svelte";
+  
+  import { LinkIcon } from "svelte-feather-icons";
+	import type { EventOnChange, InputType, Stroke } from "./InputStroke.svelte";
 
   export let inputType: InputType[] = ["color", "input", "stroke"];
   export let isLinked: boolean = true;
   
   type Position = "top" | "bottom" | "left" | "right";
+
 
   interface Value { 
     color: string;
@@ -33,14 +35,16 @@
     right: {...defaultValue}
   }
 
+  export let hasColorInput: boolean = true;
+  export let hasNumberInput: boolean = true;
+  export let hasStrokeInput: boolean = true;
+
   function handleChange(pos: Position) {
     return function handleEvent(event: { detail: EventOnChange }) {
       // @ts-expect-error
       lastValue[event.detail.type] = event.detail.value;
-      console.log("aaa :" , lastValue, isLinked)
 
       if( !isLinked ) return;
-      console.log(`updating : ${event.detail.value} ${event.detail.type}`)
       if( event.detail.type === "color" ) {
         values.top.color = event.detail.value;
         values.bottom.color = event.detail.value;
@@ -61,7 +65,6 @@
         values.left.stroke = event.detail.value;
         values.right.stroke = event.detail.value;
       }
-      console.log({ values })
     }
   }
 
@@ -89,6 +92,9 @@
   
   <div class="top">
     <InputStroke
+      hasColorInput={hasColorInput}
+      hasNumberInput={hasNumberInput}
+      hasStrokeInput={hasStrokeInput}
       colorValue={values.top.color}
       inputValue={values.top.input}
       strokeValue={values.top.stroke}
@@ -98,6 +104,9 @@
   <div class="middle">
     <div class="left">
       <InputStroke
+        hasColorInput={hasColorInput}
+        hasNumberInput={hasNumberInput}
+        hasStrokeInput={hasStrokeInput}
         colorValue={values.left.color}
         inputValue={values.left.input}
         strokeValue={values.left.stroke}
@@ -107,15 +116,18 @@
     <div class="link">
       <IconCheckbox bind:isChecked={isLinked} on:checked={handleSyncAllInputs}>
         <div slot="unchecked">
-          <LinkBroken />
+          <LinkBroken size="20"/>
         </div>
         <div slot="checked">
-          <LinkIcon />
+          <LinkIcon size="20" />
         </div>
       </IconCheckbox>
     </div>
     <div class="right">
       <InputStroke
+        hasColorInput={hasColorInput}
+        hasNumberInput={hasNumberInput}
+        hasStrokeInput={hasStrokeInput}
         colorValue={values.right.color}
         inputValue={values.right.input}
         strokeValue={values.right.stroke}
@@ -125,6 +137,9 @@
   </div>
   <div class="bottom">
     <InputStroke
+      hasColorInput={hasColorInput}
+      hasNumberInput={hasNumberInput}
+      hasStrokeInput={hasStrokeInput}
       colorValue={values.bottom.color}
       inputValue={values.bottom.input}
       strokeValue={values.bottom.stroke}
