@@ -5,10 +5,11 @@
 	import Stage3 from "./Letter/Stage/Stage3.svelte";
 
   import { supabase } from "$lib/supabase";
-	import { onMount } from "svelte";
+	import { getContext, onMount } from "svelte";
 	import { goto } from "$app/navigation";
 	import { publicFile } from "$lib/helper";
 	import { Edit2Icon, SendIcon, TableIcon } from "svelte-feather-icons";
+	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from "$lib/components/template/store";
 
 
   import type { Tables } from "$lib/database.types";
@@ -108,8 +109,6 @@
       return;
     };
   }
-
-  let selectedTemplateId: string = "blank";
 </script>
 
 <div class="container">
@@ -131,9 +130,9 @@
 
   <div class="stages">
     {#if stage === "1"}
-      <Stage1 bind:body={form.body} bind:title={form.title} {selectedTemplateId} />
+      <Stage1 bind:body={form.body} bind:title={form.title} />
     {:else if stage === "2"}
-      <Stage2 body={form.body} bind:selectedTemplateId={selectedTemplateId} />
+      <Stage2 body={form.body} />
     {:else if stage === "3"}
       <Stage3 />
     {/if}

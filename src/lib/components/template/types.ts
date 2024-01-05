@@ -1,9 +1,7 @@
 
-export interface TemplateConfigWithId extends TemplateConfig {
-  id: string;
-}
-
 export interface TemplateConfig {
+  version: `${string}.${string}.${string}`;
+  slug: string;
   margin: {
     top: {
       value: number;

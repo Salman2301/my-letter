@@ -5,7 +5,7 @@
 
   export let body: string = "";
   export let selectedTemplateId: string = "blank";
-  export let config: TemplateConfig = blankTemplate; 
+  export let templateConfig: TemplateConfig = blankTemplate; 
 
   export let resizeWidth: number = 780;
 
@@ -16,39 +16,38 @@
     updateStyle();
   });
 
-  $: if( selectedTemplateId ) {
+  $: if( templateConfig ) {
     updateStyle();
   }
 
   function updateStyle() {
     style= "";
     // TODO: This is running multiple times on start
-    config = templateList[selectedTemplateId];
 
     let styleArr: string[] = [];
     // let style
-    styleArr.push(`margin-top:${config.margin.top.value}${config.margin.top.type}`)
-    styleArr.push(`margin-bottom:${config.margin.bottom.value}${config.margin.bottom.type}`)
-    styleArr.push(`margin-left:${config.margin.left.value}${config.margin.left.type}`)
-    styleArr.push(`margin-right:${config.margin.right.value}${config.margin.right.type}`)
+    styleArr.push(`margin-top:${templateConfig.margin.top.value}${templateConfig.margin.top.type}`)
+    styleArr.push(`margin-bottom:${templateConfig.margin.bottom.value}${templateConfig.margin.bottom.type}`)
+    styleArr.push(`margin-left:${templateConfig.margin.left.value}${templateConfig.margin.left.type}`)
+    styleArr.push(`margin-right:${templateConfig.margin.right.value}${templateConfig.margin.right.type}`)
 
     
-    styleArr.push(`padding-top:${config.padding.top.value}${config.padding.top.type}`)
-    styleArr.push(`padding-bottom:${config.padding.bottom.value}${config.padding.bottom.type}`)
-    styleArr.push(`padding-left:${config.padding.left.value}${config.padding.left.type}`)
-    styleArr.push(`padding-right:${config.padding.right.value}${config.padding.right.type}`)
+    styleArr.push(`padding-top:${templateConfig.padding.top.value}${templateConfig.padding.top.type}`)
+    styleArr.push(`padding-bottom:${templateConfig.padding.bottom.value}${templateConfig.padding.bottom.type}`)
+    styleArr.push(`padding-left:${templateConfig.padding.left.value}${templateConfig.padding.left.type}`)
+    styleArr.push(`padding-right:${templateConfig.padding.right.value}${templateConfig.padding.right.type}`)
 
-    styleArr.push(`border-top-width:${config.border.top.strokewidth}px`)
-    styleArr.push(`border-bottom-width:${config.border.bottom.strokewidth}px`)
-    styleArr.push(`border-left-width:${config.border.left.strokewidth}px`)
-    styleArr.push(`border-right-width:${config.border.right.strokewidth}px`)
+    styleArr.push(`border-top-width:${templateConfig.border.top.strokewidth}px`)
+    styleArr.push(`border-bottom-width:${templateConfig.border.bottom.strokewidth}px`)
+    styleArr.push(`border-left-width:${templateConfig.border.left.strokewidth}px`)
+    styleArr.push(`border-right-width:${templateConfig.border.right.strokewidth}px`)
 
-    styleArr.push(`border-top-color:${config.border.top.strokeColor}`)
-    styleArr.push(`border-bottom-color:${config.border.bottom.strokeColor}`)
-    styleArr.push(`border-left-color:${config.border.left.strokeColor}`)
-    styleArr.push(`border-right-color:${config.border.right.strokeColor}`)
+    styleArr.push(`border-top-color:${templateConfig.border.top.strokeColor}`)
+    styleArr.push(`border-bottom-color:${templateConfig.border.bottom.strokeColor}`)
+    styleArr.push(`border-left-color:${templateConfig.border.left.strokeColor}`)
+    styleArr.push(`border-right-color:${templateConfig.border.right.strokeColor}`)
 
-    config.background.forEach(bg=>{
+    templateConfig.background.forEach(bg=>{
       if(bg.type === "color-plain") {
         styleArr.push(`background-color:${bg.color}`)
         styleArr.push(`opacity:${bg.opacity}`)
@@ -63,8 +62,8 @@
       }
     });
 
-    if(config.fontColor) styleArr.push(`color:${config.fontColor}`);
-    if(config.fontFamily) styleArr.push(`font-family:${config.fontFamily}`);
+    if(templateConfig.fontColor) styleArr.push(`color:${templateConfig.fontColor}`);
+    if(templateConfig.fontFamily) styleArr.push(`font-family:${templateConfig.fontFamily}`);
     
     style = styleArr.join(";")
   }

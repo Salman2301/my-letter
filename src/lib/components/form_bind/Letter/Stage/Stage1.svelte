@@ -1,13 +1,18 @@
 <script lang="ts">
 	import Tiny from "$lib/components/editor/Tiny.svelte";
 	import Input from "$lib/components/form/Input.svelte";
+	import { getContext } from "svelte";
 	import PreviewLetter from "../../PreviewLetter.svelte";
+	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from "$lib/components/template/store";
+	import type { TemplateConfig } from "$lib/components/template/types";
+	import type { Writable } from "svelte/store";
 
   export let body: string = "";
   export let title: string = "";
-  export let selectedTemplateId: string = "";
 
   let letterTitleOptions: string[] = ['Acceptance Letter', 'Acknowledgment Letter', 'Agreement Letter', 'Announcement Letter', 'Apology Letter', 'Appeal Letter', 'Application Letter', 'Appointment Letter', 'Appreciation Letter', 'Authorization Letter', 'Birthday Letter', 'Cancellation Letter', 'Certification Letter', 'Charity Letter', 'Claim Letter', 'Collection Letter', 'Complaint Letter', 'Condolence Letter', 'Confirmation Letter', 'Congratulations Letter', 'Cover Letter', 'Credit Letter', 'Criticism Letter', 'Dismissal Letter', 'Dispute Letter', 'Donation Letter', 'Endorsement Letter', 'Farewell Letter', 'Follow Up Letter', 'Friendship Letter', 'Fundraising Letter', 'Grievance Letter', 'Inquiry Letter', 'Internship Letter', 'Interview Letter', 'Introduction Letter', 'Invitation Letter', 'Marketing Letter', 'Order Letter', 'Permission Letter', 'Promotion Letter', 'Proposal Letter', 'Recommendation Letter', 'Reference Letter', 'Request Letter', 'Resignation Letter', 'Retirement Letter', 'Romantic Letter', 'Sales Letter', 'Scholarship Letter', 'Sorry Letter', 'Sponsorship Letter', 'Termination Letter', 'Thank You Letter', 'Transfer Letter', 'Warning Letter', 'Welcome Letter']
+
+  let templateConfigStore = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG) as Writable<TemplateConfig>;
 
 </script>
 
@@ -27,7 +32,7 @@
     <PreviewLetter
       body={body}
       resizeWidth={400}
-      {selectedTemplateId}
+      templateConfig={$templateConfigStore}
     />
   </div>
 </div>

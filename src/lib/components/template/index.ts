@@ -1,7 +1,9 @@
 
-import type { TemplateConfig, TemplateConfigWithId } from "./types";
+import type { TemplateConfig } from "./types";
 
 export const blankTemplate: TemplateConfig = {
+  slug: "blank",
+  version:"0.0.1",
   margin: {
     top: {
       value: 0,
@@ -68,11 +70,11 @@ export const blankTemplate: TemplateConfig = {
 // Create different template based on the configurations
 // Create a blank template
 
-export const templateList: Record<string, TemplateConfigWithId> = {
-  blank: {...blankTemplate, id: "blank"},
+export const templateList: Record<string, TemplateConfig> = {
+  blank: {...blankTemplate, slug: "blank"},
   black: {
     ...blankTemplate,
-    id: "black",
+    slug: "black",
     background: [
       {
         color: "#000",
