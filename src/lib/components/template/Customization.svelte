@@ -1,15 +1,20 @@
 <script lang="ts">
- 
+	import Background from "./CustomizationSetting/Background.svelte";
+	import Margin from "./CustomizationSetting/Margin.svelte";
+	import Padding from "./CustomizationSetting/Padding.svelte";
+
 </script>
 
 <div class="container">
-Customization menu
+  <Background />
+  <Margin />
+  <Padding />
 </div>
 
 <style lang="postcss">
   .container {
-    @apply text-red-500;
-    @apply w-full h-full;
+  @apply w-full h-full;
     @apply border border-primary;
+    @apply flex flex-col;
   }
 </style>
