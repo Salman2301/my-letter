@@ -109,6 +109,7 @@
     };
   }
 
+  let selectedTemplateId: string = "blank";
 </script>
 
 <div class="container">
@@ -130,9 +131,9 @@
 
   <div class="stages">
     {#if stage === "1"}
-      <Stage1 bind:body={form.body} bind:title={form.title} />
+      <Stage1 bind:body={form.body} bind:title={form.title} {selectedTemplateId} />
     {:else if stage === "2"}
-      <Stage2 body={form.body} />
+      <Stage2 body={form.body} bind:selectedTemplateId={selectedTemplateId} />
     {:else if stage === "3"}
       <Stage3 />
     {/if}

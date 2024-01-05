@@ -1,5 +1,11 @@
 <script lang="ts">
+	import InputCheckbox from "$lib/components/form/InputCheckbox.svelte";
 	import PreviewLetter from "../../PreviewLetter.svelte";
+
+	import { templateList } from "$lib/components/template";
+	import { genId } from "$lib/helper";
+
+	import type { TemplateConfigWithId } from "$lib/components/template/types";
 
   interface TabItem {
     title: string;
@@ -7,8 +13,11 @@
   }
   
   export let body: string = "";
-  export let currTab = "template"
-  export let tabTemplate: TabItem[] = [
+  
+  export let selectedTemplateId: string = "blank";
+  
+  let currTab = "template"
+  let tabTemplate: TabItem[] = [
     {
       title: "Template",
       id: "template"
@@ -18,11 +27,26 @@
       id: "customization"
     }
   ]
+  interface TemplateCheck extends TemplateConfigWithId {
+    checked: boolean;
+  }
+
+  let template: TemplateCheck[] = Object.values(templateList).map(e=>({...e, checked: false}));
+
+  function uncheckRest(itemId: string) {
+    template = template.map(item=>{
+      item.checked = itemId === item.id;
+      if(item.checked) {
+        selectedTemplateId = item.id;
+      }
+      return item;
+    });
+  }
 
 </script>
 
 <div class="section section-2">
-  <PreviewLetter body={body}/>
+  <PreviewLetter body={body} {selectedTemplateId}/>
   <div class="templateList">
     <div class="tabs">
       <div class="tab-menu">
@@ -41,7 +65,24 @@
       </div>
       <div class="tab-body">
         {#if currTab === "template"}
-          <div class="tab">This is a template</div>
+          <div class="templates">
+            {#each template as item, idx}
+              {@const checkboxId = `checkbox_${genId()}`}
+              <label for="{checkboxId}">
+                <div class="card">
+                  <div class="checbox">
+                    <InputCheckbox
+                      id={checkboxId}
+                      on:checked={()=>uncheckRest(item.id)}
+                      bind:checked={template[idx].checked}
+                    />
+                  </div>
+                  <PreviewLetter config={item} body="{body}" resizeWidth={200} selectedTemplateId={item.id} />
+                  <div class="title">{item.id}</div>
+                </div>
+              </label>
+            {/each}
+          </div>
         {/if}
         {#if currTab === "customization"}
           <div class="tab">This is setting!!1</div>
@@ -89,4 +130,10 @@
     @apply w-full;
   } 
 
+  .templates {
+    @apply flex gap-2 justify-start mx-auto w-full;
+    @apply mt-2;
+    @apply flex-wrap;
+    @apply px-4;
+  }
 </style>
