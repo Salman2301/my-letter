@@ -80,17 +80,6 @@ export const templateList: Record<string, TemplateConfigWithId> = {
       }
     ],
     fontColor: "#fff"
-  },
-  red: {
-    ...blankTemplate,
-    id: "red",
-    background: [
-      {
-        color: "#f00",
-        type: "color-plain"
-      }
-    ],
-    fontColor: "#fff"
   }
 }
 

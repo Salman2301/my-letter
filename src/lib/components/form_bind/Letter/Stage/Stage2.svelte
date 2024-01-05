@@ -32,6 +32,7 @@
   }
 
   let template: TemplateCheck[] = Object.values(templateList).map(e=>({...e, checked: false}));
+  template[0].checked = true;
 
   function uncheckRest(itemId: string) {
     template = template.map(item=>{
@@ -70,7 +71,7 @@
               {@const checkboxId = `checkbox_${genId()}`}
               <label for="{checkboxId}">
                 <div class="card">
-                  <div class="checbox">
+                  <div class="checkbox">
                     <InputCheckbox
                       id={checkboxId}
                       on:checked={()=>uncheckRest(item.id)}
@@ -135,5 +136,22 @@
     @apply mt-2;
     @apply flex-wrap;
     @apply px-4;
+  }
+
+  .card {
+    @apply relative;
+  }
+
+  .checkbox {
+    @apply w-full h-full;
+    @apply flex justify-end items-start;
+    @apply absolute;
+    @apply z-10;
+    @apply p-2;
+  }
+
+  .title {
+    @apply text-center;
+
   }
 </style>
