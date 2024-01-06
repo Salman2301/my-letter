@@ -114,10 +114,13 @@
 									/>
 								</div>
 								<div class="position-inputs">
-									x:
-									<input type="number" class="background-position-input" value="0" min="0" />
-									y:
-									<input type="number" class="background-position-input" value="0" min="0" />
+									<div class="position-label">Position</div>
+									<div class="inputs">
+										x:
+										<input type="number" class="background-position-input" value="0" min="0" />
+										y:
+										<input type="number" class="background-position-input" value="0" min="0" />
+									</div>
 								</div>
 							</div>
 						</div>
@@ -142,6 +145,9 @@
 		@apply flex items-center justify-between;
 	}
 
+	.trash-icon {
+		@apply pl-4;
+	}
 	.trash-icon.idx-0 {
 		@apply invisible;
 	}
@@ -157,7 +163,7 @@
 	}
 
 	.position-inputs {
-		@apply flex gap-2;
+		@apply flex flex-col gap-2 items-start;
 	}
 	.background-position-input {
 		@apply w-10;
