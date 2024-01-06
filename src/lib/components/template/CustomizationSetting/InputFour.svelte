@@ -124,7 +124,7 @@
       </IconCheckbox>
     </div>
     <div class="right">
-      <InputStroke
+    <InputStroke
         hasColorInput={hasColorInput}
         hasNumberInput={hasNumberInput}
         hasStrokeInput={hasStrokeInput}

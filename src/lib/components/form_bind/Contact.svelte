@@ -87,7 +87,7 @@
         const { data, error } = await supabase
           .storage
           .from('contact_photo')
-          .upload(fileLocation, profileFiles[0], {
+          .upload(fileLocation, file, {
             // cacheControl: 'no-cache', TODO: REMOVE CACHE ON UPDATE
             upsert: true
           });

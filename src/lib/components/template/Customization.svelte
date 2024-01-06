@@ -19,13 +19,13 @@
 <style lang="postcss">
   .container {
     @apply w-full h-full;
-    @apply border border-primary;
     @apply flex flex-col;
-    @apply gap-4;
-    @apply justify-between
+    @apply gap-8;
+    @apply justify-between;
+    @apply my-2;
   }
   .margin-padding {
-    @apply flex gap-2;
+    @apply flex gap-x-2;
   }
 
   .divider {

@@ -11,10 +11,12 @@
 
 <script lang="ts">
 	import Dropdown, { type DropOptions } from "$lib/components/form/Dropdown.svelte";
+	import { genId } from "$lib/helper";
   import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
 
+  export let id = genId();
   export let hasColorInput: boolean = true;
   export let hasNumberInput: boolean = true;
   export let hasStrokeInput: boolean = true;
@@ -61,7 +63,20 @@
 
 <div class="input-container">
   {#if hasColorInput }
-    <input type="color" bind:value={colorValue} style="width:30px" on:change={handleColorChange}>
+    <label
+      for="input-color-{id}"
+      class="label-input-color"
+      style="background:{colorValue}"
+    >
+      
+    </label>
+    <input
+      type="color"
+      bind:value={colorValue}
+      on:change={handleColorChange}
+      hidden
+      id="input-color-{id}"
+    >
   {/if}
   {#if hasNumberInput }
     <input
@@ -93,5 +108,12 @@
     @apply pl-2;
     height: 30px;
     width: 50px;
+  }
+
+  .label-input-color {
+    width: 20px;
+    height: 20px;
+    @apply rounded-full;
+    @apply border border-gray-300;
   }
 </style>
