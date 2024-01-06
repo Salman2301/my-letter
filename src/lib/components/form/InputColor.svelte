@@ -22,7 +22,7 @@
   function handleInput() {
     if(debouncerTimer) return;
     debouncerTimer = setTimeout(()=>{
-      dispatch("change", { value: colorValue });
+      dispatch("change", { colorValue });
       clearTimeout(debouncerTimer);
       debouncerTimer = undefined;
     }, 300)
