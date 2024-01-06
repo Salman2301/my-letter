@@ -7,11 +7,15 @@
 
   export let colorValue:string = "#000";
   export let isOpen: boolean = false;
+  export let disableClickOutside: boolean = false;
 
   $: if(colorValue) handleInput();
   $: if( !isOpen ) handleInput();
 
-  function hide() { isOpen = false; }
+  function hide() { 
+    if(disableClickOutside) return;
+    isOpen = false;
+  }
 
   let debouncerTimer: number | undefined;
 

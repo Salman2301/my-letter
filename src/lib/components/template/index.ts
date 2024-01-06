@@ -7,7 +7,7 @@ export const blankTemplate: TemplateConfig = {
   margin: {
     top: {
       value: 0,
-      type: "px"
+    type: "px"
     },
     bottom: {
       value: 0,
