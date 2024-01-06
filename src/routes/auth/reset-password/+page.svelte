@@ -4,20 +4,23 @@
 	import LinkText from '$lib/components/text/LinkText.svelte';
 	import { supabase } from '$lib/supabase';
 	import { goto } from '$app/navigation';
-  import { env } from "$env/dynamic/public";
+	import { env } from '$env/dynamic/public';
 
 	let form = {
 		password: ''
 	};
 
-  let formInstance: any;
+	let formInstance: any;
 	async function handleSubmit(e: any) {
-    e?.preventDefault();
-    const redirectTo = `${env.PUBLIC_BASE_URL}/auth/reset-password`
+		e?.preventDefault();
+		const redirectTo = `${env.PUBLIC_BASE_URL}/auth/reset-password`;
 		let { data, error } = await supabase.auth.updateUser({ password: form.password });
 
-		if( error ) { formInstance.setErrorMessage(`Invalid password!`) }
-    else { goto("/app") }
+		if (error) {
+			formInstance.setErrorMessage(`Invalid password!`);
+		} else {
+			goto('/app');
+		}
 	}
 </script>
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { page } from "$app/stores";
-	import Letter from "$lib/components/form_bind/Letter.svelte";
+	import { page } from '$app/stores';
+	import Letter from '$lib/components/form_bind/Letter.svelte';
 </script>
 
-<Letter isEditMode={true} editId={$page.params.id}/>
+<Letter isEditMode={true} editId={$page.params.id} />

@@ -60,7 +60,7 @@ const data: SidebarData[] = [
 		href: '/app/my-letter/[id]',
 		theme: 'default',
 		hideSidebar: true
-	},
+	}
 ];
 
 export default data;

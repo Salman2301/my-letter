@@ -5,11 +5,11 @@
 
 	import { templateList } from '$lib/components/template';
 	import { genId } from '$lib/helper';
-  
-  import { getContext } from "svelte";
-	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from "$lib/components/template/store";
-	
-	import type { Writable } from "svelte/store";
+
+	import { getContext } from 'svelte';
+	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from '$lib/components/template/store';
+
+	import type { Writable } from 'svelte/store';
 	import type { TemplateConfig } from '$lib/components/template/types';
 
 	type TabId = 'template' | 'customization';
@@ -37,27 +37,25 @@
 		checked: boolean;
 	}
 
-  let templateConfigStore = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG) as Writable<TemplateConfig>;
+	let templateConfigStore = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG) as Writable<TemplateConfig>;
 
 	let template: TemplateCheck[] = Object.values(templateList).map((e) => ({
 		...e,
 		checked: false
 	}));
-  const templateIndex = template.findIndex(item=>item.slug === $templateConfigStore.slug)
-  ;  
+	const templateIndex = template.findIndex((item) => item.slug === $templateConfigStore.slug);
 	template[templateIndex].checked = true;
 
-  function uncheckRest(itemId: string) {
+	function uncheckRest(itemId: string) {
 		template = template.map((item) => {
 			item.checked = itemId === item.slug;
 			if (item.checked) {
 				selectedTemplateId = item.slug;
-        templateConfigStore.set(item);
+				templateConfigStore.set(item);
 			}
 			return item;
 		});
 	}
-  
 </script>
 
 <div class="section section-2">
@@ -94,11 +92,7 @@
 											bind:checked={template[idx].checked}
 										/>
 									</div>
-									<PreviewLetter
-										templateConfig={item}
-										{body}
-										resizeWidth={200}
-									/>
+									<PreviewLetter templateConfig={item} {body} resizeWidth={200} />
 									<div class="title">{item.slug}</div>
 								</div>
 							</label>

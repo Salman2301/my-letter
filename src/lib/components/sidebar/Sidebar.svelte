@@ -3,12 +3,12 @@
 	import { page } from '$app/stores';
 	import { iconMap } from '$lib/components/icon/map.svelte';
 	import { LogOutIcon } from 'svelte-feather-icons';
-	import { slide } from "svelte/transition";
+	import { slide } from 'svelte/transition';
 </script>
 
-<div class="sidebar" transition:slide={{ axis : "x"}}>
+<div class="sidebar" transition:slide={{ axis: 'x' }}>
 	<div class="sidebar-top">
-		{#each data.filter(item=>!item.hideSidebar) as item}
+		{#each data.filter((item) => !item.hideSidebar) as item}
 			<div class="sidebar-item">
 				<a
 					href={item.href}
@@ -47,7 +47,7 @@
 		@apply sticky top-0;
 	}
 	.sidebar-item > a {
-		@apply flex items-center gap-2 justify-start;
+		@apply flex items-center justify-start gap-2;
 		@apply rounded-sm;
 		@apply border border-secondary;
 		@apply px-2 py-2 pl-12;

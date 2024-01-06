@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Loader from '../Loader.svelte';
-	import { v4 as uuid } from "uuid";
+	import { v4 as uuid } from 'uuid';
 	import { setSignedUrl } from '$lib/module/storage';
 	import { supabase } from '$lib/supabase';
 	import { UploadIcon } from 'svelte-feather-icons';
@@ -35,21 +35,20 @@
 			// TODO: Upload the image to Supabase
 			const file = files[0];
 
-			if( fileLocation.includes("$user_id") ) {
-				
-        const { data: userData } = await supabase.from("users").select("*");
+			if (fileLocation.includes('$user_id')) {
+				const { data: userData } = await supabase.from('users').select('*');
 
-        if( !userData || userData.length === 0 ) throw new Error("Failed to get the current user!");
+				if (!userData || userData.length === 0) throw new Error('Failed to get the current user!');
 
-        const user = userData[0];
-				fileLocation = fileLocation.replace(/\$user_id/g, user.id );
-			}
-			
-			if( fileLocation.includes("$random_uuid") ) {
-				fileLocation = fileLocation.replace(/\$random_uuid/g, uuid() );
+				const user = userData[0];
+				fileLocation = fileLocation.replace(/\$user_id/g, user.id);
 			}
 
-			if( fileLocation.includes("$ext") ) {
+			if (fileLocation.includes('$random_uuid')) {
+				fileLocation = fileLocation.replace(/\$random_uuid/g, uuid());
+			}
+
+			if (fileLocation.includes('$ext')) {
 				const { type } = file;
 				let ext = 'png';
 
@@ -58,7 +57,7 @@
 				} else {
 					ext = 'jpg';
 				}
-				fileLocation = fileLocation.replace(/\$ext/g, ext );
+				fileLocation = fileLocation.replace(/\$ext/g, ext);
 			}
 
 			const { data, error } = await supabase.storage.from(bucket).upload(fileLocation, file, {

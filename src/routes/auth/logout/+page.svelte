@@ -5,6 +5,6 @@
 
 	onMount(async () => {
 		await supabase.auth.signOut();
-		goto("/auth/login")
+		goto('/auth/login');
 	});
 </script>
