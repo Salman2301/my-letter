@@ -72,7 +72,6 @@
 			backgrounds[idx].value = ev.detail.colorValue;
 		};
 	}
-
 </script>
 
 <div class="background-container">
@@ -101,31 +100,24 @@
 									on:upload={handleUploadFileIdx(idx)}
 									bucket="user_background"
 									label="Upload background"
-								/>	
+								/>
 							</div>
 							<div class="background-image-panel">
 								<div class="background-drop-cover">
-									Repeat mode: 
+									Repeat mode:
 									<Dropdown
-										options={[{label:"Cover", value: "cover"}, {label: "Repeat", value: "repeat"}]}
+										options={[
+											{ label: 'Cover', value: 'cover' },
+											{ label: 'Repeat', value: 'repeat' }
+										]}
 										theme="border"
 									/>
 								</div>
 								<div class="position-inputs">
 									x:
-									<input
-										type="number"
-										class="background-position-input"
-										value="0"
-										min="0"
-									/>
+									<input type="number" class="background-position-input" value="0" min="0" />
 									y:
-									<input
-										type="number"
-										class="background-position-input"
-										value="0"
-										min="0"
-									/>
+									<input type="number" class="background-position-input" value="0" min="0" />
 								</div>
 							</div>
 						</div>
@@ -159,9 +151,8 @@
 		@apply flex flex-col gap-2;
 	}
 
-
 	.background-image-panel {
-		@apply flex gap-2 justify-between;
+		@apply flex justify-between gap-2;
 		@apply my-1;
 	}
 
@@ -180,5 +171,4 @@
 	.background-position-input:hover {
 		@apply border border-secondary-foreground;
 	}
-
 </style>

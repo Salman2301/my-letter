@@ -23,11 +23,7 @@
 	}
 </script>
 
-<select
-	on:change={handleChange}
-	class="theme-{theme}"
-	id="drop-{id}"
->
+<select on:change={handleChange} class="theme-{theme}" id="drop-{id}">
 	{#each options as opt}
 		<option value={opt.value} selected={opt.value === value}>
 			{opt.label}
