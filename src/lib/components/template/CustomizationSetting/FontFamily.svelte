@@ -59,9 +59,10 @@
 		@apply flex items-center;
 	}
 	.font-input {
-		@apply bg-secondary;
+		@apply bg-transparent;
 		@apply border border-secondary;
 		width: 70px;
+		@apply z-10;
 	}
 
 	.suffix {
