@@ -30,13 +30,17 @@
 </script>
 
 <div class="input-color" use:clickOutside={{ cb: hide }}>
-	<button
-		class="color-input"
-		style="background:{colorValue}"
-		on:click={() => (isOpen = !isOpen)}
-		type="button"
-	>
-	</button>
+	<div class="color-input-container">
+		<button
+			class="color-input"
+			style="background:{colorValue}"
+			on:click={() => (isOpen = !isOpen)}
+			type="button"
+		>
+		</button>
+		<div class="transparent"></div>
+	</div>
+
 	<div class="color-picker">
 		<ColorPicker
 			label=""
@@ -60,8 +64,26 @@
 		@apply absolute;
 		z-index: 40;
 	}
+	.color-input-container {
+		@apply relative;
+		@apply h-5 w-5;
+	}
 	.color-input {
 		@apply h-5 w-5 rounded-full;
 		@apply border border-secondary-foreground;
+		@apply overflow-hidden;
+		@apply z-10;
+		@apply relative
+	}
+	.transparent {
+		background: url("/asset/transparent.png");
+		background-repeat: repeat;
+
+		@apply border border-secondary-foreground;
+		@apply h-5 w-5 ;
+		@apply rounded-full;
+		@apply absolute;
+		top: 0;
+		left: 0;
 	}
 </style>
