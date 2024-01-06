@@ -66,8 +66,6 @@
       const TWO_DAYS = 2 * 24 * 60 * 60;
       const { data: dataSignedUrl, error: signedUrlError } = await supabase.storage.from("user_background").createSignedUrl(fileLocation, TWO_DAYS)
 
-      console.log({ dataSignedUrl, signedUrlError })
-
       if(signedUrlError) {
         throw new Error(JSON.stringify(signedUrlError));
       }

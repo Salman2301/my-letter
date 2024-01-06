@@ -53,7 +53,6 @@
 			if (item.checked) {
 				selectedTemplateId = item.slug;
         templateConfigStore.set(item);
-        console.log("Store updated!")
 			}
 			return item;
 		});

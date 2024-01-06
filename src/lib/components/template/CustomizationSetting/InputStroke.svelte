@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+
   export type InputType = "color" | "input" | "stroke";
   export type Stroke = "solid" | "dashed" | "dotted" | "none";
   
@@ -11,6 +12,7 @@
 
 <script lang="ts">
 	import Dropdown, { type DropOptions } from "$lib/components/form/Dropdown.svelte";
+	import InputColor from "$lib/components/form/InputColor.svelte";
 	import { genId } from "$lib/helper";
   import { createEventDispatcher } from "svelte";
 
@@ -63,20 +65,10 @@
 
 <div class="input-container">
   {#if hasColorInput }
-    <label
-      for="input-color-{id}"
-      class="label-input-color"
-      style="background:{colorValue}"
-    >
-      
-    </label>
-    <input
-      type="color"
-      bind:value={colorValue}
+    <InputColor
+      bind:colorValue={colorValue}
       on:change={handleColorChange}
-      hidden
-      id="input-color-{id}"
-    >
+    />
   {/if}
   {#if hasNumberInput }
     <input
@@ -100,7 +92,7 @@
 <style lang="postcss">
   .input-container {
     @apply flex items-center;
-    @apply gap-1;
+    @apply gap-y-2 gap-x-1;
   }
   .num-input {
     @apply border border-background bg-secondary;
@@ -109,7 +101,10 @@
     height: 30px;
     width: 50px;
   }
-
+  .input-color {
+    width: 40px;
+    height: 40px;
+  }
   .label-input-color {
     width: 20px;
     height: 20px;
