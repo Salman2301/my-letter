@@ -15,16 +15,15 @@
 
 	interface BackgroundImage {
 		type: 'image';
-		src: string;
-		mode: 'repeat' | 'cover';
-		pos: {
+		src?: string;
+		mode?: 'repeat' | 'cover';
+		pos?: {
 			x: number;
 			y: number;
 		};
 		id: string;
 	}
 
-	const defaultBackground = () => ({ type: 'color', value: '#fff', id: uuid() });
 	export let backgrounds: Background[] = [
 		{
 			type: 'color',
@@ -74,7 +73,6 @@
 		};
 	}
 
-	let colorValue: string = '#000';
 </script>
 
 <div class="background-container">
@@ -97,11 +95,40 @@
 					{#if backgrounds[idx].type === 'color'}
 						<ButtonColor label="Select a background" on:change={handleColorChangeIdx(idx)} />
 					{:else}
-						<InputUploadBtn
-							on:upload={handleUploadFileIdx(idx)}
-							bucket="user_background"
-							label="Upload background"
-						/>
+						<div class="background-image-container">
+							<div class="input-upload">
+								<InputUploadBtn
+									on:upload={handleUploadFileIdx(idx)}
+									bucket="user_background"
+									label="Upload background"
+								/>	
+							</div>
+							<div class="background-image-panel">
+								<div class="background-drop-cover">
+									Repeat mode: 
+									<Dropdown
+										options={[{label:"Cover", value: "cover"}, {label: "Repeat", value: "repeat"}]}
+										theme="border"
+									/>
+								</div>
+								<div class="position-inputs">
+									x:
+									<input
+										type="number"
+										class="background-position-input"
+										value="0"
+										min="0"
+									/>
+									y:
+									<input
+										type="number"
+										class="background-position-input"
+										value="0"
+										min="0"
+									/>
+								</div>
+							</div>
+						</div>
 					{/if}
 				</div>
 			{/each}
@@ -131,4 +158,27 @@
 		@apply pl-3;
 		@apply flex flex-col gap-2;
 	}
+
+
+	.background-image-panel {
+		@apply flex gap-2 justify-between;
+		@apply my-1;
+	}
+
+	.position-inputs {
+		@apply flex gap-2;
+	}
+	.background-position-input {
+		@apply w-10;
+		@apply bg-secondary;
+		@apply p-0;
+		@apply text-background;
+		@apply text-secondary-foreground;
+		@apply text-center;
+	}
+
+	.background-position-input:hover {
+		@apply border border-secondary-foreground;
+	}
+
 </style>
