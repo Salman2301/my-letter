@@ -3,9 +3,11 @@
 	import Margin from './CustomizationSetting/Margin.svelte';
 	import Padding from './CustomizationSetting/Padding.svelte';
 	import Border from './CustomizationSetting/Border.svelte';
+	import FontFamily from './CustomizationSetting/FontFamily.svelte';
 </script>
 
 <div class="container">
+	<FontFamily />
 	<Background />
 	<div class="margin-padding">
 		<Margin />

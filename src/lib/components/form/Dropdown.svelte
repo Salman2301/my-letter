@@ -6,8 +6,11 @@
 </script>
 
 <script lang="ts">
+	import { genId } from '$lib/helper';
+
 	import { createEventDispatcher } from 'svelte';
 
+	export let id: string = genId();
 	const dispatch = createEventDispatcher();
 	export let options: DropOptions[] = [];
 
@@ -20,7 +23,11 @@
 	}
 </script>
 
-<select on:change={handleChange} class="theme-{theme}">
+<select
+	on:change={handleChange}
+	class="theme-{theme}"
+	id="drop-{id}"
+>
 	{#each options as opt}
 		<option value={opt.value} selected={opt.value === value}>
 			{opt.label}
@@ -33,6 +40,7 @@
 		@apply text-sm;
 		height: 30px;
 		@apply px-1;
+		@apply w-full;
 	}
 
 	.theme-bg {
