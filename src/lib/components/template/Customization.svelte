@@ -1,20 +1,20 @@
 <script lang="ts">
-	import Background from './CustomizationSetting/Background.svelte';
-	import Margin from './CustomizationSetting/Margin.svelte';
-	import Padding from './CustomizationSetting/Padding.svelte';
-	import Border from './CustomizationSetting/Border.svelte';
-	import FontFamily from './CustomizationSetting/FontFamily.svelte';
+	import BackgroundCustomization from './CustomizationSetting/BackgroundCustomization.svelte';
+	import MarginCustomization from './CustomizationSetting/MarginCustomization.svelte';
+	import PaddingCustomization from './CustomizationSetting/PaddingCustomization.svelte';
+	import BorderCustomization from './CustomizationSetting/BorderCustomization.svelte';
+	import FontCustomization from './CustomizationSetting/FontCustomization.svelte';
 </script>
 
 <div class="container">
-	<FontFamily />
-	<Background />
+	<FontCustomization />
+	<BackgroundCustomization />
 	<div class="margin-padding">
-		<Margin />
+		<MarginCustomization />
 		<div class="divider"></div>
-		<Padding />
+		<PaddingCustomization />
 	</div>
-	<Border />
+	<BorderCustomization />
 </div>
 
 <style lang="postcss">
