@@ -4,87 +4,27 @@
 	import TitleCustomization from './TitleCustomization.svelte';
 
 	export let dropOpts: DropOptions[] = [
-		{
-			label: 'Helvetica',
-			value: 'Helvetica'
-		},
-		{
-			label: 'Arial',
-			value: 'Arial'
-		},
-		{
-			label: 'Arial Black',
-			value: 'Arial Black'
-		},
-		{
-			label: 'Verdana',
-			value: 'Verdana'
-		},
-		{
-			label: 'Tahoma',
-			value: 'Tahoma'
-		},
-		{
-			label: 'Trebuchet MS',
-			value: 'Trebuchet MS'
-		},
-		{
-			label: 'Impact',
-			value: 'Impact'
-		},
-		{
-			label: 'Gill Sans',
-			value: 'Gill Sans'
-		},
-		{
-			label: 'Times New Roman',
-			value: 'Times New Roman'
-		},
-		{
-			label: 'Georgia',
-			value: 'Georgia'
-		},
-		{
-			label: 'Palatino',
-			value: 'Palatino'
-		},
-		{
-			label: 'Baskerville',
-			value: 'Baskerville'
-		},
-		{
-			label: 'Andalé Mono',
-			value: 'Andalé Mono'
-		},
-		{
-			label: 'Courier',
-			value: 'Courier'
-		},
-		{
-			label: 'Lucida',
-			value: 'Lucida'
-		},
-		{
-			label: 'Monaco',
-			value: 'Monaco'
-		},
-		{
-			label: 'Bradley Hand',
-			value: 'Bradley Hand'
-		},
-		{
-			label: 'Brush Script MT',
-			value: 'Brush Script MT'
-		},
-		{
-			label: 'Luminari',
-			value: 'Luminari'
-		},
-		{
-			label: 'Comic Sans MS',
-			value: 'Comic Sans MS'
-		}
-	];
+  { label: 'Andalé Mono', value: 'Andalé Mono' },
+  { label: 'Arial', value: 'Arial' },
+  { label: 'Arial Black', value: 'Arial Black' },
+  { label: 'Baskerville', value: 'Baskerville' },
+  { label: 'Bradley Hand', value: 'Bradley Hand' },
+  { label: 'Brush Script MT', value: 'Brush Script MT' },
+  { label: 'Comic Sans MS', value: 'Comic Sans MS' },
+  { label: 'Courier', value: 'Courier' },
+  { label: 'Georgia', value: 'Georgia' },
+  { label: 'Gill Sans', value: 'Gill Sans' },
+  { label: 'Helvetica', value: 'Helvetica' },
+  { label: 'Impact', value: 'Impact' },
+  { label: 'Lucida', value: 'Lucida' },
+  { label: 'Luminari', value: 'Luminari' },
+  { label: 'Monaco', value: 'Monaco' },
+  { label: 'Palatino', value: 'Palatino' },
+  { label: 'Tahoma', value: 'Tahoma' },
+  { label: 'Times New Roman', value: 'Times New Roman'},
+  { label: 'Trebuchet MS', value: 'Trebuchet MS' },
+  { label: 'Verdana', value: 'Verdana' }
+];
 
 	export let fontFamily: string = 'Helvetica';
 	export let fontSize: number = 18;
