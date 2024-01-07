@@ -2,7 +2,7 @@
 	import Tiny from '$lib/components/editor/Tiny.svelte';
 	import Input from '$lib/components/form/Input.svelte';
 	import { getContext } from 'svelte';
-	import PreviewLetter from '../../PreviewLetter.svelte';
+	import RenderLetter from '../../RenderLetter.svelte';
 	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from '$lib/components/template/store';
 	import type { TemplateConfig } from '$lib/components/template/types';
 	import type { Writable } from 'svelte/store';
@@ -86,7 +86,7 @@
 	</div>
 
 	<div class="preview-letter">
-		<PreviewLetter {body} resizeWidth={400} templateConfig={$templateConfigStore} />
+		<RenderLetter {body} resizeWidth={400} templateConfig={$templateConfigStore} />
 	</div>
 </div>
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import InputCheckbox from '$lib/components/form/InputCheckbox.svelte';
 	import Customization from '$lib/components/template/Customization.svelte';
-	import PreviewLetter from '../../PreviewLetter.svelte';
+	import RenderLetter from '../../RenderLetter.svelte';
 
 	import { templateList } from '$lib/components/template';
 	import { genId } from '$lib/helper';
@@ -59,7 +59,7 @@
 </script>
 
 <div class="section section-2">
-	<PreviewLetter {body} templateConfig={$templateConfigStore} />
+	<RenderLetter {body} templateConfig={$templateConfigStore} />
 	
 </div>
 
@@ -95,7 +95,7 @@
 										bind:checked={template[idx].checked}
 									/>
 								</div>
-								<PreviewLetter templateConfig={item} {body} resizeWidth={180} />
+								<RenderLetter templateConfig={item} {body} resizeWidth={180} />
 								<div class="title">{item.slug}</div>
 							</div>
 						</label>
