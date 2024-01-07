@@ -4,7 +4,7 @@
 	import RenderLetter from '../../RenderLetter.svelte';
 
 	import { templateList } from '$lib/components/template';
-	import { genId } from '$lib/helper';
+	import { deepCopyObj, genId } from '$lib/helper';
 
 	import { getContext } from 'svelte';
 	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from '$lib/components/template/store';
@@ -51,7 +51,7 @@
 			item.checked = itemId === item.slug;
 			if (item.checked) {
 				selectedTemplateId = item.slug;
-				templateConfigStore.set(item);
+				templateConfigStore.set(deepCopyObj(item));
 			}
 			return item;
 		});
@@ -60,7 +60,6 @@
 
 <div class="section section-2">
 	<RenderLetter {body} templateConfig={$templateConfigStore} />
-	
 </div>
 
 <div class="templateList">
@@ -95,7 +94,11 @@
 										bind:checked={template[idx].checked}
 									/>
 								</div>
-								<RenderLetter templateConfig={item} {body} resizeWidth={180} />
+								<RenderLetter
+									templateConfig={item}
+									{body}
+									resizeWidth={180}
+								/>
 								<div class="title">{item.slug}</div>
 							</div>
 						</label>

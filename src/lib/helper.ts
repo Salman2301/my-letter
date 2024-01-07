@@ -58,3 +58,7 @@ type StorageBucket =
 export function publicFile(bucketName: StorageBucket, fileLocation: string) {
 	return `${env.PUBLIC_SUPABASE_URL}/storage/v1/object/public/${bucketName}/${fileLocation}`;
 }
+
+export function deepCopyObj<T>(obj: T): T {
+	return JSON.parse(JSON.stringify(obj));
+}

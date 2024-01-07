@@ -26,7 +26,7 @@
 	function updateStyle() {
 		style = '';
 		// TODO: This is running multiple times on start
-
+		console.log("leaking")
 		let styleArr: string[] = [];
 		let styleBackgroundArr: string[] = [];
 		let styleMarginArr: string[] = [];
