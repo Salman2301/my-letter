@@ -39,24 +39,24 @@
 			value: 'dotted'
 		},
 		{
-			label: "double",
-			value: "Double"
+			label: 'double',
+			value: 'Double'
 		},
 		{
-			label: "groove",
-			value: "Groove"
+			label: 'groove',
+			value: 'Groove'
 		},
 		{
-			label: "ridge",
-			value: "Ridge"
+			label: 'ridge',
+			value: 'Ridge'
 		},
 		{
-			label: "inset",
-			value: "Inset"
+			label: 'inset',
+			value: 'Inset'
 		},
 		{
-			label: "outset",
-			value: "Outset"
+			label: 'outset',
+			value: 'Outset'
 		},
 		{
 			label: 'None',

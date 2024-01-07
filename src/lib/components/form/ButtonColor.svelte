@@ -5,7 +5,7 @@
 	export let showColorPicker: boolean = false;
 	export let label: string = 'Choose a color';
 	export let colorValue: string = '#fff';
-	
+
 	async function toggleColorPicker() {
 		showColorPicker = !showColorPicker;
 	}
@@ -20,12 +20,7 @@
 	aria-label={label}
 	use:clickOutside={{ cb: () => (showColorPicker = false) }}
 >
-	<InputColor
-		bind:isOpen={showColorPicker}
-		disableClickOutside={true}
-		bind:colorValue
-		on:change
-	/>
+	<InputColor bind:isOpen={showColorPicker} disableClickOutside={true} bind:colorValue on:change />
 
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<div class="label" on:click|self={toggleColorPicker} role="button" tabindex="0">

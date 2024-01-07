@@ -64,12 +64,20 @@
 		styleArr.push(`border-bottom-style:${templateConfig.border.bottom.strokeStyle}`);
 		styleArr.push(`border-left-style:${templateConfig.border.left.strokeStyle}`);
 		styleArr.push(`border-right-style:${templateConfig.border.right.strokeStyle}`);
-		
-		styleArr.push(`border-top-left-radius:${templateConfig.rounded.topLeft.value}${templateConfig.rounded.topLeft.type}`);
-		styleArr.push(`border-top-right-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`);
-		styleArr.push(`border-bottom-left-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`);
-		styleArr.push(`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`);
-		
+
+		styleArr.push(
+			`border-top-left-radius:${templateConfig.rounded.topLeft.value}${templateConfig.rounded.topLeft.type}`
+		);
+		styleArr.push(
+			`border-top-right-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
+		);
+		styleArr.push(
+			`border-bottom-left-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
+		);
+		styleArr.push(
+			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`
+		);
+
 		templateConfig.backgrounds.forEach((bg) => {
 			if (bg.type === 'color') {
 				styleArr.push(`background-color:${bg.value}`);
@@ -82,7 +90,8 @@
 		if (templateConfig.fontColor) styleArr.push(`color:${templateConfig.fontColor}`);
 		if (templateConfig.fontFamily) styleArr.push(`font-family:${templateConfig.fontFamily}`);
 
-		if (templateConfig.fontFamily) styleArr.push(`font-size:${templateConfig.fontSize.value}${templateConfig.fontSize.unit}`);
+		if (templateConfig.fontFamily)
+			styleArr.push(`font-size:${templateConfig.fontSize.value}${templateConfig.fontSize.unit}`);
 
 		style = styleArr.join(';');
 	}

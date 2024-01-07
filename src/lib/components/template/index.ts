@@ -43,38 +43,38 @@ export const blankTemplate: TemplateConfig = {
 		top: {
 			strokewidth: 0,
 			strokeColor: '#000',
-			strokeStyle: "solid"
+			strokeStyle: 'solid'
 		},
 		bottom: {
-		strokewidth: 0,
+			strokewidth: 0,
 			strokeColor: '#000',
-			strokeStyle: "solid"
+			strokeStyle: 'solid'
 		},
 		left: {
 			strokewidth: 0,
 			strokeColor: '#000',
-			strokeStyle: "solid"
+			strokeStyle: 'solid'
 		},
 		right: {
 			strokewidth: 0,
 			strokeColor: '#000',
-			strokeStyle: "solid"
+			strokeStyle: 'solid'
 		}
 	},
-	fontFamily: "Helvetica",
+	fontFamily: 'Helvetica',
 	fontColor: '#000',
 	fontSize: {
 		value: 18,
-		unit: "px"
+		unit: 'px'
 	},
 	backgrounds: [
 		{
-			type: "color",
-			value: "#fff",
-			id: "random_uuid"
-		},
+			type: 'color',
+			value: '#fff',
+			id: 'random_uuid'
+		}
 	],
-	rounded:{
+	rounded: {
 		topLeft: {
 			value: 0,
 			type: 'px'
@@ -92,7 +92,6 @@ export const blankTemplate: TemplateConfig = {
 			type: 'px'
 		}
 	}
-
 };
 
 // Create different template based on the configurations
@@ -105,9 +104,9 @@ export const templateList: Record<string, TemplateConfig> = {
 		slug: 'black',
 		backgrounds: [
 			{
-				type: "color",
+				type: 'color',
 				value: '#000',
-				id: "random_uuid_blank"
+				id: 'random_uuid_blank'
 			}
 		],
 		fontColor: '#fff'

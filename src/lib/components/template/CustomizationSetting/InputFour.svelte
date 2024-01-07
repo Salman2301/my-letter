@@ -11,12 +11,12 @@
 	export let isLinked: boolean = true;
 
 	type Position = 'top' | 'bottom' | 'left' | 'right';
-	type InputUnit = "px" | "rem";
+	type InputUnit = 'px' | 'rem';
 
-	let defaultColorValue: string = "#000";
+	let defaultColorValue: string = '#000';
 	let defaultInputValue: number = 0;
-	let defaultInputUnit: InputUnit = "px";
-	let defaultStroke: StrokeStyle = "solid";
+	let defaultInputUnit: InputUnit = 'px';
+	let defaultStroke: StrokeStyle = 'solid';
 
 	let lastValueColor: string = defaultColorValue;
 	let lastValueInput: number = defaultInputValue;
@@ -50,13 +50,11 @@
 		return function handleEvent(event: { detail: EventOnChange }) {
 			const { type, value } = event.detail;
 
-			if( type === "color" ) {
+			if (type === 'color') {
 				lastValueColor = value;
-			}
-			else if (type==="input") {
+			} else if (type === 'input') {
 				lastValueInput = value;
-			}
-			else if (type==="stroke") {
+			} else if (type === 'stroke') {
 				lastValueStroke = value;
 			}
 

@@ -10,7 +10,9 @@
 
 <div class="margin-container">
 	<TitleCustomization content="Margin" textCenter={true} />
-	<InputFour hasColorInput={false} hasStrokeInput={false}
+	<InputFour
+		hasColorInput={false}
+		hasStrokeInput={false}
 		bind:topInputValue={topValue}
 		bind:leftInputValue={leftValue}
 		bind:rightInputValue={rightValue}

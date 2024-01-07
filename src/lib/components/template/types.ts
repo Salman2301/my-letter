@@ -82,7 +82,7 @@ export interface TemplateConfig {
 	fontColor: string;
 	fontSize: {
 		value: number;
-		unit: "px" | "rem";
+		unit: 'px' | 'rem';
 	};
 }
 
@@ -104,4 +104,12 @@ interface BackgroundImage {
 	id: string;
 }
 
-export type StrokeStyle = "dotted" | "dashed" | "solid" | "double" | "groove" | "ridge" | "inset" | "outset";
+export type StrokeStyle =
+	| 'dotted'
+	| 'dashed'
+	| 'solid'
+	| 'double'
+	| 'groove'
+	| 'ridge'
+	| 'inset'
+	| 'outset';

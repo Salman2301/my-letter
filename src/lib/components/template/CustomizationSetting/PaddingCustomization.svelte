@@ -1,7 +1,7 @@
 <script lang="ts">
 	import InputFour from './InputFour.svelte';
 	import TitleCustomization from './TitleCustomization.svelte';
-	
+
 	export let topValue: number = 0;
 	export let leftValue: number = 0;
 	export let rightValue: number = 0;
@@ -13,7 +13,6 @@
 	<InputFour
 		hasColorInput={false}
 		hasStrokeInput={false}
-	
 		bind:topInputValue={topValue}
 		bind:leftInputValue={leftValue}
 		bind:rightInputValue={rightValue}

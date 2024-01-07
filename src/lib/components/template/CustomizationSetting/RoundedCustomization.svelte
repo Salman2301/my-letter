@@ -11,13 +11,13 @@
 <div class="rounded-container">
 	<TitleCustomization content="Rounded corner" />
 	<InputFour
-    hasColorInput={false}
-    hasStrokeInput={false}
+		hasColorInput={false}
+		hasStrokeInput={false}
 		bind:topInputValue={topValue}
 		bind:leftInputValue={leftValue}
 		bind:rightInputValue={rightValue}
 		bind:bottomInputValue={bottomValue}
-  />
+	/>
 </div>
 
 <style lang="postcss">

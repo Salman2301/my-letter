@@ -13,7 +13,6 @@
 	import type { TemplateConfig } from './types';
 
 	const templateConfigStore: Writable<TemplateConfig> = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG);
-
 </script>
 
 <div class="container">
@@ -22,9 +21,7 @@
 		bind:fontFamily={$templateConfigStore.fontFamily}
 		bind:fontSizeValue={$templateConfigStore.fontSize.value}
 	/>
-	<BackgroundCustomization
-		bind:backgrounds={$templateConfigStore.backgrounds}
-	/>
+	<BackgroundCustomization bind:backgrounds={$templateConfigStore.backgrounds} />
 	<div class="margin-padding">
 		<MarginCustomization
 			bind:topValue={$templateConfigStore.margin.top.value}
@@ -45,12 +42,10 @@
 		bind:leftValue={$templateConfigStore.border.left.strokewidth}
 		bind:rightValue={$templateConfigStore.border.right.strokewidth}
 		bind:bottomValue={$templateConfigStore.border.bottom.strokewidth}
-		
 		bind:topColorValue={$templateConfigStore.border.top.strokeColor}
 		bind:leftColorValue={$templateConfigStore.border.left.strokeColor}
 		bind:rightColorValue={$templateConfigStore.border.right.strokeColor}
 		bind:bottomColorValue={$templateConfigStore.border.bottom.strokeColor}
-
 		bind:topStroke={$templateConfigStore.border.top.strokeStyle}
 		bind:leftStroke={$templateConfigStore.border.left.strokeStyle}
 		bind:rightStroke={$templateConfigStore.border.right.strokeStyle}

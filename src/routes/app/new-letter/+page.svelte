@@ -6,12 +6,11 @@
 
 	setContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG, templateConfig);
 
-	const newLog = new LogToWindow("template_preview_letter")
-	
-	templateConfig.subscribe($templateConfig=>{
-		newLog.log($templateConfig)
-	})
-	
+	const newLog = new LogToWindow('template_preview_letter');
+
+	templateConfig.subscribe(($templateConfig) => {
+		newLog.log($templateConfig);
+	});
 </script>
 
 <Letter />

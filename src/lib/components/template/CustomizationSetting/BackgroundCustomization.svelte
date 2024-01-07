@@ -57,7 +57,6 @@
 			backgrounds = backgrounds;
 		};
 	}
-
 </script>
 
 <div class="background-container">
@@ -78,7 +77,7 @@
 						</button>
 					</div>
 					{#if backgrounds[idx].type === 'color'}
-				 		{@const bgValue = (backgrounds[idx] as any).value}
+						{@const bgValue = (backgrounds[idx] as any).value}
 						<ButtonColor
 							label="Select a background"
 							colorValue={bgValue}
@@ -154,7 +153,7 @@
 	}
 
 	.position-inputs {
-		@apply flex flex-col gap-2 items-start;
+		@apply flex flex-col items-start gap-2;
 	}
 	.background-position-input {
 		@apply w-10;
