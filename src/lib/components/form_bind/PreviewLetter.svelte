@@ -11,6 +11,7 @@
 
 	let aspectRatio = 1 / 1.41; // A4 sheet
 	let style: string = '';
+	let styleBackground: string = "";
 
 	onMount(() => {
 		updateStyle();
@@ -25,6 +26,7 @@
 		// TODO: This is running multiple times on start
 
 		let styleArr: string[] = [];
+		let styleBackgroundArr: string[] = [];
 		// let style
 		styleArr.push(`margin-top:${templateConfig.margin.top.value}${templateConfig.margin.top.type}`);
 		styleArr.push(
@@ -78,12 +80,12 @@
 			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`
 		);
 
-		templateConfig.backgrounds.forEach((bg) => {
+		templateConfig.backgrounds.forEach((bg, idx) => {
 			if (bg.type === 'color') {
-				styleArr.push(`background-color:${bg.value}`);
+				styleBackgroundArr.push(`background-color:${bg.value}`);
 			} else if (bg.type === 'image') {
-				styleArr.push(`background-image: url("${bg.src}")`);
-				styleArr.push(`background-image: url("${bg.mode}")`);
+				styleBackgroundArr.push(`background-image: url("${bg.src}")`);
+				styleBackgroundArr.push(`background-image: url("${bg.mode}")`);
 			}
 		});
 
@@ -94,10 +96,11 @@
 			styleArr.push(`font-size:${templateConfig.fontSize.value}${templateConfig.fontSize.unit}`);
 
 		style = styleArr.join(';');
+		styleBackground = styleBackgroundArr.join(';');
 	}
 </script>
 
-<div class="letter-container" style="width:{resizeWidth}px;height:{resizeWidth / aspectRatio}px">
+<div class="letter-container" style="{styleBackground};width:{resizeWidth}px;height:{resizeWidth / aspectRatio}px">
 	<div class="letter" style="scale:{resizeWidth / 780};{style}">
 		<div class="content mce-content-body">{@html body}</div>
 	</div>
@@ -110,6 +113,7 @@
 		top: 0;
 		position: sticky;
 		aspect-ratio: 1 / 1.41;
+		@apply overflow-scroll;
 	}
 	.letter {
 		@apply relative;
