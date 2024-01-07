@@ -1,13 +1,11 @@
 <script lang="ts">
 	import InputFour from './InputFour.svelte';
 	import TitleCustomization from './TitleCustomization.svelte';
-	import { getContext } from 'svelte';
-	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from '../store';
 
-	import type { Writable } from 'svelte/store';
-	import type { TemplateConfig } from '../types';
-
-	const templateConfigStore: Writable<TemplateConfig> = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG);
+	export let topValue: number = 0;
+	export let leftValue: number = 0;
+	export let rightValue: number = 0;
+	export let bottomValue: number = 0;
 </script>
 
 <div class="rounded-container">
@@ -15,6 +13,10 @@
 	<InputFour
     hasColorInput={false}
     hasStrokeInput={false}
+		bind:topInputValue={topValue}
+		bind:leftInputValue={leftValue}
+		bind:rightInputValue={rightValue}
+		bind:bottomInputValue={bottomValue}
   />
 </div>
 

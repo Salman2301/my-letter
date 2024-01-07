@@ -60,22 +60,29 @@
 		styleArr.push(`border-left-color:${templateConfig.border.left.strokeColor}`);
 		styleArr.push(`border-right-color:${templateConfig.border.right.strokeColor}`);
 
-		templateConfig.background.forEach((bg) => {
-			if (bg.type === 'color-plain') {
-				styleArr.push(`background-color:${bg.color}`);
-				styleArr.push(`opacity:${bg.opacity}`);
-			} else if (bg.type === 'color-gradient') {
-				// TOOD: HANDLE
+		styleArr.push(`border-top-style:${templateConfig.border.top.strokeStyle}`);
+		styleArr.push(`border-bottom-style:${templateConfig.border.bottom.strokeStyle}`);
+		styleArr.push(`border-left-style:${templateConfig.border.left.strokeStyle}`);
+		styleArr.push(`border-right-style:${templateConfig.border.right.strokeStyle}`);
+		
+		styleArr.push(`border-top-left-radius:${templateConfig.rounded.topLeft.value}${templateConfig.rounded.topLeft.type}`);
+		styleArr.push(`border-top-right-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`);
+		styleArr.push(`border-bottom-left-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`);
+		styleArr.push(`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`);
+		
+		templateConfig.backgrounds.forEach((bg) => {
+			if (bg.type === 'color') {
+				styleArr.push(`background-color:${bg.value}`);
 			} else if (bg.type === 'image') {
 				styleArr.push(`background-image: url("${bg.src}")`);
-				styleArr.push(`background-image: url("${bg.stretch}")`);
-				if (bg.size && bg.size.height && bg.size.width)
-					styleArr.push(`background-size:${bg.size.width} ${bg.size.height}`);
+				styleArr.push(`background-image: url("${bg.mode}")`);
 			}
 		});
 
 		if (templateConfig.fontColor) styleArr.push(`color:${templateConfig.fontColor}`);
 		if (templateConfig.fontFamily) styleArr.push(`font-family:${templateConfig.fontFamily}`);
+
+		if (templateConfig.fontFamily) styleArr.push(`font-size:${templateConfig.fontSize.value}${templateConfig.fontSize.unit}`);
 
 		style = styleArr.join(';');
 	}

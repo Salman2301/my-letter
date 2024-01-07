@@ -4,35 +4,43 @@
 	import LinkBroken from '$lib/components/icon/LinkBroken.svelte';
 
 	import { LinkIcon } from 'svelte-feather-icons';
-	import type { EventOnChange, InputType, Stroke } from './InputStroke.svelte';
+	import type { EventOnChange, InputType } from './InputStroke.svelte';
+	import type { StrokeStyle } from '../types';
 
 	export let inputType: InputType[] = ['color', 'input', 'stroke'];
 	export let isLinked: boolean = true;
 
 	type Position = 'top' | 'bottom' | 'left' | 'right';
+	type InputUnit = "px" | "rem";
 
-	interface Value {
-		color: string;
-		input: number;
-		stroke: Stroke;
-	}
+	let defaultColorValue: string = "#000";
+	let defaultInputValue: number = 0;
+	let defaultInputUnit: InputUnit = "px";
+	let defaultStroke: StrokeStyle = "solid";
 
-	const defaultValue: Value = {
-		color: '#000',
-		input: 0,
-		stroke: 'solid'
-	};
+	let lastValueColor: string = defaultColorValue;
+	let lastValueInput: number = defaultInputValue;
+	let lastValueStroke: StrokeStyle = defaultStroke;
 
-	const lastValue: Value = {
-		...defaultValue
-	};
+	export let topColorValue: string = defaultColorValue;
+	export let leftColorValue: string = defaultColorValue;
+	export let rightColorValue: string = defaultColorValue;
+	export let bottomColorValue: string = defaultColorValue;
 
-	export let values: Record<Position, Value> = {
-		top: { ...defaultValue },
-		bottom: { ...defaultValue },
-		left: { ...defaultValue },
-		right: { ...defaultValue }
-	};
+	export let topInputValue: number = defaultInputValue;
+	export let leftInputValue: number = defaultInputValue;
+	export let rightInputValue: number = defaultInputValue;
+	export let bottomInputValue: number = defaultInputValue;
+
+	export let topInputUnit: InputUnit = defaultInputUnit;
+	export let leftInputUnit: InputUnit = defaultInputUnit;
+	export let rightInputUnit: InputUnit = defaultInputUnit;
+	export let bottomInputUnit: InputUnit = defaultInputUnit;
+
+	export let topStroke: StrokeStyle = defaultStroke;
+	export let leftStroke: StrokeStyle = defaultStroke;
+	export let rightStroke: StrokeStyle = defaultStroke;
+	export let bottomStroke: StrokeStyle = defaultStroke;
 
 	export let hasColorInput: boolean = true;
 	export let hasNumberInput: boolean = true;
@@ -40,48 +48,57 @@
 
 	function handleChange(pos: Position) {
 		return function handleEvent(event: { detail: EventOnChange }) {
-			// @ts-expect-error
-			lastValue[event.detail.type] = event.detail.value;
+			const { type, value } = event.detail;
+
+			if( type === "color" ) {
+				lastValueColor = value;
+			}
+			else if (type==="input") {
+				lastValueInput = value;
+			}
+			else if (type==="stroke") {
+				lastValueStroke = value;
+			}
 
 			if (!isLinked) return;
-			if (event.detail.type === 'color') {
-				values.top.color = event.detail.value;
-				values.bottom.color = event.detail.value;
-				values.left.color = event.detail.value;
-				values.right.color = event.detail.value;
+			if (type === 'color') {
+				topColorValue = value;
+				bottomColorValue = value;
+				leftColorValue = value;
+				rightColorValue = value;
 			}
 
-			if (event.detail.type === 'input') {
-				values.top.input = event.detail.value;
-				values.bottom.input = event.detail.value;
-				values.left.input = event.detail.value;
-				values.right.input = event.detail.value;
+			if (type === 'input') {
+				topInputValue = value;
+				bottomInputValue = value;
+				leftInputValue = value;
+				rightInputValue = value;
 			}
 
-			if (event.detail.type === 'stroke') {
-				values.top.stroke = event.detail.value;
-				values.bottom.stroke = event.detail.value;
-				values.left.stroke = event.detail.value;
-				values.right.stroke = event.detail.value;
+			if (type === 'stroke') {
+				topStroke = value;
+				bottomStroke = value;
+				leftStroke = value;
+				rightStroke = value;
 			}
 		};
 	}
 
 	function handleSyncAllInputs() {
-		values.top.color = lastValue.color;
-		values.bottom.color = lastValue.color;
-		values.left.color = lastValue.color;
-		values.right.color = lastValue.color;
+		topColorValue = lastValueColor;
+		bottomColorValue = lastValueColor;
+		leftColorValue = lastValueColor;
+		rightColorValue = lastValueColor;
 
-		values.top.input = lastValue.input;
-		values.bottom.input = lastValue.input;
-		values.left.input = lastValue.input;
-		values.right.input = lastValue.input;
+		topInputValue = lastValueInput;
+		bottomInputValue = lastValueInput;
+		leftInputValue = lastValueInput;
+		rightInputValue = lastValueInput;
 
-		values.top.stroke = lastValue.stroke;
-		values.bottom.stroke = lastValue.stroke;
-		values.left.stroke = lastValue.stroke;
-		values.right.stroke = lastValue.stroke;
+		topStroke = lastValueStroke;
+		bottomStroke = lastValueStroke;
+		leftStroke = lastValueStroke;
+		rightStroke = lastValueStroke;
 	}
 </script>
 
@@ -91,9 +108,9 @@
 			{hasColorInput}
 			{hasNumberInput}
 			{hasStrokeInput}
-			colorValue={values.top.color}
-			inputValue={values.top.input}
-			strokeValue={values.top.stroke}
+			colorValue={topColorValue}
+			inputValue={topInputValue}
+			strokeValue={topStroke}
 			on:change={handleChange('top')}
 		/>
 	</div>
@@ -103,9 +120,9 @@
 				{hasColorInput}
 				{hasNumberInput}
 				{hasStrokeInput}
-				colorValue={values.left.color}
-				inputValue={values.left.input}
-				strokeValue={values.left.stroke}
+				colorValue={leftColorValue}
+				inputValue={leftInputValue}
+				strokeValue={leftStroke}
 				on:change={handleChange('left')}
 			/>
 		</div>
@@ -124,9 +141,9 @@
 				{hasColorInput}
 				{hasNumberInput}
 				{hasStrokeInput}
-				colorValue={values.right.color}
-				inputValue={values.right.input}
-				strokeValue={values.right.stroke}
+				colorValue={rightColorValue}
+				inputValue={rightInputValue}
+				strokeValue={rightStroke}
 				on:change={handleChange('right')}
 			/>
 		</div>
@@ -136,9 +153,9 @@
 			{hasColorInput}
 			{hasNumberInput}
 			{hasStrokeInput}
-			colorValue={values.bottom.color}
-			inputValue={values.bottom.input}
-			strokeValue={values.bottom.stroke}
+			colorValue={bottomColorValue}
+			inputValue={bottomInputValue}
+			strokeValue={bottomStroke}
 			on:change={handleChange('bottom')}
 		/>
 	</div>

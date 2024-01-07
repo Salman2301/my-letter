@@ -6,23 +6,7 @@
 	import { PlusCircleIcon, Trash2Icon } from 'svelte-feather-icons';
 	import { v4 as uuid } from 'uuid';
 
-	type Background = BackgroundColor | BackgroundImage;
-	interface BackgroundColor {
-		type: 'color';
-		value: string;
-		id: string;
-	}
-
-	interface BackgroundImage {
-		type: 'image';
-		src?: string;
-		mode?: 'repeat' | 'cover';
-		pos?: {
-			x: number;
-			y: number;
-		};
-		id: string;
-	}
+	import type { Background } from '../types';
 
 	export let backgrounds: Background[] = [
 		{
@@ -70,8 +54,10 @@
 		return function handleColorChange(ev: CustomEvent<{ colorValue: string }>) {
 			//@ts-expect-error ts error invalid error. ignore
 			backgrounds[idx].value = ev.detail.colorValue;
+			backgrounds = backgrounds;
 		};
 	}
+
 </script>
 
 <div class="background-container">
@@ -92,7 +78,12 @@
 						</button>
 					</div>
 					{#if backgrounds[idx].type === 'color'}
-						<ButtonColor label="Select a background" on:change={handleColorChangeIdx(idx)} />
+				 		{@const bgValue = (backgrounds[idx] as any).value}
+						<ButtonColor
+							label="Select a background"
+							colorValue={bgValue}
+							on:change={handleColorChangeIdx(idx)}
+						/>
 					{:else}
 						<div class="background-image-container">
 							<div class="input-upload">

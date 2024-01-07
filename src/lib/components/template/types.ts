@@ -37,57 +37,71 @@ export interface TemplateConfig {
 			type: 'px';
 		};
 	};
+	rounded: {
+		topLeft: {
+			value: number;
+			type: 'px';
+		};
+		topRight: {
+			value: number;
+			type: 'px';
+		};
+		bottomLeft: {
+			value: number;
+			type: 'px';
+		};
+		bottomRight: {
+			value: number;
+			type: 'px';
+		};
+	};
 	border: {
 		top: {
 			strokewidth: number;
 			strokeColor: string;
+			strokeStyle: StrokeStyle;
 		};
 		bottom: {
 			strokewidth: number;
 			strokeColor: string;
+			strokeStyle: StrokeStyle;
 		};
 		left: {
 			strokewidth: number;
 			strokeColor: string;
+			strokeStyle: StrokeStyle;
 		};
 		right: {
 			strokewidth: number;
 			strokeColor: string;
+			strokeStyle: StrokeStyle;
 		};
 	};
-	background: (BackgroundColorPlain | BackgroundColorGradient | BackgroundImage)[];
-	fontFamily?: string;
-	fontColor?: string;
+	backgrounds: Background[];
+	fontFamily: string;
+	fontColor: string;
+	fontSize: {
+		value: number;
+		unit: "px" | "rem";
+	};
 }
 
-interface BackgroundColorPlain {
-	type: 'color-plain';
-	color: string;
-	opacity?: number;
-}
-
-interface BackgroundColorGradient {
-	type: 'color-gradient';
-	mode: 'linear-gradient' | 'radial-gradient';
-	colorFrom: string;
-	colorTo: string;
-	from: {
-		x: number;
-		y: number;
-	};
-	to: {
-		x: number;
-		y: number;
-	};
-	opacity: number;
+export type Background = BackgroundColor | BackgroundImage;
+interface BackgroundColor {
+	type: 'color';
+	value: string;
+	id: string;
 }
 
 interface BackgroundImage {
 	type: 'image';
-	stretch: 'cover' | 'repeat' | 'no-repeat';
 	src: string;
-	size?: {
-		width: number;
-		height: number;
+	mode: 'repeat' | 'cover';
+	pos: {
+		x: number;
+		y: number;
 	};
+	id: string;
 }
+
+export type StrokeStyle = "dotted" | "dashed" | "solid" | "double" | "groove" | "ridge" | "inset" | "outset";

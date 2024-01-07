@@ -1,11 +1,11 @@
 <script lang="ts" context="module">
 	export type InputType = 'color' | 'input' | 'stroke';
-	export type Stroke = 'solid' | 'dashed' | 'dotted' | 'none';
+	import type { StrokeStyle } from '../types';
 
 	export type EventOnChange =
 		| { event: any; type: 'color'; value: string }
 		| { event: any; type: 'input'; value: number }
-		| { event: any; type: 'stroke'; value: Stroke };
+		| { event: any; type: 'stroke'; value: StrokeStyle };
 </script>
 
 <script lang="ts">
@@ -23,7 +23,7 @@
 
 	export let colorValue: string = '#fff';
 	export let inputValue: number = 0;
-	export let strokeValue: Stroke = 'solid';
+	export let strokeValue: StrokeStyle = 'solid';
 
 	export let dropStrokeOptions: DropOptions[] = [
 		{
@@ -37,6 +37,26 @@
 		{
 			label: 'Dotted',
 			value: 'dotted'
+		},
+		{
+			label: "double",
+			value: "Double"
+		},
+		{
+			label: "groove",
+			value: "Groove"
+		},
+		{
+			label: "ridge",
+			value: "Ridge"
+		},
+		{
+			label: "inset",
+			value: "Inset"
+		},
+		{
+			label: "outset",
+			value: "Outset"
 		},
 		{
 			label: 'None',
