@@ -15,10 +15,10 @@
 </script>
 
 <div class="checkbox-container">
-	<input type="checkbox" bind:checked id="checkbox-{id}" on:change={handleChange} />
+	<input type="checkbox" bind:checked id="{id}" on:change={handleChange} />
 	{#if hasLabel && label}
 		<slot name="label">
-			<label for="checkbox-{id}">{label}</label>
+			<label for="{id}">{label}</label>
 		</slot>
 	{/if}
 </div>
