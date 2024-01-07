@@ -12,6 +12,7 @@
 	let aspectRatio = 1 / 1.41; // A4 sheet
 	let style: string = '';
 	let styleBackground: string = "";
+	let styleMargin: string = "";
 
 	onMount(() => {
 		updateStyle();
@@ -27,15 +28,16 @@
 
 		let styleArr: string[] = [];
 		let styleBackgroundArr: string[] = [];
+		let styleMarginArr: string[] = [];
 		// let style
-		styleArr.push(`margin-top:${templateConfig.margin.top.value}${templateConfig.margin.top.type}`);
-		styleArr.push(
+		styleMarginArr.push(`margin-top:${templateConfig.margin.top.value}${templateConfig.margin.top.type}`);
+		styleMarginArr.push(
 			`margin-bottom:${templateConfig.margin.bottom.value}${templateConfig.margin.bottom.type}`
 		);
-		styleArr.push(
+		styleMarginArr.push(
 			`margin-left:${templateConfig.margin.left.value}${templateConfig.margin.left.type}`
 		);
-		styleArr.push(
+		styleMarginArr.push(
 			`margin-right:${templateConfig.margin.right.value}${templateConfig.margin.right.type}`
 		);
 
@@ -80,6 +82,19 @@
 			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`
 		);
 
+		styleBackgroundArr.push(
+			`border-top-left-radius:${templateConfig.rounded.topLeft.value}${templateConfig.rounded.topLeft.type}`
+		);
+		styleBackgroundArr.push(
+			`border-top-right-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
+		);
+		styleBackgroundArr.push(
+			`border-bottom-left-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
+		);
+		styleBackgroundArr.push(
+			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`
+		);
+
 		templateConfig.backgrounds.forEach((bg, idx) => {
 			if (bg.type === 'color') {
 				styleBackgroundArr.push(`background-color:${bg.value}`);
@@ -101,12 +116,17 @@
 		
 		style = styleArr.join(';');
 		styleBackground = styleBackgroundArr.join(';');
+		styleMargin = styleMarginArr.join(";")
 	}
 </script>
 
-<div class="letter-container" style="{styleBackground};width:{resizeWidth}px;height:{resizeWidth / aspectRatio}px">
-	<div class="letter" style="scale:{resizeWidth / 780};{style}">
-		<div class="content mce-content-body">{@html body}</div>
+<div class="letter-container" style="width:{resizeWidth}px;height:{resizeWidth / aspectRatio}px">
+	<div class="background" style="scale:{resizeWidth / 780};{styleBackground}">
+		<div class="margin" style="{styleMargin}">
+		<div class="letter" style="{style}">
+			<div class="content mce-content-body">{@html body}</div>
+		</div>	
+	</div>
 	</div>
 </div>
 
@@ -115,13 +135,19 @@
 		top: 0;
 		left: 0;
 		top: 0;
-		position: sticky;
+		/* position: sticky; */
 		aspect-ratio: 1 / 1.41;
-		@apply overflow-scroll;
+		@apply overflow-hidden;
+	}
+	.background {
+		@apply relative;
+		width: 780px;
+		aspect-ratio: 1 / 1.41;
+		transform-origin: top left;
+		@apply m-0;
 	}
 	.letter {
 		@apply relative;
-		width: max-content(100%);
 		aspect-ratio: 1 / 1.41;
 		transform-origin: top left;
 		@apply m-0;
@@ -132,7 +158,7 @@
 		@apply h-full w-full;
 	}
 	.content {
-		@apply absolute;
+		/* @apply absolute; */
 		/* @apply text-black; */
 		@apply w-full;
 		@apply h-full;

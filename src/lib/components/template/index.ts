@@ -3,7 +3,7 @@ import type { TemplateConfig } from './types';
 export const blankTemplate: TemplateConfig = {
 	slug: 'blank',
 	version: '0.0.1',
-	clipOverflowContent: false,
+	clipOverflowContent: true,
 	margin: {
 		top: {
 			value: 0,
@@ -111,5 +111,57 @@ export const templateList: Record<string, TemplateConfig> = {
 			}
 		],
 		fontColor: '#fff'
+	},
+	margin: {
+		...blankTemplate,
+		slug: 'margin',
+		margin: {
+			top: {
+				value: 100,
+				type: "px"
+			},
+			bottom: {
+				value: 100,
+				type: "px"
+			},
+			left: {
+				value: 100,
+				type: "px"
+			},
+			right: {
+				value: 100,
+				type: "px"
+			}
+		},
+		border: {
+			top: {
+				strokewidth: 2,
+				strokeColor: "#000",
+				strokeStyle: "solid",
+			},
+			bottom: {
+				strokewidth: 2,
+				strokeColor: "#000",
+				strokeStyle: "solid",
+			},
+			left: {
+				strokewidth: 2,
+				strokeColor: "#000",
+				strokeStyle: "solid",
+			},
+			right: {
+				strokewidth: 2,
+				strokeColor: "#000",
+				strokeStyle: "solid",
+			}
+		},
+		backgrounds: [
+			{
+				type: 'color',
+				value: '#fff',
+				id: 'random_uuid_blank'
+			}
+		],
+		fontColor: '#000'
 	}
 };

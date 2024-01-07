@@ -1,4 +1,5 @@
 <script lang="ts">
+	import InputCheckbox from '../form/InputCheckbox.svelte';
 	import BackgroundCustomization from './CustomizationSetting/BackgroundCustomization.svelte';
 	import MarginCustomization from './CustomizationSetting/MarginCustomization.svelte';
 	import PaddingCustomization from './CustomizationSetting/PaddingCustomization.svelte';
@@ -11,9 +12,6 @@
 
 	import type { Writable } from 'svelte/store';
 	import type { TemplateConfig } from './types';
-	import TitleCustomization from './CustomizationSetting/TitleCustomization.svelte';
-	import { Checkbox } from 'bits-ui';
-	import InputCheckbox from '../form/InputCheckbox.svelte';
 
 	const templateConfigStore: Writable<TemplateConfig> = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG);
 </script>

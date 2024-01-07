@@ -148,7 +148,10 @@
 		@apply text-center;
 		@apply w-full;
 	}
-
+	.tab-body {
+		@apply overflow-y-auto overflow-hidden;
+		height: calc(100vh - 100px)
+	}
 	.templates {
 		@apply mx-auto flex w-full justify-start gap-2;
 		@apply mt-2;
