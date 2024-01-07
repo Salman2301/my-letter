@@ -69,12 +69,12 @@
 	}
 	let sectionMenu: SectionMenu[] = [
 		{
-			title: 'Content',
+			title: 'Write',
 			icon: Edit2Icon,
 			stage: '1'
 		},
 		{
-			title: 'Template',
+			title: 'Design',
 			icon: TableIcon,
 			stage: '2'
 		},
