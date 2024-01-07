@@ -12,11 +12,11 @@
 	<TitleCustomization content="Padding" textCenter={true} />
 	<InputFour
 		hasColorInput={false}
-		hasStrokeInput={false}
-		bind:topInputValue={topValue}
-		bind:leftInputValue={leftValue}
-		bind:rightInputValue={rightValue}
-		bind:bottomInputValue={bottomValue}
+		hasStrokeInput={false}		
+		bind:oneInputValue={topValue}
+		bind:twoInputValue={leftValue}
+		bind:threeInputValue={rightValue}
+		bind:fourInputValue={bottomValue}
 	/>
 </div>
 

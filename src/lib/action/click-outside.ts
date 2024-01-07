@@ -12,7 +12,6 @@ export default function clickOutside(
 
 
 	const handleOutsideClick = ({ target }: any) => {
-		console.log("click")
 		if (!node.contains(target)) cb();
 
 	};

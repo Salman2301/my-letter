@@ -13,10 +13,10 @@
 	<InputFour
 		hasColorInput={false}
 		hasStrokeInput={false}
-		bind:topInputValue={topValue}
-		bind:leftInputValue={leftValue}
-		bind:rightInputValue={rightValue}
-		bind:bottomInputValue={bottomValue}
+		bind:oneInputValue={topValue}
+		bind:twoInputValue={leftValue}
+		bind:threeInputValue={rightValue}
+		bind:fourInputValue={bottomValue}
 	/>
 </div>
 

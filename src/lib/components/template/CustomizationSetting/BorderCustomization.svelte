@@ -22,18 +22,18 @@
 <div class="border-container">
 	<TitleCustomization content="Border" />
 	<InputFour
-		bind:topInputValue={topValue}
-		bind:leftInputValue={leftValue}
-		bind:rightInputValue={rightValue}
-		bind:bottomInputValue={bottomValue}
-		bind:topColorValue
-		bind:leftColorValue
-		bind:rightColorValue
-		bind:bottomColorValue
-		bind:topStroke
-		bind:leftStroke
-		bind:rightStroke
-		bind:bottomStroke
+		bind:oneInputValue={topValue}
+		bind:twoInputValue={leftValue}
+		bind:threeInputValue={rightValue}
+		bind:fourInputValue={bottomValue}
+		bind:oneColorValue={topColorValue}
+		bind:twoColorValue={leftColorValue}
+		bind:threeColorValue={rightColorValue}
+		bind:fourColorValue={bottomColorValue}
+		bind:oneStroke={topStroke}
+		bind:twoStroke={leftStroke}
+		bind:threeStroke={rightStroke}
+		bind:fourStroke={bottomStroke}
 	/>
 </div>
 

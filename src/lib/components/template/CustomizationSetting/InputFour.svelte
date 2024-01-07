@@ -4,13 +4,15 @@
 	import LinkBroken from '$lib/components/icon/LinkBroken.svelte';
 
 	import { LinkIcon } from 'svelte-feather-icons';
+
 	import type { EventOnChange, InputType } from './InputStroke.svelte';
 	import type { StrokeStyle } from '../types';
 
 	export let inputType: InputType[] = ['color', 'input', 'stroke'];
 	export let isLinked: boolean = true;
-
-	type Position = 'top' | 'bottom' | 'left' | 'right';
+	export let corner: boolean = false;
+	
+	type Position = 'one' | 'two' | 'three' | 'four';
 	type InputUnit = 'px' | 'rem';
 
 	let defaultColorValue: string = '#000';
@@ -22,25 +24,25 @@
 	let lastValueInput: number = defaultInputValue;
 	let lastValueStroke: StrokeStyle = defaultStroke;
 
-	export let topColorValue: string = defaultColorValue;
-	export let leftColorValue: string = defaultColorValue;
-	export let rightColorValue: string = defaultColorValue;
-	export let bottomColorValue: string = defaultColorValue;
+	export let oneColorValue: string = defaultColorValue;
+	export let twoColorValue: string = defaultColorValue;
+	export let threeColorValue: string = defaultColorValue;
+	export let fourColorValue: string = defaultColorValue;
 
-	export let topInputValue: number = defaultInputValue;
-	export let leftInputValue: number = defaultInputValue;
-	export let rightInputValue: number = defaultInputValue;
-	export let bottomInputValue: number = defaultInputValue;
+	export let oneInputValue: number = defaultInputValue;
+	export let twoInputValue: number = defaultInputValue;
+	export let threeInputValue: number = defaultInputValue;
+	export let fourInputValue: number = defaultInputValue;
 
-	export let topInputUnit: InputUnit = defaultInputUnit;
-	export let leftInputUnit: InputUnit = defaultInputUnit;
-	export let rightInputUnit: InputUnit = defaultInputUnit;
-	export let bottomInputUnit: InputUnit = defaultInputUnit;
+	export let oneInputUnit: InputUnit = defaultInputUnit;
+	export let twoInputUnit: InputUnit = defaultInputUnit;
+	export let threeInputUnit: InputUnit = defaultInputUnit;
+	export let fourInputUnit: InputUnit = defaultInputUnit;
 
-	export let topStroke: StrokeStyle = defaultStroke;
-	export let leftStroke: StrokeStyle = defaultStroke;
-	export let rightStroke: StrokeStyle = defaultStroke;
-	export let bottomStroke: StrokeStyle = defaultStroke;
+	export let oneStroke: StrokeStyle = defaultStroke;
+	export let twoStroke: StrokeStyle = defaultStroke;
+	export let threeStroke: StrokeStyle = defaultStroke;
+	export let fourStroke: StrokeStyle = defaultStroke;
 
 	export let hasColorInput: boolean = true;
 	export let hasNumberInput: boolean = true;
@@ -58,121 +60,160 @@
 				lastValueStroke = value;
 			}
 
-			if (!isLinked) return;
-			if (type === 'color') {
-				topColorValue = value;
-				bottomColorValue = value;
-				leftColorValue = value;
-				rightColorValue = value;
-			}
+			if (isLinked) {
+				if (type === 'color') {
+					oneColorValue = value;
+					twoColorValue = value;
+					threeColorValue = value;
+					fourColorValue = value;
+				}
 
-			if (type === 'input') {
-				topInputValue = value;
-				bottomInputValue = value;
-				leftInputValue = value;
-				rightInputValue = value;
-			}
+				if (type === 'input') {
+					oneInputValue = value;
+					twoInputValue = value;
+					threeInputValue = value;
+					fourInputValue = value;
+				}
 
-			if (type === 'stroke') {
-				topStroke = value;
-				bottomStroke = value;
-				leftStroke = value;
-				rightStroke = value;
+				if (type === 'stroke') {
+					oneStroke = value;
+					twoStroke = value;
+					threeStroke = value;
+					fourStroke = value;
+				}
+				
+			}
+			else {
+
 			}
 		};
 	}
 
 	function handleSyncAllInputs() {
-		topColorValue = lastValueColor;
-		bottomColorValue = lastValueColor;
-		leftColorValue = lastValueColor;
-		rightColorValue = lastValueColor;
+		oneColorValue = lastValueColor;
+		twoColorValue = lastValueColor;
+		threeColorValue = lastValueColor;
+		fourColorValue = lastValueColor;
 
-		topInputValue = lastValueInput;
-		bottomInputValue = lastValueInput;
-		leftInputValue = lastValueInput;
-		rightInputValue = lastValueInput;
+		oneInputValue = lastValueInput;
+		twoInputValue = lastValueInput;
+		threeInputValue = lastValueInput;
+		fourInputValue = lastValueInput;
 
-		topStroke = lastValueStroke;
-		bottomStroke = lastValueStroke;
-		leftStroke = lastValueStroke;
-		rightStroke = lastValueStroke;
+		oneStroke = lastValueStroke;
+		twoStroke = lastValueStroke;
+		threeStroke = lastValueStroke;
+		fourStroke = lastValueStroke;
 	}
 </script>
 
-<div class="input-four-container">
-	<div class="top">
+<div class="input-four-container" class:corner={corner}>
+	<div class="one">
 		<InputStroke
 			{hasColorInput}
 			{hasNumberInput}
 			{hasStrokeInput}
-			colorValue={topColorValue}
-			inputValue={topInputValue}
-			strokeValue={topStroke}
-			on:change={handleChange('top')}
+			bind:colorValue={oneColorValue}
+			bind:inputValue={oneInputValue}
+			bind:strokeValue={oneStroke}
+			on:change={handleChange('one')}
 		/>
 	</div>
-	<div class="middle">
-		<div class="left">
-			<InputStroke
-				{hasColorInput}
-				{hasNumberInput}
-				{hasStrokeInput}
-				colorValue={leftColorValue}
-				inputValue={leftInputValue}
-				strokeValue={leftStroke}
-				on:change={handleChange('left')}
-			/>
-		</div>
-		<div class="link">
-			<IconCheckbox bind:isChecked={isLinked} on:checked={handleSyncAllInputs}>
-				<div slot="unchecked">
-					<LinkBroken size="20" />
-				</div>
-				<div slot="checked">
-					<LinkIcon size="20" />
-				</div>
-			</IconCheckbox>
-		</div>
-		<div class="right">
-			<InputStroke
-				{hasColorInput}
-				{hasNumberInput}
-				{hasStrokeInput}
-				colorValue={rightColorValue}
-				inputValue={rightInputValue}
-				strokeValue={rightStroke}
-				on:change={handleChange('right')}
-			/>
-		</div>
-	</div>
-	<div class="bottom">
+	<div class="two">
 		<InputStroke
 			{hasColorInput}
 			{hasNumberInput}
 			{hasStrokeInput}
-			colorValue={bottomColorValue}
-			inputValue={bottomInputValue}
-			strokeValue={bottomStroke}
-			on:change={handleChange('bottom')}
+			bind:colorValue={twoColorValue}
+			bind:inputValue={twoInputValue}
+			bind:strokeValue={twoStroke}
+			on:change={handleChange('two')}
+		/>
+	</div>
+	<div class="link">
+		<IconCheckbox bind:isChecked={isLinked} on:checked={handleSyncAllInputs}>
+			<div slot="unchecked">
+				<LinkBroken size="20" />
+			</div>
+			<div slot="checked">
+				<LinkIcon size="20" />
+			</div>
+		</IconCheckbox>
+	</div>
+	<div class="three">
+		<InputStroke
+			{hasColorInput}
+			{hasNumberInput}
+			{hasStrokeInput}
+			bind:colorValue={threeColorValue}
+			bind:inputValue={threeInputValue}
+			bind:strokeValue={threeStroke}
+			on:change={handleChange('three')}
+		/>
+	</div>
+	<div class="four">
+		<InputStroke
+			{hasColorInput}
+			{hasNumberInput}
+			{hasStrokeInput}
+			bind:colorValue={fourColorValue}
+			bind:inputValue={fourInputValue}
+			bind:strokeValue={fourStroke}
+			on:change={handleChange('four')}
 		/>
 	</div>
 </div>
 
 <style lang="postcss">
 	.input-four-container {
-		@apply flex flex-col;
-		@apply items-center;
-		@apply gap-y-4;
+		display: grid;
+		grid-template:
+		".      .      .      one      one       one    .      .       ." 
+		".   two   two   two        link      three      three  three      ." 
+		".      .      .      four   four    four .      .       .";
+		/* ".  .  . one ."
+		"two link three"
+		". four ."; */
+		/* grid-template: ". one ."
+		"two link three"
+		". four ."; */
+		@apply gap-2;
 		@apply w-full;
+	}
+	.input-four-container.corner {
+		grid-template: 
+		"one . three"
+		". link ."
+		"two . four"
 	}
 	.middle {
 		@apply flex justify-between;
 		@apply w-full;
 	}
 
-	.top,
-	.bottom {
+	.one,
+	.four {
 		@apply flex justify-center;
+	}
+
+	.one {
+	  grid-area: one;
+	}
+	.four {
+	  grid-area: four;
+	}
+	.link {
+	  grid-area: link;
+	  align-self: center;
+    justify-self: center;
+		
+    min-width: 40px;
+		@apply flex items-center justify-center;
+	}
+	.two {
+	  grid-area: two;
+	}
+	.three {
+	  grid-area: three;
 	}
 </style>

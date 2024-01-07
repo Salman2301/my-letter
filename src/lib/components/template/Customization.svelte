@@ -52,10 +52,10 @@
 		bind:bottomStroke={$templateConfigStore.border.bottom.strokeStyle}
 	/>
 	<RoundedCustomization
-		bind:topValue={$templateConfigStore.rounded.topLeft.value}
-		bind:leftValue={$templateConfigStore.rounded.topRight.value}
-		bind:rightValue={$templateConfigStore.rounded.bottomLeft.value}
-		bind:bottomValue={$templateConfigStore.rounded.bottomRight.value}
+		bind:topLeftValue={$templateConfigStore.rounded.topLeft.value}
+		bind:topRightValue={$templateConfigStore.rounded.topRight.value}
+		bind:bottomLeftValue={$templateConfigStore.rounded.bottomLeft.value}
+		bind:bottomRightValue={$templateConfigStore.rounded.bottomRight.value}
 	/>
 </div>
 

@@ -105,7 +105,7 @@
 
 <style lang="postcss">
 	.input-container {
-		@apply flex items-center;
+		@apply flex items-center justify-center;
 		@apply gap-x-1 gap-y-2;
 	}
 	.num-input {
