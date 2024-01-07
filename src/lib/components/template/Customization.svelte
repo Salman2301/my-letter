@@ -3,6 +3,7 @@
 	import MarginCustomization from './CustomizationSetting/MarginCustomization.svelte';
 	import PaddingCustomization from './CustomizationSetting/PaddingCustomization.svelte';
 	import BorderCustomization from './CustomizationSetting/BorderCustomization.svelte';
+	import RoundedCustomization from './CustomizationSetting/RoundedCustomization.svelte';
 	import FontCustomization from './CustomizationSetting/FontCustomization.svelte';
 </script>
 
@@ -15,6 +16,7 @@
 		<PaddingCustomization />
 	</div>
 	<BorderCustomization />
+	<RoundedCustomization />
 </div>
 
 <style lang="postcss">

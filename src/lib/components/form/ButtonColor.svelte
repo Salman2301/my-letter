@@ -5,6 +5,7 @@
 	export let showColorPicker: boolean = false;
 	export let label: string = 'Choose a color';
 	export let colorValue: string = '#fff';
+	
 	async function toggleColorPicker() {
 		showColorPicker = !showColorPicker;
 	}
