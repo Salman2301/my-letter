@@ -60,49 +60,51 @@
 
 <div class="section section-2">
 	<PreviewLetter {body} templateConfig={$templateConfigStore} />
-	<div class="templateList">
-		<div class="tabs">
-			<div class="tab-menu">
-				{#each tabTemplate as item}
-					<!-- svelte-ignore a11y-click-events-have-key-events -->
-					<div
-						class="tab-item"
-						on:click={() => {
-							currTab = item.id;
-						}}
-						class:active={currTab === item.id}
-						role="button"
-						tabindex="0"
-					>
-						<p>{item.title}</p>
-					</div>
-				{/each}
-			</div>
-			<div class="tab-body">
-				{#if currTab === 'template'}
-					<div class="templates">
-						{#each template as item, idx}
-							{@const checkboxId = `checkbox_${genId()}`}
-							<label for={checkboxId}>
-								<div class="card">
-									<div class="checkbox">
-										<InputCheckbox
-											id={checkboxId}
-											on:checked={() => uncheckRest(item.slug)}
-											bind:checked={template[idx].checked}
-										/>
-									</div>
-									<PreviewLetter templateConfig={item} {body} resizeWidth={200} />
-									<div class="title">{item.slug}</div>
+	
+</div>
+
+<div class="templateList">
+	<div class="tabs">
+		<div class="tab-menu">
+			{#each tabTemplate as item}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<div
+					class="tab-item"
+					on:click={() => {
+						currTab = item.id;
+					}}
+					class:active={currTab === item.id}
+					role="button"
+					tabindex="0"
+				>
+					<p>{item.title}</p>
+				</div>
+			{/each}
+		</div>
+		<div class="tab-body">
+			{#if currTab === 'template'}
+				<div class="templates">
+					{#each template as item, idx}
+						{@const checkboxId = `checkbox_${genId()}`}
+						<label for={checkboxId}>
+							<div class="card">
+								<div class="checkbox">
+									<InputCheckbox
+										id={checkboxId}
+										on:checked={() => uncheckRest(item.slug)}
+										bind:checked={template[idx].checked}
+									/>
 								</div>
-							</label>
-						{/each}
-					</div>
-				{/if}
-				{#if currTab === 'customization'}
-					<Customization />
-				{/if}
-			</div>
+								<PreviewLetter templateConfig={item} {body} resizeWidth={180} />
+								<div class="title">{item.slug}</div>
+							</div>
+						</label>
+					{/each}
+				</div>
+			{/if}
+			{#if currTab === 'customization'}
+				<Customization />
+			{/if}
 		</div>
 	</div>
 </div>
@@ -110,12 +112,17 @@
 <style lang="postcss">
 	.section-2 {
 		@apply p-2;
-		@apply flex gap-2;
+		@apply flex gap-2 justify-center;
 	}
 
 	.templateList {
-		@apply border border-secondary-foreground;
+		@apply border-l border-background;
 		@apply w-full;
+		@apply fixed right-0;
+		@apply bg-secondary;
+		@apply h-full;
+    top: 40px;
+		width: 420px;
 	}
 
 	.tab-menu {

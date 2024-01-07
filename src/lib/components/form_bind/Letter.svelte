@@ -5,11 +5,10 @@
 	import Stage3 from './Letter/Stage/Stage3.svelte';
 
 	import { supabase } from '$lib/supabase';
-	import { getContext, onMount } from 'svelte';
+	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { publicFile } from '$lib/helper';
 	import { Edit2Icon, SendIcon, TableIcon } from 'svelte-feather-icons';
-	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from '$lib/components/template/store';
 
 	import type { Tables } from '$lib/database.types';
 
