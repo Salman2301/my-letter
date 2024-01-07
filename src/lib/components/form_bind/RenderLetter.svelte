@@ -18,7 +18,8 @@
 		updateStyle();
 	});
 
-	$: if (templateConfig) {
+	let lastTemplateConfig: string | undefined = undefined;
+	$: if (templateConfig && templateConfig.slug && JSON.stringify(templateConfig) !== lastTemplateConfig) {
 		updateStyle();
 	}
 
