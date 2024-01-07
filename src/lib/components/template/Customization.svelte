@@ -42,7 +42,7 @@
 	<div class="clip-customization">
 		<InputCheckbox
 			bind:checked={$templateConfigStore.clipOverflowContent}
-			label="Remove excess content"
+			label="Clip excess content"
 		/>
 	</div>
 
