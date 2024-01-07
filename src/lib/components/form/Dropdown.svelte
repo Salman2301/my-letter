@@ -2,11 +2,12 @@
 	export type DropOptions = {
 		label: string;
 		value: string;
+		style?: Record<string, string>
 	};
 </script>
 
 <script lang="ts">
-	import { genId } from '$lib/helper';
+	import { genId, styleStr } from '$lib/helper';
 
 	import { createEventDispatcher } from 'svelte';
 
@@ -25,7 +26,11 @@
 
 <select on:change={handleChange} class="theme-{theme}" id="drop-{id}">
 	{#each options as opt}
-		<option value={opt.value} selected={opt.value === value}>
+		<option
+			value={opt.value}
+			selected={opt.value === value}
+			style={styleStr(opt.style)}
+		>
 			{opt.label}
 		</option>
 	{/each}

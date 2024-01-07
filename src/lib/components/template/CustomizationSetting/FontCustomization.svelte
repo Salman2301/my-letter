@@ -5,7 +5,7 @@
 	import defaultFont from './defaultFontList';
 	import { genId } from '$lib/helper';
 
-	let dropOpts: DropOptions[] = defaultFont;
+	let dropOpts: DropOptions[] = defaultFont.map(e=>({...e, style: {"font-family": e.label }}));
 
 	export let fontFamily: string = 'Helvetica';
 	export let fontSizeValue: number = 18;
@@ -25,7 +25,6 @@
 		<Dropdown options={dropOpts} bind:value={fontFamily} id="drop-{id}" />
 		<div class="input-font-size-px">
 			<input type="number" min="12" bind:value={fontSizeValue} class="font-input" id="input-{id}" />
-
 			<label for="input-{id}" class="suffix px">
 				{fontSizeUnit}
 			</label>

@@ -62,3 +62,8 @@ export function publicFile(bucketName: StorageBucket, fileLocation: string) {
 export function deepCopyObj<T>(obj: T): T {
 	return JSON.parse(JSON.stringify(obj));
 }
+
+export function styleStr(obj?: Record<string, string | number | null>): string {
+	if (!obj) return "";
+	return Object.entries(obj).map(([key, value])=>`${key}:${value}`).join(";")
+}
