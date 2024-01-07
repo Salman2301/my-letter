@@ -1,6 +1,7 @@
 export interface TemplateConfig {
 	version: `${string}.${string}.${string}`;
 	slug: string;
+	clipOverflowContent: boolean;
 	margin: {
 		top: {
 			value: number;

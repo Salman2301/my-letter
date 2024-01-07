@@ -3,6 +3,7 @@ import type { TemplateConfig } from './types';
 export const blankTemplate: TemplateConfig = {
 	slug: 'blank',
 	version: '0.0.1',
+	clipOverflowContent: false,
 	margin: {
 		top: {
 			value: 0,

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { blankTemplate, templateList } from '../template';
+	import { blankTemplate } from '../template';
 	import type { TemplateConfig } from '../template/types';
 
 	export let body: string = '';
@@ -95,6 +95,10 @@
 		if (templateConfig.fontFamily)
 			styleArr.push(`font-size:${templateConfig.fontSize.value}${templateConfig.fontSize.unit}`);
 
+		if( templateConfig.clipOverflowContent) {
+			styleBackgroundArr.push("overflow:hidden");
+		}
+		
 		style = styleArr.join(';');
 		styleBackground = styleBackgroundArr.join(';');
 	}
@@ -117,11 +121,11 @@
 	}
 	.letter {
 		@apply relative;
-		width: 780px;
+		width: max-content(100%);
 		aspect-ratio: 1 / 1.41;
 		transform-origin: top left;
 		@apply m-0;
-		@apply bg-white;
+		@apply border border-red-500;
 	}
 	img {
 		@apply absolute;

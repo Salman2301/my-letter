@@ -11,6 +11,9 @@
 
 	import type { Writable } from 'svelte/store';
 	import type { TemplateConfig } from './types';
+	import TitleCustomization from './CustomizationSetting/TitleCustomization.svelte';
+	import { Checkbox } from 'bits-ui';
+	import InputCheckbox from '../form/InputCheckbox.svelte';
 
 	const templateConfigStore: Writable<TemplateConfig> = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG);
 </script>
@@ -37,6 +40,14 @@
 			bind:bottomValue={$templateConfigStore.padding.bottom.value}
 		/>
 	</div>
+
+	<div class="clip-customization">
+		<InputCheckbox
+			bind:checked={$templateConfigStore.clipOverflowContent}
+			label="Remove excess content"
+		/>
+	</div>
+
 	<BorderCustomization
 		bind:topValue={$templateConfigStore.border.top.strokewidth}
 		bind:leftValue={$templateConfigStore.border.left.strokewidth}
@@ -77,5 +88,9 @@
 		height: 100px;
 		width: 2px;
 		@apply mx-2;
+	}
+
+	.clip-customization {
+		@apply my-2;
 	}
 </style>
