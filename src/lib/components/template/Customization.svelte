@@ -70,7 +70,7 @@
 
 <style lang="postcss">
 	.container {
-		@apply h-full w-full;
+		@apply w-full;
 		@apply flex flex-col;
 		@apply gap-8;
 		@apply justify-between;

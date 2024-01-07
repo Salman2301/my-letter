@@ -1,9 +1,11 @@
 <script lang="ts">
 	import clickOutside from '$lib/action/click-outside';
+	import { onMount } from "svelte";
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher();
+	let inputColorInstance: HTMLDivElement | undefined = undefined;
 
 	export let colorValue: string = '#000';
 	export let isOpen: boolean = false;
@@ -27,9 +29,25 @@
 			debouncerTimer = undefined;
 		}, 300);
 	}
+
+	let elementTop: boolean = false;
+	let elementLeft: boolean = false;
+	onMount(()=>{
+		console.log({ inputColorInstance });
+		if(!inputColorInstance || typeof window === "undefined") return;
+		const rect = inputColorInstance.getBoundingClientRect();
+		console.log(inputColorInstance.getBoundingClientRect());
+
+		elementLeft =  (window.innerWidth * 0.5) > rect.x;
+		elementTop =  (window.innerHeight * 0.5) > rect.y;
+	});
 </script>
 
-<div class="input-color" use:clickOutside={{ cb: hide }}>
+<div
+	class="input-color"
+	use:clickOutside={{ cb: hide }}
+	bind:this={inputColorInstance}
+>
 	<div class="color-input-container">
 		<button
 			class="color-input"
@@ -41,7 +59,12 @@
 		<div class="transparent"></div>
 	</div>
 
-	<div class="color-picker">
+	<div
+		class="color-picker"
+		class:element-top={elementTop}
+		class:element-left={elementLeft}
+		style="transform:translateX({elementLeft ? 0 : "-100%"}) translateY({elementTop ? "50%" : "-50%"})"
+	>
 		<ColorPicker
 			label=""
 			bind:hex={colorValue}
@@ -52,7 +75,6 @@
 			isPopup={false}
 		/>
 	</div>
-	<div class="color-picker"></div>
 </div>
 
 <style lang="postcss">
@@ -61,7 +83,7 @@
 		@apply flex items-center;
 	}
 	.color-picker {
-		@apply absolute;
+		@apply fixed;
 		z-index: 40;
 	}
 	.color-input-container {

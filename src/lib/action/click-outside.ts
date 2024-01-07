@@ -1,6 +1,6 @@
 interface ClickOutsideOption {
 	disabled?: boolean;
-	disabledOnEsc: boolean;
+	disabledOnEsc?: boolean;
 	cb: () => any;
 }
 

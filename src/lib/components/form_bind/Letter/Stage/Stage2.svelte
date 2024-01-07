@@ -62,7 +62,7 @@
 	<RenderLetter {body} templateConfig={$templateConfigStore} />
 </div>
 
-<div class="templateList">
+<div class="template-list">
 	<div class="tabs">
 		<div class="tab-menu">
 			{#each tabTemplate as item}
@@ -118,7 +118,7 @@
 		@apply flex gap-2 justify-center;
 	}
 
-	.templateList {
+	.template-list {
 		@apply border-l border-background;
 		@apply w-full;
 		@apply fixed right-0;
@@ -153,8 +153,10 @@
 	}
 	.tab-body {
 		@apply overflow-y-auto overflow-hidden;
-		height: calc(100vh - 100px)
+		height: calc(100vh - 100px);
+		/* display: table-row; This is needed for the color picker popup to show without cutting to edge */
 	}
+
 	.templates {
 		@apply mx-auto flex w-full justify-start gap-2;
 		@apply mt-2;

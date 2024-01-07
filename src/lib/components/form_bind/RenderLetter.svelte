@@ -21,6 +21,7 @@
 	let lastTemplateConfig: string | undefined = undefined;
 	$: if (templateConfig && templateConfig.slug && JSON.stringify(templateConfig) !== lastTemplateConfig) {
 		updateStyle();
+		lastTemplateConfig = JSON.stringify(templateConfig);
 	}
 
 	function updateStyle() {
