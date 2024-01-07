@@ -1,27 +1,47 @@
-let initialEnabled = true;
+interface ClickOutsideOption {
+	disabled?: boolean;
+	disabledOnEsc: boolean;
+	cb: () => any;
+}
+
+// NOTE: Can cause memory leak, Each popup create a event listener. Better to create one listener
 export default function clickOutside(
 	node: HTMLElement,
-	{ enabled, cb }: { enabled?: boolean; cb: () => any }
+	{ disabled, disabledOnEsc, cb }: ClickOutsideOption
 ) {
+
+
 	const handleOutsideClick = ({ target }: any) => {
-		if (!node.contains(target)) {
-			cb();
-		}
+		console.log("click")
+		if (!node.contains(target)) cb();
+
 	};
 
-	function update({ enabled }: any) {
-		if (enabled) {
-			window.addEventListener('click', handleOutsideClick);
-		} else {
+	const handleKeyPress = ({ code }: KeyboardEvent) => {
+		if (code === "Escape" ) cb();
+	}
+	
+	function update() {
+		if (disabled) {
 			window.removeEventListener('click', handleOutsideClick);
+		} else {
+			window.addEventListener('click', handleOutsideClick);
+		}
+
+		if (disabled || disabledOnEsc) {
+			window.removeEventListener('keydown', handleKeyPress);
+		}
+		else {
+			window.addEventListener('keydown', handleKeyPress);
 		}
 	}
 
-	update({ enabled: initialEnabled });
+	update();
 	return {
 		update,
 		destroy() {
 			window.removeEventListener('click', handleOutsideClick);
+			window.removeEventListener('keydown', handleKeyPress);
 		}
 	};
 }
