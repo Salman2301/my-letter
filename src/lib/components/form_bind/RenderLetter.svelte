@@ -13,6 +13,7 @@
 	let style: string = '';
 	let styleBackground: string = "";
 	let styleMargin: string = "";
+	let scrollBackgroundInstance: HTMLDivElement | undefined = undefined;
 
 	onMount(() => {
 		updateStyle();
@@ -112,18 +113,25 @@
 		if (templateConfig.fontFamily)
 			styleArr.push(`font-size:${templateConfig.fontSize.value}${templateConfig.fontSize.unit}`);
 
-		if( templateConfig.clipOverflowContent) {
-			styleBackgroundArr.push("overflow:hidden");
+		styleBackgroundArr.push(`overflow:${templateConfig.clipOverflowContent ? "hidden" : "auto"}`);
+		if( templateConfig.clipOverflowContent && scrollBackgroundInstance ) {
+			scrollBackgroundInstance.scrollTop = 0;
 		}
-		
 		style = styleArr.join(';');
 		styleBackground = styleBackgroundArr.join(';');
 		styleMargin = styleMarginArr.join(";")
 	}
 </script>
 
-<div class="letter-container" style="width:{resizeWidth}px;height:{resizeWidth / aspectRatio}px">
-	<div class="background" style="scale:{resizeWidth / 780};{styleBackground}">
+<div
+	class="letter-container"
+	style="width:{resizeWidth}px;min-height:{resizeWidth / aspectRatio}px"
+>
+	<div
+		class="background"
+		style="scale:{resizeWidth / 780};{styleBackground}"
+		bind:this={scrollBackgroundInstance}
+	>
 		<div class="margin" style="{styleMargin}">
 		<div class="letter" style="{style}">
 			<div class="content mce-content-body">{@html body}</div>
@@ -154,15 +162,10 @@
 		transform-origin: top left;
 		@apply m-0;
 		@apply border border-red-500;
+		@apply h-full;
 	}
 	img {
 		@apply absolute;
 		@apply h-full w-full;
-	}
-	.content {
-		/* @apply absolute; */
-		/* @apply text-black; */
-		@apply w-full;
-		@apply h-full;
 	}
 </style>
