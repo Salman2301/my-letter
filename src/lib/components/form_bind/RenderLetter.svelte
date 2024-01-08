@@ -9,16 +9,15 @@
 
 	export let resizeWidth: number = 780;
 
+	let contentHeight: number | undefined = undefined;
 	let aspectRatio = 1 / 1.41; // A4 sheet
 	let style: string = "";
 	let styleResize: string = "";
-	let styleBackground: string = "";
+	let styleBackground: string[] = [];
 	let styleMargin: string = "";
 	let scrollBackgroundInstance: HTMLDivElement | undefined = undefined;
 
-	onMount(() => {
-		updateStyle();
-	});
+	onMount(updateStyle);
 
 	let lastTemplateConfig: string | undefined = undefined;
 	$: if (templateConfig && templateConfig.slug && JSON.stringify(templateConfig) !== lastTemplateConfig) {
@@ -31,7 +30,7 @@
 		// TODO: This is running multiple times on start
 		console.log("leaking")
 		let styleArr: string[] = [];
-		let styleBackgroundArr: string[] = [];
+		let styleBackgroundArr: string[][] = [];
 		let styleMarginArr: string[] = [];
 		let styleResizeArr: string[] = [];
 		// let style
@@ -87,25 +86,26 @@
 			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`
 		);
 
-		styleBackgroundArr.push(
+		styleResizeArr.push(
 			`border-top-left-radius:${templateConfig.rounded.topLeft.value}${templateConfig.rounded.topLeft.type}`
 		);
-		styleBackgroundArr.push(
+		styleResizeArr.push(
 			`border-top-right-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
 		);
-		styleBackgroundArr.push(
+		styleResizeArr.push(
 			`border-bottom-left-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
 		);
-		styleBackgroundArr.push(
+		styleResizeArr.push(
 			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`
 		);
 
 		templateConfig.backgrounds.forEach((bg, idx) => {
+			if(!styleBackgroundArr[idx]) styleBackgroundArr[idx] = []
 			if (bg.type === 'color') {
-				styleBackgroundArr.push(`background-color:${bg.value}`);
+				styleBackgroundArr[idx].push(`background-color:${bg.value}`);
 			} else if (bg.type === 'image') {
-				styleBackgroundArr.push(`background-image: url("${bg.src}")`);
-				styleBackgroundArr.push(`background-image: url("${bg.mode}")`);
+				styleBackgroundArr[idx].push(`background-image: url("${bg.src}")`);
+				styleBackgroundArr[idx].push(`background-image: url("${bg.mode}")`);
 			}
 		});
 
@@ -121,7 +121,7 @@
 		}
 
 		style = styleArr.join(';');
-		styleBackground = styleBackgroundArr.join(';');
+		styleBackground = styleBackgroundArr.map(item=>item.join(';'));
 		styleMargin = styleMarginArr.join(";")
 		styleResize = styleResizeArr.join(";")
 	}
@@ -135,12 +135,15 @@
 		class="resize-container"
 		style="scale:{resizeWidth / 780};{styleResize}"
 		bind:this={scrollBackgroundInstance}
-	>
-		<div class="absolute w-full h-full" style="{styleBackground}"></div>
-	<!-- backgrounds -->
-		<div class="margin" style="{styleMargin}">
-			<div class="letter mce-content-body" style="{style}">{@html body}</div>	
+	>	
+		{#each styleBackground as bg }
+			<div class="absolute top-0 left-0 w-full h-full" style="{bg};height:{contentHeight}px"></div>
+		{/each}
+		
+		<div class="margin" style="{styleMargin}" bind:clientHeight={contentHeight}>
+			<div class="letter mce-content-body z-10" style="{style}">{@html body}</div>	
 		</div>
+	<!-- backgrounds -->
 	</div>
 </div>
 
@@ -156,9 +159,9 @@
 	.resize-container {
 		@apply relative;
 		width: 780px;
-		height: 100%;
-		/* aspect-ratio: 1 / 1.41; */
-		/* transform-origin: top left; */
+		/* height: 100%; */
+		aspect-ratio: 1 / 1.41;
+		transform-origin: top left;
 		@apply m-0;
 	}
 	.letter {

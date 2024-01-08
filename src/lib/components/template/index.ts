@@ -114,6 +114,7 @@ export const templateList: Record<string, TemplateConfig> = {
 	},
 	margin: {
 		...blankTemplate,
+		clipOverflowContent: false,
 		slug: 'margin',
 		margin: {
 			top: {
