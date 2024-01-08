@@ -90,15 +90,21 @@ export interface Database {
       letter: {
         Row: {
           _owner: string | null
+          anonymous: boolean | null
           body: Json | null
           contact: string | null
           created_at: string
-          delete_on_read: boolean | null
           folder: string | null
           id: string
+          is_password_protected: boolean | null
           is_publish: boolean | null
+          otp: string | null
+          paid: boolean | null
+          password_hash: string | null
           public_link: string | null
           read: boolean | null
+          read_only_once: boolean | null
+          send_otp: boolean | null
           send_via_email: string | null
           send_via_phone: string | null
           tempalte_config: Json | null
@@ -111,15 +117,21 @@ export interface Database {
         }
         Insert: {
           _owner?: string | null
+          anonymous?: boolean | null
           body?: Json | null
           contact?: string | null
           created_at?: string
-          delete_on_read?: boolean | null
           folder?: string | null
           id?: string
+          is_password_protected?: boolean | null
           is_publish?: boolean | null
+          otp?: string | null
+          paid?: boolean | null
+          password_hash?: string | null
           public_link?: string | null
           read?: boolean | null
+          read_only_once?: boolean | null
+          send_otp?: boolean | null
           send_via_email?: string | null
           send_via_phone?: string | null
           tempalte_config?: Json | null
@@ -132,15 +144,21 @@ export interface Database {
         }
         Update: {
           _owner?: string | null
+          anonymous?: boolean | null
           body?: Json | null
           contact?: string | null
           created_at?: string
-          delete_on_read?: boolean | null
           folder?: string | null
           id?: string
+          is_password_protected?: boolean | null
           is_publish?: boolean | null
+          otp?: string | null
+          paid?: boolean | null
+          password_hash?: string | null
           public_link?: string | null
           read?: boolean | null
+          read_only_once?: boolean | null
+          send_otp?: boolean | null
           send_via_email?: string | null
           send_via_phone?: string | null
           tempalte_config?: Json | null
@@ -164,6 +182,13 @@ export interface Database {
             columns: ["contact"]
             isOneToOne: false
             referencedRelation: "contact"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "letter_otp_fkey"
+            columns: ["otp"]
+            isOneToOne: false
+            referencedRelation: "otp"
             referencedColumns: ["id"]
           }
         ]
@@ -250,20 +275,20 @@ export interface Database {
         Row: {
           created_at: string
           id: string
-          ip: string | null
           letter_id: string | null
+          views: number | null
         }
         Insert: {
           created_at?: string
           id?: string
-          ip?: string | null
           letter_id?: string | null
+          views?: number | null
         }
         Update: {
           created_at?: string
           id?: string
-          ip?: string | null
           letter_id?: string | null
+          views?: number | null
         }
         Relationships: [
           {
@@ -271,6 +296,105 @@ export interface Database {
             columns: ["letter_id"]
             isOneToOne: false
             referencedRelation: "letter"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      otp: {
+        Row: {
+          created_at: string
+          id: string
+          is_expired: boolean | null
+          value: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_expired?: boolean | null
+          value?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_expired?: boolean | null
+          value?: string | null
+        }
+        Relationships: []
+      }
+      poll: {
+        Row: {
+          _owner: string | null
+          created_at: string
+          id: string
+          letter: string | null
+          poll_type: string | null
+        }
+        Insert: {
+          _owner?: string | null
+          created_at?: string
+          id?: string
+          letter?: string | null
+          poll_type?: string | null
+        }
+        Update: {
+          _owner?: string | null
+          created_at?: string
+          id?: string
+          letter?: string | null
+          poll_type?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "poll_letter_fkey"
+            columns: ["letter"]
+            isOneToOne: false
+            referencedRelation: "letter"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      poll_responses: {
+        Row: {
+          _owner: string | null
+          created_at: string
+          id: string
+          poll: string | null
+          user: string | null
+        }
+        Insert: {
+          _owner?: string | null
+          created_at?: string
+          id?: string
+          poll?: string | null
+          user?: string | null
+        }
+        Update: {
+          _owner?: string | null
+          created_at?: string
+          id?: string
+          poll?: string | null
+          user?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "poll_responses__owner_fkey"
+            columns: ["_owner"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "poll_responses_poll_fkey"
+            columns: ["poll"]
+            isOneToOne: false
+            referencedRelation: "poll"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "poll_responses_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
             referencedColumns: ["id"]
           }
         ]
@@ -303,6 +427,7 @@ export interface Database {
           email: string | null
           first_name: string | null
           id: string
+          is_admin: boolean | null
           last_name: string | null
           nick_name: string | null
           phone: string | null
@@ -314,6 +439,7 @@ export interface Database {
           email?: string | null
           first_name?: string | null
           id?: string
+          is_admin?: boolean | null
           last_name?: string | null
           nick_name?: string | null
           phone?: string | null
@@ -325,6 +451,7 @@ export interface Database {
           email?: string | null
           first_name?: string | null
           id?: string
+          is_admin?: boolean | null
           last_name?: string | null
           nick_name?: string | null
           phone?: string | null
