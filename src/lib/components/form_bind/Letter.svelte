@@ -20,24 +20,6 @@
 <h2>heading2</h2>
 <h3>heading3</h3>
 <p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
-<p>para</p>
 <ol>
 <li>Order list</li>
 <li>Order list 2</li>
@@ -61,7 +43,7 @@
 	export let isEditMode: boolean = false;
 	export let editId: string = '';
 	export let isLoading: boolean = true;
-	export let stage: Stage = '2';
+	export let stage: Stage = '3';
 
 	onMount(async () => {
 		if (isEditMode && editId) {
@@ -150,7 +132,7 @@
 			<Stage3 />
 		{/if}
 
-		<div class="action">
+		<div class="action" class:hide={stage === "3"}>
 			<Button label="Prev" on:click={handlePrev} disabled={stage === '1'} />
 			<Button label="Next" on:click={handleNext} disabled={stage === '3'} />
 		</div>
@@ -197,5 +179,8 @@
 	.action {
 		@apply flex justify-center gap-8;
 		@apply pb-2;
+	}
+	.action.hide {
+		@apply hidden;
 	}
 </style>
