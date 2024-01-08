@@ -27,4 +27,7 @@
 	.checkbox-container {
 		@apply flex gap-2 items-center;
 	}
+	label {
+		@apply select-none;
+	}
 </style>

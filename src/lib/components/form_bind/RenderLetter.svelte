@@ -10,7 +10,8 @@
 	export let resizeWidth: number = 780;
 
 	let aspectRatio = 1 / 1.41; // A4 sheet
-	let style: string = '';
+	let style: string = "";
+	let styleResize: string = "";
 	let styleBackground: string = "";
 	let styleMargin: string = "";
 	let scrollBackgroundInstance: HTMLDivElement | undefined = undefined;
@@ -32,16 +33,17 @@
 		let styleArr: string[] = [];
 		let styleBackgroundArr: string[] = [];
 		let styleMarginArr: string[] = [];
+		let styleResizeArr: string[] = [];
 		// let style
-		styleMarginArr.push(`margin-top:${templateConfig.margin.top.value}${templateConfig.margin.top.type}`);
+		styleMarginArr.push(`padding-top:${templateConfig.margin.top.value}${templateConfig.margin.top.type}`);
 		styleMarginArr.push(
-			`margin-bottom:${templateConfig.margin.bottom.value}${templateConfig.margin.bottom.type}`
+			`padding-bottom:${templateConfig.margin.bottom.value}${templateConfig.margin.bottom.type}`
 		);
 		styleMarginArr.push(
-			`margin-left:${templateConfig.margin.left.value}${templateConfig.margin.left.type}`
+			`padding-left:${templateConfig.margin.left.value}${templateConfig.margin.left.type}`
 		);
 		styleMarginArr.push(
-			`margin-right:${templateConfig.margin.right.value}${templateConfig.margin.right.type}`
+			`padding-right:${templateConfig.margin.right.value}${templateConfig.margin.right.type}`
 		);
 
 		styleArr.push(
@@ -113,13 +115,15 @@
 		if (templateConfig.fontFamily)
 			styleArr.push(`font-size:${templateConfig.fontSize.value}${templateConfig.fontSize.unit}`);
 
-		styleBackgroundArr.push(`overflow:${templateConfig.clipOverflowContent ? "hidden" : "auto"}`);
+		styleResizeArr.push(`overflow:${templateConfig.clipOverflowContent ? "hidden" : "auto"}`);
 		if( templateConfig.clipOverflowContent && scrollBackgroundInstance ) {
 			scrollBackgroundInstance.scrollTop = 0;
 		}
+
 		style = styleArr.join(';');
 		styleBackground = styleBackgroundArr.join(';');
 		styleMargin = styleMarginArr.join(";")
+		styleResize = styleResizeArr.join(";")
 	}
 </script>
 
@@ -128,15 +132,15 @@
 	style="width:{resizeWidth}px;min-height:{resizeWidth / aspectRatio}px"
 >
 	<div
-		class="background"
-		style="scale:{resizeWidth / 780};{styleBackground}"
+		class="resize-container"
+		style="scale:{resizeWidth / 780};{styleResize}"
 		bind:this={scrollBackgroundInstance}
 	>
+		<div class="absolute w-full h-full" style="{styleBackground}"></div>
+	<!-- backgrounds -->
 		<div class="margin" style="{styleMargin}">
-		<div class="letter" style="{style}">
-			<div class="content mce-content-body">{@html body}</div>
-		</div>	
-	</div>
+			<div class="letter mce-content-body" style="{style}">{@html body}</div>	
+		</div>
 	</div>
 </div>
 
@@ -149,11 +153,12 @@
 		aspect-ratio: 1 / 1.41;
 		@apply overflow-hidden;
 	}
-	.background {
+	.resize-container {
 		@apply relative;
 		width: 780px;
-		aspect-ratio: 1 / 1.41;
-		transform-origin: top left;
+		height: 100%;
+		/* aspect-ratio: 1 / 1.41; */
+		/* transform-origin: top left; */
 		@apply m-0;
 	}
 	.letter {
