@@ -89,6 +89,7 @@
 	.color-input-container {
 		@apply relative;
 		@apply h-5 w-5;
+		@apply flex;
 	}
 	.color-input {
 		@apply h-5 w-5 rounded-full;
