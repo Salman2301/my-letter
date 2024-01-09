@@ -1,0 +1,28 @@
+<script lang="ts">
+	import InputFour from './InputFour.svelte';
+	import TitleCustomization from './TitleCustomization.svelte';
+
+	export let topLeftValue: number = 0;
+	export let topRightValue: number = 0;
+	export let bottomLeftValue: number = 0;
+	export let bottomRightValue: number = 0;
+</script>
+
+<div class="rounded-container">
+	<TitleCustomization content="Rounded corner" />
+	<InputFour
+		hasColorInput={false}
+		hasStrokeInput={false}
+		corner={true}
+		bind:oneInputValue={topLeftValue}
+		bind:twoInputValue={topRightValue}
+		bind:threeInputValue={bottomLeftValue}
+		bind:fourInputValue={bottomRightValue}
+	/>
+</div>
+
+<style lang="postcss">
+	.rounded-container {
+		@apply h-full w-full;
+	}
+</style>
