@@ -2,7 +2,7 @@
 	import Input from '$lib/components/form/Input.svelte';
 	import ImageInput from '$lib/components/form/ImageInput.svelte';
 	import FormContainer from '$lib/components/form/FormContainer.svelte';
-	import { supabase } from '$lib/supabase';
+	import { supabase } from '$lib/module/supabase';
 	import { onMount } from 'svelte';
 
 	import type { Tables } from '$lib/database.types';

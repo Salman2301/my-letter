@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Button from '../../button/Button.svelte';
+	import Button from '$lib/components/button/Button.svelte';
 	import Stage1 from './Stage/Stage1.svelte';
 	import Stage2 from './Stage/Stage2.svelte';
 	import Stage3 from './Stage/Stage3.svelte';
 
-	import { supabase } from '$lib/supabase';
+	import { supabase } from '$lib/module/supabase';
 	import { onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { Edit2Icon, SendIcon, TableIcon } from 'svelte-feather-icons';
@@ -35,10 +35,10 @@
 		isLoading = false;
 	});
 
-	onDestroy(()=>{
+	onDestroy(() => {
 		// TODO: Check if the initial object is changed from the current object show a alert before user unloading the page
 		$letterObj = deepCopyObj(initNewLetterObj);
-	})
+	});
 
 	interface SectionMenu {
 		title: string;
@@ -111,7 +111,7 @@
 			<Stage3 />
 		{/if}
 
-		<div class="action" class:hide={stage === "3"}>
+		<div class="action" class:hide={stage === '3'}>
 			<Button label="Prev" on:click={handlePrev} disabled={stage === '1'} />
 			<Button label="Next" on:click={handleNext} disabled={stage === '3'} />
 		</div>

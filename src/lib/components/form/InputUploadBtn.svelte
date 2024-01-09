@@ -2,7 +2,7 @@
 	import Loader from '../Loader.svelte';
 	import { v4 as uuid } from 'uuid';
 	import { setSignedUrl } from '$lib/module/storage';
-	import { supabase } from '$lib/supabase';
+	import { supabase } from '$lib/module/supabase';
 	import { UploadIcon } from 'svelte-feather-icons';
 	import { createEventDispatcher } from 'svelte';
 	import { genId } from '$lib/helper';

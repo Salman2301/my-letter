@@ -4,7 +4,7 @@
 	import { showSidebar } from '$lib/components/sidebar/store';
 
 	import { goto } from '$app/navigation';
-	import { supabase } from '$lib/supabase';
+	import { supabase } from '$lib/module/supabase';
 	import { onMount } from 'svelte';
 
 	onMount(async () => {

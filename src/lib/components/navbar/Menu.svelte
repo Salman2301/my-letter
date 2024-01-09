@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { env } from '$env/dynamic/public';
 	import { slide } from 'svelte/transition';
-	import { supabase } from '$lib/supabase';
+	import { supabase } from '$lib/module/supabase';
 	import clickOutside from '$lib/action/click-outside';
 	import { page } from '$app/stores';
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Tiny from '$lib/components/editor/Tiny.svelte';
 	import Input from '$lib/components/form/Input.svelte';
-	import RenderLetter from '../../RenderLetter.svelte';
+	import RenderLetter from '$lib/components/render/RenderLetter.svelte';
 	import { letterObj } from '$lib/components/form_bind/Letter/store';
 
 		

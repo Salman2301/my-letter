@@ -1,7 +1,7 @@
 <script lang="ts">
 	import InputCheckbox from '$lib/components/form/InputCheckbox.svelte';
-	import Customization from '$lib/components/template/Customization.svelte';
-	import RenderLetter from '../../RenderLetter.svelte';
+	import Customization from './CustomizationPanel/Customization.svelte';
+	import RenderLetter from '$lib/components/render/RenderLetter.svelte';
 
 	import { letterObj } from '$lib/components/form_bind/Letter/store';
 	import { templateList } from '$lib/components/template';

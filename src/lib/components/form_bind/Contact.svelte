@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Input from '$lib/components/form/Input.svelte';
 	import FormContainer from '$lib/components/form/FormContainer.svelte';
-	import ImageInput from '../form/ImageInput.svelte';
+	import ImageInput from '$lib/components/form/ImageInput.svelte';
 
 	import { goto } from '$app/navigation';
-	import { supabase } from '$lib/supabase';
+	import { supabase } from '$lib/module/supabase';
 	import { onMount } from 'svelte';
 
 	import type { Tables } from '$lib/database.types';

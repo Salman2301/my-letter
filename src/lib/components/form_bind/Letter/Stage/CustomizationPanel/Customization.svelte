@@ -1,11 +1,11 @@
 <script lang="ts">
-	import InputCheckbox from '../form/InputCheckbox.svelte';
-	import BackgroundCustomization from './CustomizationSetting/BackgroundCustomization.svelte';
-	import MarginCustomization from './CustomizationSetting/MarginCustomization.svelte';
-	import PaddingCustomization from './CustomizationSetting/PaddingCustomization.svelte';
-	import BorderCustomization from './CustomizationSetting/BorderCustomization.svelte';
-	import RoundedCustomization from './CustomizationSetting/RoundedCustomization.svelte';
-	import FontCustomization from './CustomizationSetting/FontCustomization.svelte';
+	import InputCheckbox from '$lib/components/form/InputCheckbox.svelte';
+	import BackgroundCustomization from './BackgroundCustomization.svelte';
+	import MarginCustomization from './MarginCustomization.svelte';
+	import PaddingCustomization from './PaddingCustomization.svelte';
+	import BorderCustomization from './BorderCustomization.svelte';
+	import RoundedCustomization from './RoundedCustomization.svelte';
+	import FontCustomization from './FontCustomization.svelte';
 
 	import { letterObj } from '$lib/components/form_bind/Letter/store';
 

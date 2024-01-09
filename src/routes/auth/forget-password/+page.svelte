@@ -1,9 +1,8 @@
 <script lang="ts">
 	import FormContainer from '$lib/components/form/FormContainer.svelte';
 	import Input from '$lib/components/form/Input.svelte';
-	import { supabase } from '$lib/supabase';
+	import { supabase } from '$lib/module/supabase';
 	import LinkText from '$lib/components/text/LinkText.svelte';
-	import { goto } from '$app/navigation';
 	import { env } from '$env/dynamic/public';
 
 	let form = {

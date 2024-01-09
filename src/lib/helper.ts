@@ -1,6 +1,6 @@
 import { env } from '$env/dynamic/public';
 import { asString } from '$lib/module/formatDate';
-import { supabase } from './supabase';
+import { supabase } from './module/supabase';
 
 export function genId(len?: number): string {
 	if (typeof len !== 'number') len = 6;
@@ -64,6 +64,8 @@ export function deepCopyObj<T>(obj: T): T {
 }
 
 export function styleStr(obj?: Record<string, string | number | null>): string {
-	if (!obj) return "";
-	return Object.entries(obj).map(([key, value])=>`${key}:${value}`).join(";")
+	if (!obj) return '';
+	return Object.entries(obj)
+		.map(([key, value]) => `${key}:${value}`)
+		.join(';');
 }

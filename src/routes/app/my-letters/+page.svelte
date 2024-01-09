@@ -2,7 +2,7 @@
 	import * as Table from '$lib/components/ui/table';
 	import * as Card from '$lib/components/ui/card';
 	import { onMount } from 'svelte';
-	import { supabase } from '$lib/supabase';
+	import { supabase } from '$lib/module/supabase';
 	import { LoaderIcon } from 'svelte-feather-icons';
 	import { formatDate } from '$lib/helper';
 
