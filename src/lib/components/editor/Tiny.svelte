@@ -2,7 +2,7 @@
 	import Editor from '@tinymce/tinymce-svelte';
 	import { env } from '$env/dynamic/public';
 
-	export let html: string = '';
+	export let html: string | null = '';
 	export let placeholder: string = 'Your letter body....';
 	export let readonly: boolean = false;
 

@@ -4,6 +4,12 @@
 	import Input from "$lib/components/form/Input.svelte";
 	import InputCheckbox from "$lib/components/form/InputCheckbox.svelte";
 
+  import { letterObj } from "$lib/components/form_bind/Letter/store";
+  import { getUserId, supabase } from "$lib/supabase";
+	import { goto } from "$app/navigation";
+
+	import type { Tables } from "$lib/database.types";
+
   const dropdownOptions = [
     {
       label: "Publish",
@@ -18,9 +24,18 @@
   export let selectedSendOnDate: any = new Date();
   export let isPasswordProtect: boolean = false;
   export let passwordProtected: string = "";
-
-  function handleSubmit(e: any) {
+  
+  async function handleSubmit(e: any) {
     // Save the form to supabase
+    $letterObj._owner = await getUserId();
+    
+    const { data: inserted, error } = await supabase.from("letter").insert($letterObj as unknown as Tables<"letter">);
+    if( error ) console.error(error);
+    console.log(inserted);
+
+
+    // TODO: Show a toast
+    goto("/my-letters");
   }
 </script>
 
@@ -43,11 +58,26 @@
       {#if isPasswordProtect }
         <Input bind:value={passwordProtected} type="password" label="Password"/>
       {/if}
-      <InputCheckbox label="Send email / sms to the recipient"/>
-      <InputCheckbox label="Send OTP to recipient before showing"/>
-      <InputCheckbox label="Remove the public link once the user read"/>
-      <InputCheckbox label="Send as Anonymous. (Make sure you don't include it in the letter body)"/>
-      <InputCheckbox label="Display no Ads."/>
+      <InputCheckbox
+        label="Send email / sms to the recipient"
+        bind:checked={$letterObj.alert_via_email}
+      />
+      <InputCheckbox
+        label="Send OTP to recipient before showing"
+        bind:checked={$letterObj.verify_reader}
+      />
+      <InputCheckbox
+        label="Remove the public link once the user read"
+        bind:checked={$letterObj.read_only_once}
+      />
+      <InputCheckbox
+        label="Send as Anonymous. (Make sure you don't include it in the letter body)"
+        bind:checked={$letterObj.anonymous}
+      />
+      <InputCheckbox
+        label="Display no Ads."
+        bind:checked={$letterObj.paid}
+      />
     </div>
   </FormContainer>
 </div>

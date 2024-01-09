@@ -5,7 +5,7 @@
 
 	export let id = `id-${genId()}`;
 	export let label: string = 'Label';
-	export let value: string = '';
+	export let value: string | undefined | null = '';
 	export let icon: keyof typeof iconMap | undefined = undefined;
 	export let type: 'email' | 'password' | 'text' | 'phone' = 'text';
 	export let disabled: boolean = false;

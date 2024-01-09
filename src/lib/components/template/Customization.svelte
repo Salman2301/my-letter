@@ -7,64 +7,59 @@
 	import RoundedCustomization from './CustomizationSetting/RoundedCustomization.svelte';
 	import FontCustomization from './CustomizationSetting/FontCustomization.svelte';
 
-	import { getContext } from 'svelte';
-	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from './store';
+	import { letterObj } from '$lib/components/form_bind/Letter/store';
 
-	import type { Writable } from 'svelte/store';
-	import type { TemplateConfig } from './types';
-
-	const templateConfigStore: Writable<TemplateConfig> = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG);
 </script>
 
 <div class="container">
 	<FontCustomization
-		bind:fontColor={$templateConfigStore.fontColor}
-		bind:fontFamily={$templateConfigStore.fontFamily}
-		bind:fontSizeValue={$templateConfigStore.fontSize.value}
+		bind:fontColor={$letterObj.template_config.fontColor}
+		bind:fontFamily={$letterObj.template_config.fontFamily}
+		bind:fontSizeValue={$letterObj.template_config.fontSize.value}
 	/>
-	<BackgroundCustomization bind:backgrounds={$templateConfigStore.backgrounds} />
+	<BackgroundCustomization bind:backgrounds={$letterObj.template_config.backgrounds} />
 	<div class="margin-padding">
 		<MarginCustomization
-			bind:topValue={$templateConfigStore.margin.top.value}
-			bind:leftValue={$templateConfigStore.margin.left.value}
-			bind:rightValue={$templateConfigStore.margin.right.value}
-			bind:bottomValue={$templateConfigStore.margin.bottom.value}
+			bind:topValue={$letterObj.template_config.margin.top.value}
+			bind:leftValue={$letterObj.template_config.margin.left.value}
+			bind:rightValue={$letterObj.template_config.margin.right.value}
+			bind:bottomValue={$letterObj.template_config.margin.bottom.value}
 		/>
 		<div class="divider"></div>
 		<PaddingCustomization
-			bind:topValue={$templateConfigStore.padding.top.value}
-			bind:leftValue={$templateConfigStore.padding.left.value}
-			bind:rightValue={$templateConfigStore.padding.right.value}
-			bind:bottomValue={$templateConfigStore.padding.bottom.value}
+			bind:topValue={$letterObj.template_config.padding.top.value}
+			bind:leftValue={$letterObj.template_config.padding.left.value}
+			bind:rightValue={$letterObj.template_config.padding.right.value}
+			bind:bottomValue={$letterObj.template_config.padding.bottom.value}
 		/>
 	</div>
 
 	<div class="clip-customization">
 		<InputCheckbox
-			bind:checked={$templateConfigStore.clipOverflowContent}
+			bind:checked={$letterObj.template_config.clipOverflowContent}
 			label="Clip excess content"
 		/>
 	</div>
 
 	<BorderCustomization
-		bind:topValue={$templateConfigStore.border.top.strokewidth}
-		bind:leftValue={$templateConfigStore.border.left.strokewidth}
-		bind:rightValue={$templateConfigStore.border.right.strokewidth}
-		bind:bottomValue={$templateConfigStore.border.bottom.strokewidth}
-		bind:topColorValue={$templateConfigStore.border.top.strokeColor}
-		bind:leftColorValue={$templateConfigStore.border.left.strokeColor}
-		bind:rightColorValue={$templateConfigStore.border.right.strokeColor}
-		bind:bottomColorValue={$templateConfigStore.border.bottom.strokeColor}
-		bind:topStroke={$templateConfigStore.border.top.strokeStyle}
-		bind:leftStroke={$templateConfigStore.border.left.strokeStyle}
-		bind:rightStroke={$templateConfigStore.border.right.strokeStyle}
-		bind:bottomStroke={$templateConfigStore.border.bottom.strokeStyle}
+		bind:topValue={$letterObj.template_config.border.top.strokewidth}
+		bind:leftValue={$letterObj.template_config.border.left.strokewidth}
+		bind:rightValue={$letterObj.template_config.border.right.strokewidth}
+		bind:bottomValue={$letterObj.template_config.border.bottom.strokewidth}
+		bind:topColorValue={$letterObj.template_config.border.top.strokeColor}
+		bind:leftColorValue={$letterObj.template_config.border.left.strokeColor}
+		bind:rightColorValue={$letterObj.template_config.border.right.strokeColor}
+		bind:bottomColorValue={$letterObj.template_config.border.bottom.strokeColor}
+		bind:topStroke={$letterObj.template_config.border.top.strokeStyle}
+		bind:leftStroke={$letterObj.template_config.border.left.strokeStyle}
+		bind:rightStroke={$letterObj.template_config.border.right.strokeStyle}
+		bind:bottomStroke={$letterObj.template_config.border.bottom.strokeStyle}
 	/>
 	<RoundedCustomization
-		bind:topLeftValue={$templateConfigStore.rounded.topLeft.value}
-		bind:topRightValue={$templateConfigStore.rounded.topRight.value}
-		bind:bottomLeftValue={$templateConfigStore.rounded.bottomLeft.value}
-		bind:bottomRightValue={$templateConfigStore.rounded.bottomRight.value}
+		bind:topLeftValue={$letterObj.template_config.rounded.topLeft.value}
+		bind:topRightValue={$letterObj.template_config.rounded.topRight.value}
+		bind:bottomLeftValue={$letterObj.template_config.rounded.bottomLeft.value}
+		bind:bottomRightValue={$letterObj.template_config.rounded.bottomRight.value}
 	/>
 </div>
 

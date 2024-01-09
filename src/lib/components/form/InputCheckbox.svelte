@@ -4,7 +4,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	export let checked: boolean = false;
+	export let checked: boolean | null | undefined = false;
 	export let label: string = "";
 	export let hasLabel: boolean = !!label;
 	export let id: string = `checkbox_${genId()}`;

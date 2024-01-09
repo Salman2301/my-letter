@@ -1,49 +1,23 @@
 <script lang="ts">
-	import Button from '../button/Button.svelte';
-	import Stage1 from './Letter/Stage/Stage1.svelte';
-	import Stage2 from './Letter/Stage/Stage2.svelte';
-	import Stage3 from './Letter/Stage/Stage3.svelte';
+	import Button from '../../button/Button.svelte';
+	import Stage1 from './Stage/Stage1.svelte';
+	import Stage2 from './Stage/Stage2.svelte';
+	import Stage3 from './Stage/Stage3.svelte';
 
 	import { supabase } from '$lib/supabase';
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
-	import { publicFile } from '$lib/helper';
 	import { Edit2Icon, SendIcon, TableIcon } from 'svelte-feather-icons';
 
-	import type { Tables } from '$lib/database.types';
+	import { initNewLetterObj, letterObj } from '$lib/components/form_bind/Letter/store';
+	import { deepCopyObj } from '$lib/helper';
 
 	type Stage = '1' | '2' | '3';
-
-	let form = {
-		title: '',
-		body: `<h1>heading1</h1>
-<h2>heading2</h2>
-<h3>heading3</h3>
-<p>para</p>
-<ol>
-<li>Order list</li>
-<li>Order list 2</li>
-</ol>
-<ul>
-<li style="text-align: justify;">Unorder list</li>
-<li style="text-align: justify;">Unorder list 2</li>
-</ul>
-<hr>
-<blockquote>
-<p style="text-align: justify;">This is a quote</p>
-</blockquote>
-<p style="text-align: justify;">This is a&nbsp;<strong>bold </strong><em>italic <s>strike</s>&nbsp;</em><strong><em> <s>bold</s></em></strong></p>
-<p style="text-align: justify;">To the left</p>
-<p style="text-align: center;">To the middle</p>
-<p style="text-align: right;">To the right</p>
-<p style="text-align: left;">Color <span style="background-color: rgb(224, 62, 45); color: rgb(0, 0, 0);">background red<br></span><span style="color: rgb(0, 0, 0);">Color <span style="background-color: rgb(132, 63, 161); color: rgb(236, 240, 241);">White with purple bg<br><br><br><br></span></span></p>`,
-		background: publicFile('template_background', 'blank.png')
-	} satisfies Partial<Tables<'letter'>>;
 
 	export let isEditMode: boolean = false;
 	export let editId: string = '';
 	export let isLoading: boolean = true;
-	export let stage: Stage = '3';
+	export let stage: Stage = '1';
 
 	onMount(async () => {
 		if (isEditMode && editId) {
@@ -55,11 +29,16 @@
 				return;
 			}
 
-			form = data[0] as any;
+			$letterObj = data[0] as any;
 		}
 
 		isLoading = false;
 	});
+
+	onDestroy(()=>{
+		// TODO: Check if the initial object is changed from the current object show a alert before user unloading the page
+		$letterObj = deepCopyObj(initNewLetterObj);
+	})
 
 	interface SectionMenu {
 		title: string;
@@ -125,9 +104,9 @@
 
 	<div class="stages">
 		{#if stage === '1'}
-			<Stage1 bind:body={form.body} bind:title={form.title} />
+			<Stage1 />
 		{:else if stage === '2'}
-			<Stage2 body={form.body} />
+			<Stage2 />
 		{:else if stage === '3'}
 			<Stage3 />
 		{/if}

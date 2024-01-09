@@ -3,13 +3,10 @@
 	import Customization from '$lib/components/template/Customization.svelte';
 	import RenderLetter from '../../RenderLetter.svelte';
 
+	import { letterObj } from '$lib/components/form_bind/Letter/store';
 	import { templateList } from '$lib/components/template';
 	import { deepCopyObj, genId } from '$lib/helper';
 
-	import { getContext } from 'svelte';
-	import { CONTEXT_LAYOUT_TEMPLATE_CONFIG } from '$lib/components/template/store';
-
-	import type { Writable } from 'svelte/store';
 	import type { TemplateConfig } from '$lib/components/template/types';
 
 	type TabId = 'template' | 'customization';
@@ -17,8 +14,6 @@
 		title: string;
 		id: TabId;
 	}
-
-	export let body: string = '';
 
 	export let selectedTemplateId: string = 'blank';
 
@@ -37,13 +32,11 @@
 		checked: boolean;
 	}
 
-	let templateConfigStore = getContext(CONTEXT_LAYOUT_TEMPLATE_CONFIG) as Writable<TemplateConfig>;
-
 	let template: TemplateCheck[] = Object.values(templateList).map((e) => ({
 		...e,
 		checked: false
 	}));
-	const templateIndex = template.findIndex((item) => item.slug === $templateConfigStore.slug);
+	const templateIndex = template.findIndex((item) => item.slug === $letterObj.template_config.slug);
 	template[templateIndex].checked = true;
 
 	function uncheckRest(itemId: string) {
@@ -51,7 +44,7 @@
 			item.checked = itemId === item.slug;
 			if (item.checked) {
 				selectedTemplateId = item.slug;
-				templateConfigStore.set(deepCopyObj(item));
+				$letterObj.template_config = deepCopyObj(item);
 			}
 			return item;
 		});
@@ -59,7 +52,7 @@
 </script>
 
 <div class="section section-2">
-	<RenderLetter {body} templateConfig={$templateConfigStore} />
+	<RenderLetter body={$letterObj.body}  templateConfig={$letterObj.template_config} />
 </div>
 
 <div class="template-list">
@@ -96,7 +89,7 @@
 								</div>
 								<RenderLetter
 									templateConfig={item}
-									{body}
+									body={$letterObj.body}
 									resizeWidth={180}
 								/>
 								<div class="title">{item.slug}</div>

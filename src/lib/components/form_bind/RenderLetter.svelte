@@ -3,7 +3,7 @@
 	import { blankTemplate } from '../template';
 	import type { TemplateConfig } from '../template/types';
 
-	export let body: string = '';
+	export let body: string | undefined | null = '';
 	export let selectedTemplateId: string = 'blank';
 	export let templateConfig: TemplateConfig = blankTemplate;
 
