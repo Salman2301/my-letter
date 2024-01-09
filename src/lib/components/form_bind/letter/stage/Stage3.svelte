@@ -4,7 +4,7 @@
 	import Input from '$lib/components/form/Input.svelte';
 	import InputCheckbox from '$lib/components/form/InputCheckbox.svelte';
 
-	import { letterObj } from '$lib/components/form_bind/Letter/store';
+	import { letterObj } from '$lib/components/form_bind/letter/store';
 	import { getUserId, supabase } from '$lib/module/supabase';
 	import { goto } from '$app/navigation';
 

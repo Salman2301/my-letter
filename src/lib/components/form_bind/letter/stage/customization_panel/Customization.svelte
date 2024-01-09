@@ -7,7 +7,7 @@
 	import RoundedCustomization from './RoundedCustomization.svelte';
 	import FontCustomization from './FontCustomization.svelte';
 
-	import { letterObj } from '$lib/components/form_bind/Letter/store';
+	import { letterObj } from '$lib/components/form_bind/letter/store';
 
 </script>
 

@@ -1,15 +1,15 @@
 <script lang="ts">
 	import Button from '$lib/components/button/Button.svelte';
-	import Stage1 from './Stage/Stage1.svelte';
-	import Stage2 from './Stage/Stage2.svelte';
-	import Stage3 from './Stage/Stage3.svelte';
+	import Stage1 from './stage/Stage1.svelte';
+	import Stage2 from './stage/Stage2.svelte';
+	import Stage3 from './stage/Stage3.svelte';
 
 	import { supabase } from '$lib/module/supabase';
 	import { onMount, onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { Edit2Icon, SendIcon, TableIcon } from 'svelte-feather-icons';
 
-	import { initNewLetterObj, letterObj } from '$lib/components/form_bind/Letter/store';
+	import { initNewLetterObj, letterObj } from '$lib/components/form_bind/letter/store';
 	import { deepCopyObj } from '$lib/helper';
 
 	type Stage = '1' | '2' | '3';

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import InputCheckbox from '$lib/components/form/InputCheckbox.svelte';
-	import Customization from './CustomizationPanel/Customization.svelte';
+	import Customization from './customization_panel/Customization.svelte';
 	import RenderLetter from '$lib/components/render/RenderLetter.svelte';
 
-	import { letterObj } from '$lib/components/form_bind/Letter/store';
+	import { letterObj } from '$lib/components/form_bind/letter/store';
 	import { templateList } from '$lib/components/template';
 	import { deepCopyObj, genId } from '$lib/helper';
 

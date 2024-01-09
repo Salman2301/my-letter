@@ -2,7 +2,7 @@
 	import Tiny from '$lib/components/editor/Tiny.svelte';
 	import Input from '$lib/components/form/Input.svelte';
 	import RenderLetter from '$lib/components/render/RenderLetter.svelte';
-	import { letterObj } from '$lib/components/form_bind/Letter/store';
+	import { letterObj } from '$lib/components/form_bind/letter/store';
 
 		
 	let letterTitleOptions: string[] = [
