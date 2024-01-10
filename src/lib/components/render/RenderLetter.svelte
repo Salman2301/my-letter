@@ -3,11 +3,12 @@
 	import { blankTemplate } from '../template';
 	import type { TemplateConfig } from '../template/types';
 
+	const STANDARD_WIDTH: number = 780;
+
 	export let body: string | undefined | null = '';
 	export let selectedTemplateId: string = 'blank';
 	export let templateConfig: TemplateConfig = blankTemplate;
-
-	export let resizeWidth: number = 780;
+	export let resizeWidth: number = STANDARD_WIDTH;
 
 	let contentHeight: number | undefined = undefined;
 	let aspectRatio = 1 / 1.41; // A4 sheet
@@ -135,7 +136,7 @@
 
 <div
 	class="letter-container"
-	style="width:{resizeWidth}px;min-height:{resizeWidth / aspectRatio}px"
+	style="width:{resizeWidth}px"
 >
 	<div
 		class="resize-container"
@@ -143,10 +144,10 @@
 		bind:this={scrollBackgroundInstance}
 	>
 		{#each styleBackground as bg}
-			<div class="absolute left-0 top-0 h-full w-full" style="{bg};height:{contentHeight}px"></div>
+			<div class="absolute left-0 top-0 h-full w-full" style="{bg};min-height:{contentHeight}px"></div>
 		{/each}
 
-		<div class="margin" style={styleMargin} bind:clientHeight={contentHeight}>
+		<div class="margin" style="{styleMargin};" bind:clientHeight={contentHeight}>
 			<div class="letter mce-content-body z-10" {style}>{@html body}</div>
 		</div>
 		<!-- backgrounds -->
@@ -155,17 +156,12 @@
 
 <style lang="postcss" global>
 	.letter-container {
-		top: 0;
-		left: 0;
-		top: 0;
-		/* position: sticky; */
 		aspect-ratio: 1 / 1.41;
 		@apply overflow-hidden;
 	}
 	.resize-container {
 		@apply relative;
 		width: 780px;
-		/* height: 100%; */
 		aspect-ratio: 1 / 1.41;
 		transform-origin: top left;
 		@apply m-0;
