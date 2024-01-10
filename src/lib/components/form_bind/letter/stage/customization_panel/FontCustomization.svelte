@@ -5,12 +5,16 @@
 	import defaultFont from './defaultFontList';
 	import { genId } from '$lib/helper';
 
-	let dropOpts: DropOptions[] = defaultFont.map(e=>({...e, style: {"font-family": e.label }}));
+	let dropOpts: DropOptions[] = defaultFont.map((e) => ({
+		...e,
+		style: { 'font-family': e.label }
+	}));
 
 	export let fontFamily: string = 'Helvetica';
 	export let fontSizeValue: number = 18;
 	export let fontSizeUnit: 'px' | 'rem' = 'px';
 	export let fontColor: string = '#000';
+
 	let id: string = genId();
 </script>
 

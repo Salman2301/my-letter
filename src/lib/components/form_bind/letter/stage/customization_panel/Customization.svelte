@@ -8,7 +8,6 @@
 	import FontCustomization from './FontCustomization.svelte';
 
 	import { letterObj } from '$lib/components/form_bind/letter/store';
-
 </script>
 
 <div class="container">

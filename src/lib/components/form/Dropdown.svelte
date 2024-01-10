@@ -2,7 +2,7 @@
 	export type DropOptions = {
 		label: string;
 		value: string;
-		style?: Record<string, string>
+		style?: Record<string, string>;
 	};
 </script>
 
@@ -26,11 +26,7 @@
 
 <select on:change={handleChange} class="theme-{theme}" id="drop-{id}">
 	{#each options as opt}
-		<option
-			value={opt.value}
-			selected={opt.value === value}
-			style={styleStr(opt.style)}
-		>
+		<option value={opt.value} selected={opt.value === value} style={styleStr(opt.style)}>
 			{opt.label}
 		</option>
 	{/each}

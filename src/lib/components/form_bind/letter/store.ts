@@ -1,4 +1,4 @@
-import bodyInit from '$lib/components/form_bind/Letter/Stage/body';
+import bodyInit from '$lib/components/form_bind/letter/stage/body';
 
 import { deepCopyObj } from '$lib/helper';
 import { userSession } from '$lib/module/supabase';
@@ -10,9 +10,10 @@ import type { Writable } from 'svelte/store';
 import type { TemplateConfig } from '$lib/components/template/types';
 import type { Tables } from '$lib/database.types';
 
-type LetterWithNoTemplate = Partial<Omit<Tables<'letter'>, 'template_config'>>;
+type LetterWithNoTemplate = Partial<Omit<Tables<'letter'>, 'template_config' | 'trigger_date'>>;
 export interface LetterObj extends LetterWithNoTemplate {
 	template_config: TemplateConfig;
+	trigger_date: Date | null;
 }
 
 const initTemplate = deepCopyObj(templateList['margin']);

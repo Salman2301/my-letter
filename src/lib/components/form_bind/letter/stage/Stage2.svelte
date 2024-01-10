@@ -52,7 +52,7 @@
 </script>
 
 <div class="section section-2">
-	<RenderLetter body={$letterObj.body}  templateConfig={$letterObj.template_config} />
+	<RenderLetter body={$letterObj.body} templateConfig={$letterObj.template_config} />
 </div>
 
 <div class="template-list">
@@ -87,11 +87,7 @@
 										bind:checked={template[idx].checked}
 									/>
 								</div>
-								<RenderLetter
-									templateConfig={item}
-									body={$letterObj.body}
-									resizeWidth={180}
-								/>
+								<RenderLetter templateConfig={item} body={$letterObj.body} resizeWidth={180} />
 								<div class="title">{item.slug}</div>
 							</div>
 						</label>
@@ -108,7 +104,7 @@
 <style lang="postcss">
 	.section-2 {
 		@apply p-2;
-		@apply flex gap-2 justify-center;
+		@apply flex justify-center gap-2;
 	}
 
 	.template-list {
@@ -117,7 +113,7 @@
 		@apply fixed right-0;
 		@apply bg-secondary;
 		@apply h-full;
-    top: 40px;
+		top: 40px;
 		width: 420px;
 	}
 
@@ -145,7 +141,7 @@
 		@apply w-full;
 	}
 	.tab-body {
-		@apply overflow-y-auto overflow-hidden;
+		@apply overflow-hidden overflow-y-auto;
 		height: calc(100vh - 100px);
 		/* display: table-row; This is needed for the color picker popup to show without cutting to edge */
 	}

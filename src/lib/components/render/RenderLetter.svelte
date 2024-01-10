@@ -11,16 +11,20 @@
 
 	let contentHeight: number | undefined = undefined;
 	let aspectRatio = 1 / 1.41; // A4 sheet
-	let style: string = "";
-	let styleResize: string = "";
+	let style: string = '';
+	let styleResize: string = '';
 	let styleBackground: string[] = [];
-	let styleMargin: string = "";
+	let styleMargin: string = '';
 	let scrollBackgroundInstance: HTMLDivElement | undefined = undefined;
 
 	onMount(updateStyle);
 
 	let lastTemplateConfig: string | undefined = undefined;
-	$: if (templateConfig && templateConfig.slug && JSON.stringify(templateConfig) !== lastTemplateConfig) {
+	$: if (
+		templateConfig &&
+		templateConfig.slug &&
+		JSON.stringify(templateConfig) !== lastTemplateConfig
+	) {
 		updateStyle();
 		lastTemplateConfig = JSON.stringify(templateConfig);
 	}
@@ -28,13 +32,15 @@
 	function updateStyle() {
 		style = '';
 		// TODO: This is running multiple times on start
-		console.log("leaking")
+		console.log('leaking');
 		let styleArr: string[] = [];
 		let styleBackgroundArr: string[][] = [];
 		let styleMarginArr: string[] = [];
 		let styleResizeArr: string[] = [];
 		// let style
-		styleMarginArr.push(`padding-top:${templateConfig.margin.top.value}${templateConfig.margin.top.type}`);
+		styleMarginArr.push(
+			`padding-top:${templateConfig.margin.top.value}${templateConfig.margin.top.type}`
+		);
 		styleMarginArr.push(
 			`padding-bottom:${templateConfig.margin.bottom.value}${templateConfig.margin.bottom.type}`
 		);
@@ -100,7 +106,7 @@
 		);
 
 		templateConfig.backgrounds.forEach((bg, idx) => {
-			if(!styleBackgroundArr[idx]) styleBackgroundArr[idx] = []
+			if (!styleBackgroundArr[idx]) styleBackgroundArr[idx] = [];
 			if (bg.type === 'color') {
 				styleBackgroundArr[idx].push(`background-color:${bg.value}`);
 			} else if (bg.type === 'image') {
@@ -115,15 +121,15 @@
 		if (templateConfig.fontFamily)
 			styleArr.push(`font-size:${templateConfig.fontSize.value}${templateConfig.fontSize.unit}`);
 
-		styleResizeArr.push(`overflow:${templateConfig.clipOverflowContent ? "hidden" : "auto"}`);
-		if( templateConfig.clipOverflowContent && scrollBackgroundInstance ) {
+		styleResizeArr.push(`overflow:${templateConfig.clipOverflowContent ? 'hidden' : 'auto'}`);
+		if (templateConfig.clipOverflowContent && scrollBackgroundInstance) {
 			scrollBackgroundInstance.scrollTop = 0;
 		}
 
 		style = styleArr.join(';');
-		styleBackground = styleBackgroundArr.map(item=>item.join(';'));
-		styleMargin = styleMarginArr.join(";")
-		styleResize = styleResizeArr.join(";")
+		styleBackground = styleBackgroundArr.map((item) => item.join(';'));
+		styleMargin = styleMarginArr.join(';');
+		styleResize = styleResizeArr.join(';');
 	}
 </script>
 
@@ -135,15 +141,15 @@
 		class="resize-container"
 		style="scale:{resizeWidth / 780};{styleResize}"
 		bind:this={scrollBackgroundInstance}
-	>	
-		{#each styleBackground as bg }
-			<div class="absolute top-0 left-0 w-full h-full" style="{bg};height:{contentHeight}px"></div>
+	>
+		{#each styleBackground as bg}
+			<div class="absolute left-0 top-0 h-full w-full" style="{bg};height:{contentHeight}px"></div>
 		{/each}
-		
-		<div class="margin" style="{styleMargin}" bind:clientHeight={contentHeight}>
-			<div class="letter mce-content-body z-10" style="{style}">{@html body}</div>	
+
+		<div class="margin" style={styleMargin} bind:clientHeight={contentHeight}>
+			<div class="letter mce-content-body z-10" {style}>{@html body}</div>
 		</div>
-	<!-- backgrounds -->
+		<!-- backgrounds -->
 	</div>
 </div>
 

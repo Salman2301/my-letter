@@ -12,7 +12,6 @@ export const supabase = createClient<Database>(
 export const userSession: Writable<Session | null> = writable(null);
 
 supabase.auth.onAuthStateChange((event: AuthChangeEvent, session: Session | null) => {
-	console.log('auth changed: ', event, session);
 	userSession.set(session);
 });
 

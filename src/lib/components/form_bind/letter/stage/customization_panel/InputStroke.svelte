@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
+	import type { StrokeStyle } from '$lib/components/template/types';
+
 	export type InputType = 'color' | 'input' | 'stroke';
-	import type { StrokeStyle } from '../types';
 
 	export type EventOnChange =
 		| { event: any; type: 'color'; value: string }

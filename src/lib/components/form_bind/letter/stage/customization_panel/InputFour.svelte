@@ -6,12 +6,12 @@
 	import { LinkIcon } from 'svelte-feather-icons';
 
 	import type { EventOnChange, InputType } from './InputStroke.svelte';
-	import type { StrokeStyle } from '../types';
+	import type { StrokeStyle } from '$lib/components/template/types';
 
 	export let inputType: InputType[] = ['color', 'input', 'stroke'];
 	export let isLinked: boolean = true;
 	export let corner: boolean = false;
-	
+
 	type Position = 'one' | 'two' | 'three' | 'four';
 	type InputUnit = 'px' | 'rem';
 
@@ -81,10 +81,7 @@
 					threeStroke = value;
 					fourStroke = value;
 				}
-				
-			}
-			else {
-
+			} else {
 			}
 		};
 	}
@@ -107,7 +104,7 @@
 	}
 </script>
 
-<div class="input-four-container" class:corner={corner}>
+<div class="input-four-container" class:corner>
 	<div class="one">
 		<InputStroke
 			{hasColorInput}
@@ -168,9 +165,9 @@
 	.input-four-container {
 		display: grid;
 		grid-template:
-		".      .      .      one      one       one    .      .       ." 
-		".   two   two   two        link      three      three  three      ." 
-		".      .      .      four   four    four .      .       .";
+			'.      .      .      one      one       one    .      .       .'
+			'.   two   two   two        link      three      three  three      .'
+			'.      .      .      four   four    four .      .       .';
 		/* ".  .  . one ."
 		"two link three"
 		". four ."; */
@@ -181,10 +178,10 @@
 		@apply w-full;
 	}
 	.input-four-container.corner {
-		grid-template: 
-		"one . three"
-		". link ."
-		"two . four"
+		grid-template:
+			'one . three'
+			'. link .'
+			'two . four';
 	}
 	.middle {
 		@apply flex justify-between;
@@ -197,23 +194,23 @@
 	}
 
 	.one {
-	  grid-area: one;
+		grid-area: one;
 	}
 	.four {
-	  grid-area: four;
+		grid-area: four;
 	}
 	.link {
-	  grid-area: link;
-	  align-self: center;
-    justify-self: center;
-		
-    min-width: 40px;
+		grid-area: link;
+		align-self: center;
+		justify-self: center;
+
+		min-width: 40px;
 		@apply flex items-center justify-center;
 	}
 	.two {
-	  grid-area: two;
+		grid-area: two;
 	}
 	.three {
-	  grid-area: three;
+		grid-area: three;
 	}
 </style>

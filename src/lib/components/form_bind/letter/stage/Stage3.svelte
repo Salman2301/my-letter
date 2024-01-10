@@ -1,14 +1,11 @@
 <script lang="ts">
-	import Dropdown from '$lib/components/form/Dropdown.svelte';
-	import FormContainer from '$lib/components/form/FormContainer.svelte';
 	import Input from '$lib/components/form/Input.svelte';
+	import Dropdown from '$lib/components/form/Dropdown.svelte';
+	import InputDate from '$lib/components/form/InputDate.svelte';
 	import InputCheckbox from '$lib/components/form/InputCheckbox.svelte';
+	import FormContainer from '$lib/components/form/FormContainer.svelte';
 
 	import { letterObj } from '$lib/components/form_bind/letter/store';
-	import { getUserId, supabase } from '$lib/module/supabase';
-	import { goto } from '$app/navigation';
-
-	import type { Tables } from '$lib/database.types';
 
 	const dropdownOptions = [
 		{
@@ -20,44 +17,32 @@
 			value: 'date'
 		}
 	];
-	export let sendOn: string = 'publish';
-	export let selectedSendOnDate: any = new Date();
-	export let isPasswordProtect: boolean = false;
-	export let passwordProtected: string = '';
-
-	async function handleSubmit(e: any) {
-		// Save the form to supabase
-		$letterObj._owner = await getUserId();
-
-		const { data: inserted, error } = await supabase
-			.from('letter')
-			.insert($letterObj as unknown as Tables<'letter'>);
-		if (error) console.error(error);
-		console.log(inserted);
-
-		// TODO: Show a toast
-		goto('/my-letters');
-	}
+	// export let sendOn: string = 'publish';
+	export let password: string = '';
 </script>
 
 <div class="stage-3-container">
 	<h3>Almost done!</h3>
-	<FormContainer on:submit={handleSubmit}>
+	<FormContainer on:submit>
 		<div class="form-elements">
 			<span>
 				<div class="label">Send this letter on</div>
 				<div class="dropdown-container">
-					<Dropdown options={dropdownOptions} bind:value={sendOn} />
+					<Dropdown options={dropdownOptions} bind:value={$letterObj.trigger_method} />
 				</div>
 			</span>
 
-			{#if sendOn === 'date'}
-				Date picker here
+			{#if $letterObj.trigger_method === 'date'}
+				<!-- not sure why this is erroring -->
+				<InputDate bind:value={$letterObj.trigger_date} />
 			{/if}
 
-			<InputCheckbox bind:checked={isPasswordProtect} label="Password protect this page" />
-			{#if isPasswordProtect}
-				<Input bind:value={passwordProtected} type="password" label="Password" />
+			<InputCheckbox
+				bind:checked={$letterObj.is_password_protected}
+				label="Password protect this page"
+			/>
+			{#if $letterObj.is_password_protected}
+				<Input bind:value={password} type="password" label="Password" />
 			{/if}
 			<InputCheckbox
 				label="Send email / sms to the recipient"

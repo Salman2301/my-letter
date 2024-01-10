@@ -4,13 +4,19 @@
 	import Stage2 from './stage/Stage2.svelte';
 	import Stage3 from './stage/Stage3.svelte';
 
-	import { supabase } from '$lib/module/supabase';
-	import { onMount, onDestroy } from 'svelte';
+	import { getUserId, supabase } from '$lib/module/supabase';
+	import { onMount, onDestroy, tick } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { Edit2Icon, SendIcon, TableIcon } from 'svelte-feather-icons';
 
-	import { initNewLetterObj, letterObj } from '$lib/components/form_bind/letter/store';
-	import { deepCopyObj } from '$lib/helper';
+	import {
+		initNewLetterObj,
+		letterObj,
+		type LetterObj
+	} from '$lib/components/form_bind/letter/store';
+	import { deepCopyObj, setSafeDate, sleep } from '$lib/helper';
+	import type { Tables } from '$lib/database.types';
+	import Loader from '$lib/components/Loader.svelte';
 
 	type Stage = '1' | '2' | '3';
 
@@ -18,6 +24,7 @@
 	export let editId: string = '';
 	export let isLoading: boolean = true;
 	export let stage: Stage = '1';
+	let password: string = '';
 
 	onMount(async () => {
 		if (isEditMode && editId) {
@@ -29,12 +36,39 @@
 				return;
 			}
 
-			$letterObj = data[0] as any;
+			$letterObj = setLetterObj(data[0]);
+			await tick(); // Wait for the HTML to be rendered
 		}
-
 		isLoading = false;
 	});
 
+	function setLetterObj(letterData: Tables<'letter'>): LetterObj {
+		if (!letterData) return initNewLetterObj;
+		// @ts-expect-error cast conversion
+		letterData.trigger_date = setSafeDate(letterData.trigger_date);
+		console.log(letterData.trigger_date);
+		return letterData as any as LetterObj;
+	}
+
+	async function handleSubmit() {
+		// Save the form to supabase
+		$letterObj._owner = await getUserId();
+
+		$letterObj.password_hash = getHash(password);
+		const { data: saved, error } = await supabase
+			.from('letter')
+			.upsert($letterObj as unknown as Tables<'letter'>);
+
+		if (error) console.error(error);
+
+		// TODO: Show a toast
+		goto('/app/my-letters');
+	}
+
+	function getHash(str: string) {
+		// TODO: Implement hash
+		return str;
+	}
 	onDestroy(() => {
 		// TODO: Check if the initial object is changed from the current object show a alert before user unloading the page
 		$letterObj = deepCopyObj(initNewLetterObj);
@@ -64,59 +98,61 @@
 	];
 
 	function handleNext() {
-		if (stage === '1') {
-			stage = '2';
-			return;
-		}
-		if (stage === '2') {
-			stage = '3';
-			return;
-		}
+		let map = {
+			1: '2',
+			2: '3'
+		};
+		// @ts-ignore
+		stage = map[stage];
 	}
 	function handlePrev() {
-		if (stage === '3') {
-			stage = '2';
-			return;
-		}
-		if (stage === '2') {
-			stage = '1';
-			return;
-		}
+		const map = {
+			3: '2',
+			2: '1'
+		};
+		// @ts-ignore
+		stage = map[stage];
 	}
 </script>
 
-<div class="container">
-	<div class="section-menu">
-		{#each sectionMenu as item}
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<div
-				class="section-item"
-				class:complete={Number(stage) >= Number(item.stage)}
-				on:click={() => (stage = item.stage)}
-				role="button"
-				tabindex="0"
-			>
-				<div class="icon"><svelte:component this={item.icon} /></div>
-				<div class="title">{item.title}</div>
-			</div>
-		{/each}
+{#if isLoading}
+	<div class="mt-40 flex w-full justify-center">
+		<Loader />
 	</div>
+{:else}
+	<div class="container">
+		<div class="section-menu">
+			{#each sectionMenu as item}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<div
+					class="section-item"
+					class:complete={Number(stage) >= Number(item.stage)}
+					on:click={() => (stage = item.stage)}
+					role="button"
+					tabindex="0"
+				>
+					<div class="icon"><svelte:component this={item.icon} /></div>
+					<div class="title">{item.title}</div>
+				</div>
+			{/each}
+		</div>
 
-	<div class="stages">
-		{#if stage === '1'}
-			<Stage1 />
-		{:else if stage === '2'}
-			<Stage2 />
-		{:else if stage === '3'}
-			<Stage3 />
-		{/if}
+		<div class="stages">
+			{#if stage === '1'}
+				<Stage1 />
+			{:else if stage === '2'}
+				<Stage2 />
+			{:else if stage === '3'}
+				<Stage3 bind:password on:submit={handleSubmit} />
+			{/if}
 
-		<div class="action" class:hide={stage === '3'}>
-			<Button label="Prev" on:click={handlePrev} disabled={stage === '1'} />
-			<Button label="Next" on:click={handleNext} disabled={stage === '3'} />
+			<div class="action" class:hide={stage === '3'}>
+				<Button label="Prev" on:click={handlePrev} disabled={stage === '1'} />
+				<Button label="Next" on:click={handleNext} disabled={stage === '3'} />
+			</div>
 		</div>
 	</div>
-</div>
+{/if}
 
 <style lang="postcss">
 	.container {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import clickOutside from '$lib/action/click-outside';
-	import { onMount } from "svelte";
+	import { onMount } from 'svelte';
 	import ColorPicker from 'svelte-awesome-color-picker';
 	import { createEventDispatcher } from 'svelte';
 
@@ -32,22 +32,16 @@
 
 	let elementTop: boolean = false;
 	let elementLeft: boolean = false;
-	onMount(()=>{
-		console.log({ inputColorInstance });
-		if(!inputColorInstance || typeof window === "undefined") return;
+	onMount(() => {
+		if (!inputColorInstance || typeof window === 'undefined') return;
 		const rect = inputColorInstance.getBoundingClientRect();
-		console.log(inputColorInstance.getBoundingClientRect());
 
-		elementLeft =  (window.innerWidth * 0.5) > rect.x;
-		elementTop =  (window.innerHeight * 0.5) > rect.y;
+		elementLeft = window.innerWidth * 0.5 > rect.x;
+		elementTop = window.innerHeight * 0.5 > rect.y;
 	});
 </script>
 
-<div
-	class="input-color"
-	use:clickOutside={{ cb: hide }}
-	bind:this={inputColorInstance}
->
+<div class="input-color" use:clickOutside={{ cb: hide }} bind:this={inputColorInstance}>
 	<div class="color-input-container">
 		<button
 			class="color-input"
@@ -63,7 +57,9 @@
 		class="color-picker"
 		class:element-top={elementTop}
 		class:element-left={elementLeft}
-		style="transform:translateX({elementLeft ? 0 : "-100%"}) translateY({elementTop ? "50%" : "-50%"})"
+		style="transform:translateX({elementLeft ? 0 : '-100%'}) translateY({elementTop
+			? '50%'
+			: '-50%'})"
 	>
 		<ColorPicker
 			label=""

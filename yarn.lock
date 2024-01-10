@@ -978,6 +978,11 @@ date-format@^4.0.14:
   resolved "https://registry.yarnpkg.com/date-format/-/date-format-4.0.14.tgz#7a8e584434fb169a521c8b7aa481f355810d9400"
   integrity sha512-39BOQLs9ZjKh0/patS9nrT8wc3ioX3/eA/zgbKNopnF2wCqJEoxywwwElATYvRsXdnOxA/OQeQoFZ3rFjVajhg==
 
+date-picker-svelte@^2.10.1:
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/date-picker-svelte/-/date-picker-svelte-2.10.1.tgz#21cb431ad2a53fd799536fa3ddceed4dfe71a039"
+  integrity sha512-z4cJ33hngSCPlxc1ERVOgRBJHQXwghJMNtQBT0Q2d3Z9IHGmoIYpViS5s9oRbivs4+TDHkIBmqd/8Ldu9xEYhw==
+
 debug@^4.1.1, debug@^4.3.1, debug@^4.3.2, debug@^4.3.4:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.4.tgz#1319f6579357f2338d3337d2cdd4914bb5dcc865"

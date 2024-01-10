@@ -119,41 +119,41 @@ export const templateList: Record<string, TemplateConfig> = {
 		margin: {
 			top: {
 				value: 100,
-				type: "px"
+				type: 'px'
 			},
 			bottom: {
 				value: 100,
-				type: "px"
+				type: 'px'
 			},
 			left: {
 				value: 100,
-				type: "px"
+				type: 'px'
 			},
 			right: {
 				value: 100,
-				type: "px"
+				type: 'px'
 			}
 		},
 		border: {
 			top: {
 				strokewidth: 2,
-				strokeColor: "#000",
-				strokeStyle: "solid",
+				strokeColor: '#000',
+				strokeStyle: 'solid'
 			},
 			bottom: {
 				strokewidth: 2,
-				strokeColor: "#000",
-				strokeStyle: "solid",
+				strokeColor: '#000',
+				strokeStyle: 'solid'
 			},
 			left: {
 				strokewidth: 2,
-				strokeColor: "#000",
-				strokeStyle: "solid",
+				strokeColor: '#000',
+				strokeStyle: 'solid'
 			},
 			right: {
 				strokewidth: 2,
-				strokeColor: "#000",
-				strokeStyle: "solid",
+				strokeColor: '#000',
+				strokeStyle: 'solid'
 			}
 		},
 		backgrounds: [

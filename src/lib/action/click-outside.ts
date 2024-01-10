@@ -9,17 +9,14 @@ export default function clickOutside(
 	node: HTMLElement,
 	{ disabled, disabledOnEsc, cb }: ClickOutsideOption
 ) {
-
-
 	const handleOutsideClick = ({ target }: any) => {
 		if (!node.contains(target)) cb();
-
 	};
 
 	const handleKeyPress = ({ code }: KeyboardEvent) => {
-		if (code === "Escape" ) cb();
-	}
-	
+		if (code === 'Escape') cb();
+	};
+
 	function update() {
 		if (disabled) {
 			window.removeEventListener('click', handleOutsideClick);
@@ -29,8 +26,7 @@ export default function clickOutside(
 
 		if (disabled || disabledOnEsc) {
 			window.removeEventListener('keydown', handleKeyPress);
-		}
-		else {
+		} else {
 			window.addEventListener('keydown', handleKeyPress);
 		}
 	}

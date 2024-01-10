@@ -1,7 +1,8 @@
 <script lang="ts">
 	import InputFour from './InputFour.svelte';
 	import TitleCustomization from './TitleCustomization.svelte';
-	import type { StrokeStyle } from '../types';
+
+	import type { StrokeStyle } from '$lib/components/template/types';
 
 	export let topValue: number = 0;
 	export let leftValue: number = 0;

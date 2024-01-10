@@ -5,9 +5,9 @@
 	import { supabase } from '$lib/module/supabase';
 	import { LoaderIcon } from 'svelte-feather-icons';
 	import { formatDate } from '$lib/helper';
+	import { goto } from '$app/navigation';
 
 	import type { Tables } from '$lib/database.types';
-	import { goto } from '$app/navigation';
 
 	let isLoading: boolean = true;
 	let letters: Tables<'letter'>[] = [];

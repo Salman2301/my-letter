@@ -3,10 +3,11 @@
 	import InputUploadBtn from '$lib/components/form/InputUploadBtn.svelte';
 	import ButtonColor from '$lib/components/form/ButtonColor.svelte';
 	import Dropdown, { type DropOptions } from '$lib/components/form/Dropdown.svelte';
+
 	import { PlusCircleIcon, Trash2Icon } from 'svelte-feather-icons';
 	import { v4 as uuid } from 'uuid';
 
-	import type { Background } from '../types';
+	import type { Background } from '$lib/components/template/types';
 
 	export let backgrounds: Background[] = [
 		{
@@ -29,7 +30,6 @@
 	function handleUploadFileIdx(idx: number) {
 		return function handleUploadFile(ev: CustomEvent<{ url: string }>) {
 			const { url } = ev.detail;
-			console.log(' upload file url : ', url);
 		};
 	}
 

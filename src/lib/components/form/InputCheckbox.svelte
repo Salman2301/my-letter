@@ -5,7 +5,7 @@
 	const dispatch = createEventDispatcher();
 
 	export let checked: boolean | null | undefined = false;
-	export let label: string = "";
+	export let label: string = '';
 	export let hasLabel: boolean = !!label;
 	export let id: string = `checkbox_${genId()}`;
 
@@ -15,17 +15,17 @@
 </script>
 
 <div class="checkbox-container">
-	<input type="checkbox" bind:checked id="{id}" on:change={handleChange} />
+	<input type="checkbox" bind:checked {id} on:change={handleChange} />
 	{#if hasLabel && label}
 		<slot name="label">
-			<label for="{id}">{label}</label>
+			<label for={id}>{label}</label>
 		</slot>
 	{/if}
 </div>
 
 <style lang="postcss">
 	.checkbox-container {
-		@apply flex gap-2 items-center;
+		@apply flex items-center gap-2;
 	}
 	label {
 		@apply select-none;

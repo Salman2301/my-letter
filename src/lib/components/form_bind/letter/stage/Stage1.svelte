@@ -4,15 +4,14 @@
 	import RenderLetter from '$lib/components/render/RenderLetter.svelte';
 	import { letterObj } from '$lib/components/form_bind/letter/store';
 
-		
 	let letterTitleOptions: string[] = [
-		"Invitation letter",
-		"Birthday letter",
-		"Love letter",
-		"Community letter",
-		"Apology letter",
-		"Proposal letter",
-		"Promotion letter",
+		'Invitation letter',
+		'Birthday letter',
+		'Love letter',
+		'Community letter',
+		'Apology letter',
+		'Proposal letter',
+		'Promotion letter'
 	];
 </script>
 
@@ -29,7 +28,7 @@
 	</div>
 
 	<div class="preview-letter">
-		<RenderLetter 
+		<RenderLetter
 			body={$letterObj.body}
 			resizeWidth={400}
 			templateConfig={$letterObj.template_config}

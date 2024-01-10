@@ -12,7 +12,7 @@
 	<TitleCustomization content="Padding" textCenter={true} />
 	<InputFour
 		hasColorInput={false}
-		hasStrokeInput={false}		
+		hasStrokeInput={false}
 		bind:oneInputValue={topValue}
 		bind:twoInputValue={leftValue}
 		bind:threeInputValue={rightValue}

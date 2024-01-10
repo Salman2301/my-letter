@@ -69,3 +69,15 @@ export function styleStr(obj?: Record<string, string | number | null>): string {
 		.map(([key, value]) => `${key}:${value}`)
 		.join(';');
 }
+
+export function setSafeDate(date: any, returnOnError = new Date()): Date | null {
+	try {
+		date = new Date(date);
+		if (date === 'Invalid Date') throw new Error(`Invalid date : ${date}`);
+		return date;
+	} catch (err) {
+		console.error(`Failed to set date: ${date}`);
+		console.error(err);
+		return returnOnError;
+	}
+}
