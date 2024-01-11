@@ -46,7 +46,6 @@
 		if (!letterData) return initNewLetterObj;
 		// @ts-expect-error cast conversion
 		letterData.trigger_date = setSafeDate(letterData.trigger_date);
-		console.log(letterData.trigger_date);
 		return letterData as any as LetterObj;
 	}
 

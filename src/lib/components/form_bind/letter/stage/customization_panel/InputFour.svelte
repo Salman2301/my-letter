@@ -128,7 +128,10 @@
 		/>
 	</div>
 	<div class="link">
-		<IconCheckbox bind:isChecked={isLinked} on:checked={handleSyncAllInputs}>
+		<IconCheckbox
+			bind:isChecked={isLinked}
+			on:change={handleSyncAllInputs}
+		>
 			<div slot="unchecked">
 				<LinkBroken size="20" />
 			</div>

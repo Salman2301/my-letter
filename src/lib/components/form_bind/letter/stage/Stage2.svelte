@@ -83,7 +83,7 @@
 								<div class="checkbox">
 									<InputCheckbox
 										id={checkboxId}
-										on:checked={() => uncheckRest(item.slug)}
+										on:change={() => uncheckRest(item.slug)}
 										bind:checked={template[idx].checked}
 									/>
 								</div>

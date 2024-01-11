@@ -1,5 +1,6 @@
 import { env } from '$env/dynamic/public';
 import { asString } from '$lib/module/formatDate';
+import type { Bucket } from './constant';
 import { supabase } from './module/supabase';
 
 export function genId(len?: number): string {
@@ -24,14 +25,24 @@ export function sleep(ms: number) {
 	});
 }
 
-export function formatDate(date: Date | string | number, format?: string) {
-	if (!(date instanceof Date)) date = new Date(date ?? null);
+export function formatDate(date?: Date | string | number | null , format?: string) {
+	if (!(date instanceof Date)) date = (date || date === 0) ? new Date(date): new Date();
 	if (!format) format = 'dd/MM/yyyy';
 
 	return asString(format, date);
 }
 
-type Bucket = 'profile_photo' | 'contact_photo';
+
+export async function getSignedImage(bucketName: Bucket, location: string) {
+	if (!location) return Promise.reject('No image uploaded');
+	// TODO: ADD CACHE FOR CONTACT PHOTO
+	const { data, error } = await supabase.storage
+		.from(bucketName)
+		.createSignedUrl(location, 60);
+
+	if (!data) return Promise.reject('Failed to get the contact image!');
+	return data.signedUrl;
+}
 
 export async function returnPhotoBlob(bucket: Bucket, fileLocation: string): Promise<string> {
 	return new Promise(async (res, rej) => {
@@ -66,7 +77,10 @@ export function deepCopyObj<T>(obj: T): T {
 export function styleStr(obj?: Record<string, string | number | null>): string {
 	if (!obj) return '';
 	return Object.entries(obj)
-		.map(([key, value]) => `${key}:${value}`)
+		.reduce((acc: string[], [key, value]) => {
+			if( value !== null && value !== undefined) acc.push(`${key}:${value}`);
+			return acc;
+		},[])
 		.join(';');
 }
 
@@ -80,4 +94,8 @@ export function setSafeDate(date: any, returnOnError = new Date()): Date | null 
 		console.error(err);
 		return returnOnError;
 	}
+}
+
+export function isSameObj(obj1: object, obj2: object) {
+	return JSON.stringify(obj1) === JSON.stringify(obj2);
 }

@@ -10,7 +10,10 @@
 	export let id: string = `checkbox_${genId()}`;
 
 	function handleChange() {
-		dispatch('checked', { checked });
+		dispatch('change', { checked });
+		if(checked) dispatch('check', { checked });
+		else  dispatch('uncheck', { checked });
+
 	}
 </script>
 
