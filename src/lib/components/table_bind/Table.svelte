@@ -99,8 +99,8 @@
               {formatDate(value, column.typeDateFormat)}
 
 						{:else if column.type === 'image'}
-
-							{#if typeof value === "string" || value === null }
+						
+							{#if typeof value === "string" && Boolean(value) }
                 {#if column.typeImageIsPrivate && column.typeImageBucketName && value}
                 
                   {#await getSignedImage(column.typeImageBucketName,  value)}

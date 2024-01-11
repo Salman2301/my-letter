@@ -64,8 +64,9 @@
 		try {
 			e?.preventDefault();
 			isSubmitting = true;
+			console.log({profileFiles})
 
-			if (profileFiles.length > 0) {
+			if (profileFiles && profileFiles.length > 0) {
 				const file = profileFiles[0];
 				const { type } = file;
 				let ext = 'png';
