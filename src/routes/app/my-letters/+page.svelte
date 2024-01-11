@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Table from '$lib/components/table_bind/Table.svelte';
-	import * as Card from '$lib/components/ui/card';
+	import Card from '$lib/components/card/Card.svelte';
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/module/supabase';
 	import { LoaderIcon } from 'svelte-feather-icons';
@@ -55,23 +55,19 @@
 			<LoaderIcon class="animate-spin" />
 		</div>
 	{:else}
-		<Card.Root>
+		<Card>
 			{#if letters.length > 0}
-				<Card.Content>
 					<Table
 						columns={columns}
 						rows={letters}
 						on:row_click={handleRowClick}
 					/>
-				</Card.Content>
 			{:else}
-				<Card.Header>
 					<a href="/app/new-letter">
 						<p>No letters found click here to create your first letter</p>
 					</a>
-				</Card.Header>
 			{/if}
-		</Card.Root>
+		</Card>
 	{/if}
 </div>
 

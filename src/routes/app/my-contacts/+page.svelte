@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Table from '$lib/components/table_bind/Table.svelte';
-	import * as Card from '$lib/components/ui/card';
+	import Card from '$lib/components/card/Card.svelte';
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/module/supabase';
-	import { LoaderIcon, PlusIcon, SlashIcon } from 'svelte-feather-icons';
+	import { LoaderIcon, PlusIcon } from 'svelte-feather-icons';
 
 	import type { Tables } from '$lib/database.types';
 	import type { Columns } from '$lib/components/table_bind/table.types';
@@ -73,22 +73,20 @@
 			</a>
 
 		</div>
-		<Card.Root>
-			{#if contacts.length > 0}
-				<Card.Content>
+		<Card>
+			{#if contacts.length===0}
+				<a href="/app/new-contact">
+					<p>No contacts found click here to create your first letter</p>
+				</a>
+			{:else}
 					<Table 
 						columns={columns}
 						rows={contacts}
 					/>
-				</Card.Content>
-			{:else}
-				<Card.Header>
-					<a href="/app/new-contact">
-						<p>No contacts found click here to create your first letter</p>
-					</a>
-				</Card.Header>
+
 			{/if}
-		</Card.Root>
+		</Card>
+
 	{/if}
 </div>
 
