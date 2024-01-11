@@ -1,10 +1,11 @@
 import type { Bucket } from "$lib/constant";
+import type { Json } from "$lib/database.types";
 
 export type Rows = Row[];
-export type Columns = Column[];
+export type Columns<T extends string> = Column<T>[];
 
-interface Column {
-  key: string;
+interface Column<T extends string> {
+  key: T;
   name: string;
   hide?: boolean;
   style?: Record<string, string>;
@@ -23,7 +24,7 @@ interface Column {
 
 }
 
-type Row = Record<string, string | null | boolean>;
+export type Row = Record<string, string | null | boolean | Json>;
 
 export interface TableSetting {
   showTableCheckbox: boolean;

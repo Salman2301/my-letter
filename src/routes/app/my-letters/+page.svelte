@@ -1,16 +1,42 @@
 <script lang="ts">
-	import * as Table from '$lib/components/ui/table';
+	import Table from '$lib/components/table_bind/Table.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/module/supabase';
 	import { LoaderIcon } from 'svelte-feather-icons';
-	import { formatDate } from '$lib/helper';
-	import { goto } from '$app/navigation';
 
 	import type { Tables } from '$lib/database.types';
+	import type { Columns } from '$lib/components/table_bind/table.types';
+	import { goto } from '$app/navigation';
 
 	let isLoading: boolean = true;
 	let letters: Tables<'letter'>[] = [];
+
+	let columns: Columns<keyof Tables<'letter'>> = [
+		{
+			key: "title",
+			name: "Title",
+		},
+		{
+			key: "created_at",
+			name: "Date",
+			type: "date",
+		},
+		{
+			key: "to",
+			name: "Contact"
+		},
+		{
+			key: "is_publish",
+			name: "Status",
+			render: (row) => row.is_publish ? "Published" : "Draft" 
+		}
+	]
+
+	function handleRowClick(event: any) {
+		const letter = event.detail.row;
+		goto(`/app/my-letter/${letter.id}`)
+	}
 
 	onMount(async () => {
 		let { data, error } = await supabase.from('letter').select('*');
@@ -32,28 +58,11 @@
 		<Card.Root>
 			{#if letters.length > 0}
 				<Card.Content>
-					<Table.Root>
-						<Table.Header>
-							<Table.Row>
-								<Table.Head>Title</Table.Head>
-								<Table.Head>Date</Table.Head>
-								<Table.Head>Contact</Table.Head>
-								<Table.Head class="text-right">Status</Table.Head>
-							</Table.Row>
-						</Table.Header>
-						<Table.Body>
-							{#each letters as letter}
-								<Table.Row on:click={() => goto(`/app/my-letter/${letter.id}`)}>
-									<Table.Cell class="font-medium">{letter.title}</Table.Cell>
-									<Table.Cell>{formatDate(letter.created_at)}</Table.Cell>
-									<Table.Cell>{letter.to || '-'}</Table.Cell>
-									<Table.Cell class="text-right"
-										>{letter.is_publish ? 'Published' : 'Draft'}</Table.Cell
-									>
-								</Table.Row>
-							{/each}
-						</Table.Body>
-					</Table.Root>
+					<Table
+						columns={columns}
+						rows={letters}
+						on:row_click={handleRowClick}
+					/>
 				</Card.Content>
 			{:else}
 				<Card.Header>

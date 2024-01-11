@@ -24,7 +24,7 @@
 		isLoading = false;
 	});
 
-	const columns: Columns = [
+	const columns: Columns<keyof Tables<'contact'>> = [
 		{
 			name: "Photo",
 			key: "photo",

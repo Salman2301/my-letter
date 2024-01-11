@@ -3,7 +3,7 @@
 	import { deepCopyObj, formatDate, getSignedImage, isSameObj, styleStr } from '$lib/helper';
 	import { createEventDispatcher } from 'svelte';
 	import { LoaderIcon, SlashIcon } from 'svelte-feather-icons';
-	import type { Columns, Rows, TableSetting } from './table.types';
+	import type { Columns, Row, Rows, TableSetting } from './table.types';
 
 	const dispatch = createEventDispatcher();
 
@@ -11,7 +11,7 @@
 		showTableCheckbox: true
 	};
 	export let rows: Rows = [];
-	export let columns: Columns = [
+	export let columns: Columns<any> = [
 		{
 			key: '',
 			name: '',
@@ -45,11 +45,15 @@
 		checkedRowState = new Array(rows.length).fill(checked);
 	}
 
-  function toggleRowIdx(idx: number) {
-    return function toggleRow() {
-      checkedRowState[idx] = !checkedRowState[idx]; 
-    }
-  }
+	function toggleRow(idx: number) {
+		checkedRowState[idx] = !checkedRowState[idx]; 
+	}
+
+	
+	function handleRowClick({ idx, row }: {idx: number, row: Row}) {
+		toggleRow(idx)
+		dispatch("row_click", { row })
+	}
 </script>
 
 <table>
@@ -81,7 +85,10 @@
 
 	<tbody>
 		{#each rows as row, idx}
-			<tr class="row body" on:click={toggleRowIdx(idx)}>
+			<tr
+				class="row body"
+				on:click={()=>handleRowClick({idx, row })}
+		>
 				{#if tableSetting.showTableCheckbox}
 					<td class="checkbox checkbox-row">
 						<InputCheckbox bind:checked={checkedRowState[idx]} />
