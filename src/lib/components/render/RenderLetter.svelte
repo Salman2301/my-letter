@@ -122,7 +122,7 @@
 		if (templateConfig.fontFamily)
 			styleArr.push(`font-size:${templateConfig.fontSize.value}${templateConfig.fontSize.unit}`);
 
-		styleResizeArr.push(`overflow:${templateConfig.clipOverflowContent ? 'hidden' : 'auto'}`);
+		styleResizeArr.push(`overflow:${templateConfig.clipOverflowContent ? 'hidden' : 'overlay'}`);
 		if (templateConfig.clipOverflowContent && scrollBackgroundInstance) {
 			scrollBackgroundInstance.scrollTop = 0;
 		}
@@ -165,6 +165,7 @@
 		aspect-ratio: 1 / 1.41;
 		transform-origin: top left;
 		@apply m-0;
+    scrollbar-gutter: stable;
 	}
 	.letter {
 		@apply relative;
