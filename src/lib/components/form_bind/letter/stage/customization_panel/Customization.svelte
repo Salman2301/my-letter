@@ -77,6 +77,11 @@
 		bind:topRightValue={$letterObj.template_config.rounded.topRight.value}
 		bind:bottomLeftValue={$letterObj.template_config.rounded.bottomLeft.value}
 		bind:bottomRightValue={$letterObj.template_config.rounded.bottomRight.value}
+		
+		bind:topLeftUnit={$letterObj.template_config.rounded.topLeft.unit}
+		bind:topRightUnit={$letterObj.template_config.rounded.topRight.unit}
+		bind:bottomLeftUnit={$letterObj.template_config.rounded.bottomLeft.unit}
+		bind:bottomRightUnit={$letterObj.template_config.rounded.bottomRight.unit}
 	/>
 </div>
 

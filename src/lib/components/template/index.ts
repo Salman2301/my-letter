@@ -82,19 +82,19 @@ export const blankTemplate: TemplateConfig = {
 	rounded: {
 		topLeft: {
 			value: 0,
-			type: 'px'
+			unit: 'px'
 		},
 		topRight: {
 			value: 0,
-			type: 'px'
+			unit: 'px'
 		},
 		bottomLeft: {
 			value: 0,
-			type: 'px'
+			unit: 'px'
 		},
 		bottomRight: {
 			value: 0,
-			type: 'px'
+			unit: 'px'
 		}
 	}
 };

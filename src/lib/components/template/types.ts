@@ -42,19 +42,19 @@ export interface TemplateConfig {
 	rounded: {
 		topLeft: {
 			value: number;
-			type: NumberCssUnit;
+			unit: NumberCssUnit;
 		};
 		topRight: {
 			value: number;
-			type: NumberCssUnit;
+			unit: NumberCssUnit;
 		};
 		bottomLeft: {
 			value: number;
-			type: NumberCssUnit;
+			unit: NumberCssUnit;
 		};
 		bottomRight: {
 			value: number;
-			type: NumberCssUnit;
+			unit: NumberCssUnit;
 		};
 	};
 	border: {

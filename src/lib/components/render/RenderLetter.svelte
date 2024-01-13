@@ -65,10 +65,18 @@
 			`padding-right:${templateConfig.padding.right.value}${templateConfig.padding.right.type}`
 		);
 
-		styleArr.push(`border-top-width:${templateConfig.border.top.strokewidth}${templateConfig.border.top.strokeUnit}`);
-		styleArr.push(`border-bottom-width:${templateConfig.border.bottom.strokewidth}${templateConfig.border.bottom.strokeUnit}`);
-		styleArr.push(`border-left-width:${templateConfig.border.left.strokewidth}${templateConfig.border.left.strokeUnit}`);
-		styleArr.push(`border-right-width:${templateConfig.border.right.strokewidth}${templateConfig.border.right.strokeUnit}`);
+		styleArr.push(
+			`border-top-width:${templateConfig.border.top.strokewidth}${templateConfig.border.top.strokeUnit}`
+		);
+		styleArr.push(
+			`border-bottom-width:${templateConfig.border.bottom.strokewidth}${templateConfig.border.bottom.strokeUnit}`
+		);
+		styleArr.push(
+			`border-left-width:${templateConfig.border.left.strokewidth}${templateConfig.border.left.strokeUnit}`
+		);
+		styleArr.push(
+			`border-right-width:${templateConfig.border.right.strokewidth}${templateConfig.border.right.strokeUnit}`
+		);
 
 		styleArr.push(`border-top-color:${templateConfig.border.top.strokeColor}`);
 		styleArr.push(`border-bottom-color:${templateConfig.border.bottom.strokeColor}`);
@@ -81,29 +89,29 @@
 		styleArr.push(`border-right-style:${templateConfig.border.right.strokeStyle}`);
 
 		styleArr.push(
-			`border-top-left-radius:${templateConfig.rounded.topLeft.value}${templateConfig.rounded.topLeft.type}`
+			`border-top-left-radius:${templateConfig.rounded.topLeft.value}${templateConfig.rounded.topLeft.unit}`
 		);
 		styleArr.push(
-			`border-top-right-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
+			`border-top-right-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.unit}`
 		);
 		styleArr.push(
-			`border-bottom-left-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
+			`border-bottom-left-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.unit}`
 		);
 		styleArr.push(
-			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`
+			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.unit}`
 		);
 
 		styleResizeArr.push(
-			`border-top-left-radius:${templateConfig.rounded.topLeft.value}${templateConfig.rounded.topLeft.type}`
+			`border-top-left-radius:${templateConfig.rounded.topLeft.value}${templateConfig.rounded.topLeft.unit}`
 		);
 		styleResizeArr.push(
-			`border-top-right-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
+			`border-top-right-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.unit}`
 		);
 		styleResizeArr.push(
-			`border-bottom-left-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.type}`
+			`border-bottom-left-radius:${templateConfig.rounded.bottomLeft.value}${templateConfig.rounded.bottomLeft.unit}`
 		);
 		styleResizeArr.push(
-			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.type}`
+			`border-bottom-right-radius:${templateConfig.rounded.bottomRight.value}${templateConfig.rounded.bottomRight.unit}`
 		);
 
 		templateConfig.backgrounds.forEach((bg, idx) => {
@@ -134,17 +142,17 @@
 	}
 </script>
 
-<div
-	class="letter-container"
-	style="width:{resizeWidth}px"
->
+<div class="letter-container" style="width:{resizeWidth}px">
 	<div
 		class="resize-container"
 		style="scale:{resizeWidth / 780};{styleResize}"
 		bind:this={scrollBackgroundInstance}
 	>
 		{#each styleBackground as bg}
-			<div class="absolute left-0 top-0 h-full w-full" style="{bg};min-height:{contentHeight}px"></div>
+			<div
+				class="absolute left-0 top-0 h-full w-full"
+				style="{bg};min-height:{contentHeight}px"
+			></div>
 		{/each}
 
 		<div class="margin" style="{styleMargin};" bind:clientHeight={contentHeight}>
@@ -165,7 +173,7 @@
 		aspect-ratio: 1 / 1.41;
 		transform-origin: top left;
 		@apply m-0;
-    scrollbar-gutter: stable;
+		scrollbar-gutter: stable;
 	}
 	.letter {
 		@apply relative;
