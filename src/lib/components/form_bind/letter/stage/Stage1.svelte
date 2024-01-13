@@ -40,6 +40,7 @@
 	.section-1 {
 		@apply flex h-full  w-full justify-center;
 		@apply gap-4;
+		@apply mx-2;
 	}
 
 	.form-content {

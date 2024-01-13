@@ -68,6 +68,7 @@
 <style lang="postcss">
 	.stage-3-container {
 		@apply py-2;
+		@apply mx-8;
 	}
 
 	h3 {

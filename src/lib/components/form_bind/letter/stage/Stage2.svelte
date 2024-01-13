@@ -12,5 +12,6 @@
 	.section-2 {
 		@apply p-2;
 		@apply flex justify-center gap-2;
+		@apply mx-2;
 	}
 </style>
