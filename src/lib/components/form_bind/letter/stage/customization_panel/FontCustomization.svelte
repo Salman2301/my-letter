@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ButtonColor from '$lib/components/form/ButtonColor.svelte';
+	import InputNumType from "$lib/components/form/InputNumType.svelte";
 	import Dropdown, { type DropOptions } from '$lib/components/form/Dropdown.svelte';
 	import TitleCustomization from './TitleCustomization.svelte';
 	import defaultFont from './defaultFontList';
@@ -28,10 +29,11 @@
 	<div class="font-style">
 		<Dropdown options={dropOpts} bind:value={fontFamily} id="drop-{id}" />
 		<div class="input-font-size-px">
-			<input type="number" min="12" bind:value={fontSizeValue} class="font-input" id="input-{id}" />
-			<label for="input-{id}" class="suffix px">
-				{fontSizeUnit}
-			</label>
+			<InputNumType
+				bind:value={fontSizeValue}
+				bind:unitLabel={fontSizeUnit}
+				availableUnits={['px','rem']}
+			/>
 		</div>
 	</div>
 </div>

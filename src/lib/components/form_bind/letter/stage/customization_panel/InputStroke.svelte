@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-	import InputNumType from './InputNumType.svelte';
+	import InputNumType from '../../../../form/InputNumType.svelte';
 	import type { NumberCssUnit, StrokeStyle } from '$lib/components/template/types';
 
 	export type InputType = 'color' | 'input' | 'stroke';

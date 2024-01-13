@@ -15,6 +15,7 @@
 		bind:fontColor={$letterObj.template_config.fontColor}
 		bind:fontFamily={$letterObj.template_config.fontFamily}
 		bind:fontSizeValue={$letterObj.template_config.fontSize.value}
+		bind:fontSizeUnit={$letterObj.template_config.fontSize.unit}
 	/>
 	<BackgroundCustomization bind:backgrounds={$letterObj.template_config.backgrounds} />
 	<div class="margin-padding">

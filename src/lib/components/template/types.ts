@@ -88,7 +88,7 @@ export interface TemplateConfig {
 	fontColor: string;
 	fontSize: {
 		value: number;
-		unit: NumberCssUnit;
+		unit: "px" | "rem";
 	};
 }
 

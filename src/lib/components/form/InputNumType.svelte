@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { NumberCssUnit } from '$lib/components/template/types';
 	import { createEventDispatcher } from 'svelte';
+	import type { NumberCssUnit } from '$lib/components/template/types';
 
 	export let value: number = 0;
 	export let availableUnits: NumberCssUnit[] = ['px', 'rem', '%'];
