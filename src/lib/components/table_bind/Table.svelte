@@ -4,6 +4,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import { LoaderIcon, SlashIcon } from 'svelte-feather-icons';
 	import type { Columns, Row, Rows, TableSetting } from './table.types';
+	import type { Mouse } from '@playwright/test';
 
 	const dispatch = createEventDispatcher();
 
@@ -50,11 +51,22 @@
 	}
 
 	
-	function handleRowClick({ idx, row }: {idx: number, row: Row}) {
-		toggleRow(idx)
-		dispatch("row_click", { row })
+	function handleRowClick({ idx, row, event }: {idx: number, row: Row, event: MouseEvent}) {
+		console.log("t ", event.currentTarget, event.target)
+		console.log("f", event.target.firstChild.children[1] )
+		console.log({ event });
+		// toggleRow(idx)
+		// dispatch("row_click", { row, idx })
 	}
 </script>
+
+<svelte:head>
+	<style>
+		*:hover {
+			@apply outline outline-white;
+		}
+	</style>
+</svelte:head>
 
 <table>
 	<thead>
@@ -87,10 +99,10 @@
 		{#each rows as row, idx}
 			<tr
 				class="row body"
-				on:click={()=>handleRowClick({idx, row })}
-		>
+				on:click={(event)=>handleRowClick({idx, row, event})}
+			>
 				{#if tableSetting.showTableCheckbox}
-					<td class="checkbox checkbox-row">
+					<td class="checkbox checkbox-row" >
 						<InputCheckbox bind:checked={checkedRowState[idx]} />
 					</td>
 				{/if}

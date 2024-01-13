@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+	import InputNumType, { type TypeLabel } from "./InputNumType.svelte";
 	import type { StrokeStyle } from '$lib/components/template/types';
 
 	export type InputType = 'color' | 'input' | 'stroke';
@@ -24,6 +25,7 @@
 
 	export let colorValue: string = '#fff';
 	export let inputValue: number = 0;
+	export let inputTypeLabel: TypeLabel = "px";
 	export let strokeValue: StrokeStyle = 'solid';
 
 	export let dropStrokeOptions: DropOptions[] = [
@@ -86,12 +88,10 @@
 		<InputColor bind:colorValue on:change={handleColorChange} />
 	{/if}
 	{#if hasNumberInput}
-		<input
-			type="number"
-			class="num-input"
+		<InputNumType
 			bind:value={inputValue}
+			bind:typeLabel={inputTypeLabel}
 			on:change={handleInputChange}
-			min="0"
 		/>
 	{/if}
 	{#if hasStrokeInput}
@@ -108,13 +108,6 @@
 	.input-container {
 		@apply flex items-center justify-center;
 		@apply gap-x-1 gap-y-2;
-	}
-	.num-input {
-		@apply border border-background bg-secondary;
-		@apply text-center;
-		@apply pl-2;
-		height: 30px;
-		width: 50px;
 	}
 	.input-color {
 		width: 40px;

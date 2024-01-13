@@ -23,7 +23,7 @@
 	export let isEditMode: boolean = false;
 	export let editId: string = '';
 	export let isLoading: boolean = true;
-	export let stage: Stage = '1';
+	export let stage: Stage = '2';
 	let password: string = '';
 
 	onMount(async () => {
