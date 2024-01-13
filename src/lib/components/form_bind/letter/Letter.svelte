@@ -3,6 +3,7 @@
 	import Stage1 from './stage/Stage1.svelte';
 	import Stage2 from './stage/Stage2.svelte';
 	import Stage3 from './stage/Stage3.svelte';
+	import TemplateAndCustomization from "./stage/TemplateAndCustomizations.svelte";
 
 	import { getUserId, supabase } from '$lib/module/supabase';
 	import { onMount, onDestroy, tick } from 'svelte';
@@ -15,8 +16,8 @@
 		type LetterObj
 	} from '$lib/components/form_bind/letter/store';
 	import { deepCopyObj, setSafeDate, sleep } from '$lib/helper';
-	import type { Tables } from '$lib/database.types';
 	import Loader from '$lib/components/Loader.svelte';
+	import type { Tables } from '$lib/database.types';
 
 	type Stage = '1' | '2' | '3';
 
@@ -120,42 +121,51 @@
 	</div>
 {:else}
 	<div class="container">
-		<div class="section-menu">
-			{#each sectionMenu as item}
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<div
-					class="section-item"
-					class:complete={Number(stage) >= Number(item.stage)}
-					on:click={() => (stage = item.stage)}
-					role="button"
-					tabindex="0"
-				>
-					<div class="icon"><svelte:component this={item.icon} /></div>
-					<div class="title">{item.title}</div>
-				</div>
-			{/each}
-		</div>
-
-		<div class="stages">
-			{#if stage === '1'}
-				<Stage1 />
-			{:else if stage === '2'}
-				<Stage2 />
-			{:else if stage === '3'}
-				<Stage3 bind:password on:submit={handleSubmit} />
-			{/if}
-
-			<div class="action" class:hide={stage === '3'}>
-				<Button label="Prev" on:click={handlePrev} disabled={stage === '1'} />
-				<Button label="Next" on:click={handleNext} disabled={stage === '3'} />
+		<div class="section-container">
+			<div class="section-menu">
+				{#each sectionMenu as item}
+					<!-- svelte-ignore a11y-click-events-have-key-events -->
+					<div
+						class="section-item"
+						class:complete={Number(stage) >= Number(item.stage)}
+						on:click={() => (stage = item.stage)}
+						role="button"
+						tabindex="0"
+					>
+						<div class="icon"><svelte:component this={item.icon} /></div>
+						<div class="title">{item.title}</div>
+					</div>
+				{/each}
 			</div>
+
+			<div class="stages">
+				{#if stage === '1'}
+					<Stage1 />
+				{:else if stage === '2'}
+					<Stage2 />
+				{:else if stage === '3'}
+					<Stage3 bind:password on:submit={handleSubmit} />
+				{/if}
+
+				<div class="action">
+					<Button label="Prev" on:click={handlePrev} disabled={stage === '1'} />
+					<Button label="Next" on:click={handleNext} disabled={stage === '3'} />
+				</div>
+			</div>
+			
 		</div>
+		{#if stage === '2'}
+			<div class="customization-panel">
+				<TemplateAndCustomization />
+			</div>
+		{/if}
 	</div>
 {/if}
 
 <style lang="postcss">
 	.container {
 		@apply my-4;
+		@apply flex justify-around;
 	}
 
 	.stages {
