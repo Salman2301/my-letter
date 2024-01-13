@@ -65,10 +65,10 @@
 			`padding-right:${templateConfig.padding.right.value}${templateConfig.padding.right.type}`
 		);
 
-		styleArr.push(`border-top-width:${templateConfig.border.top.strokewidth}px`);
-		styleArr.push(`border-bottom-width:${templateConfig.border.bottom.strokewidth}px`);
-		styleArr.push(`border-left-width:${templateConfig.border.left.strokewidth}px`);
-		styleArr.push(`border-right-width:${templateConfig.border.right.strokewidth}px`);
+		styleArr.push(`border-top-width:${templateConfig.border.top.strokewidth}${templateConfig.border.top.strokeUnit}`);
+		styleArr.push(`border-bottom-width:${templateConfig.border.bottom.strokewidth}${templateConfig.border.bottom.strokeUnit}`);
+		styleArr.push(`border-left-width:${templateConfig.border.left.strokewidth}${templateConfig.border.left.strokeUnit}`);
+		styleArr.push(`border-right-width:${templateConfig.border.right.strokewidth}${templateConfig.border.right.strokeUnit}`);
 
 		styleArr.push(`border-top-color:${templateConfig.border.top.strokeColor}`);
 		styleArr.push(`border-bottom-color:${templateConfig.border.bottom.strokeColor}`);

@@ -1,3 +1,4 @@
+export type NumberCssUnit = 'px' | 'rem' | '%';
 export interface TemplateConfig {
 	version: `${string}.${string}.${string}`;
 	slug: string;
@@ -5,75 +6,79 @@ export interface TemplateConfig {
 	margin: {
 		top: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 		bottom: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 		left: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 		right: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 	};
 	padding: {
 		top: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 		bottom: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 		left: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 		right: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 	};
 	rounded: {
 		topLeft: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 		topRight: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 		bottomLeft: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 		bottomRight: {
 			value: number;
-			type: 'px';
+			type: NumberCssUnit;
 		};
 	};
 	border: {
 		top: {
 			strokewidth: number;
+			strokeUnit: NumberCssUnit;
 			strokeColor: string;
 			strokeStyle: StrokeStyle;
 		};
 		bottom: {
 			strokewidth: number;
+			strokeUnit: NumberCssUnit;
 			strokeColor: string;
 			strokeStyle: StrokeStyle;
 		};
 		left: {
 			strokewidth: number;
+			strokeUnit: NumberCssUnit;
 			strokeColor: string;
 			strokeStyle: StrokeStyle;
 		};
 		right: {
 			strokewidth: number;
+			strokeUnit: NumberCssUnit;
 			strokeColor: string;
 			strokeStyle: StrokeStyle;
 		};
@@ -83,7 +88,7 @@ export interface TemplateConfig {
 	fontColor: string;
 	fontSize: {
 		value: number;
-		unit: 'px' | 'rem';
+		unit: NumberCssUnit;
 	};
 }
 

@@ -43,21 +43,25 @@ export const blankTemplate: TemplateConfig = {
 	border: {
 		top: {
 			strokewidth: 0,
+			strokeUnit: "px",
 			strokeColor: '#000',
 			strokeStyle: 'solid'
 		},
 		bottom: {
 			strokewidth: 0,
+			strokeUnit: "px",
 			strokeColor: '#000',
 			strokeStyle: 'solid'
 		},
 		left: {
 			strokewidth: 0,
+			strokeUnit: "px",
 			strokeColor: '#000',
 			strokeStyle: 'solid'
 		},
 		right: {
 			strokewidth: 0,
+			strokeUnit: "px",
 			strokeColor: '#000',
 			strokeStyle: 'solid'
 		}
@@ -137,21 +141,25 @@ export const templateList: Record<string, TemplateConfig> = {
 		border: {
 			top: {
 				strokewidth: 2,
+				strokeUnit: "px",
 				strokeColor: '#000',
 				strokeStyle: 'solid'
 			},
 			bottom: {
 				strokewidth: 2,
+				strokeUnit: "px",
 				strokeColor: '#000',
 				strokeStyle: 'solid'
 			},
 			left: {
 				strokewidth: 2,
+				strokeUnit: "px",
 				strokeColor: '#000',
 				strokeStyle: 'solid'
 			},
 			right: {
 				strokewidth: 2,
+				strokeUnit: "px",
 				strokeColor: '#000',
 				strokeStyle: 'solid'
 			}

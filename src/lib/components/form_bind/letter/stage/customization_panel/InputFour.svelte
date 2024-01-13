@@ -6,18 +6,17 @@
 	import { LinkIcon } from 'svelte-feather-icons';
 
 	import type { EventOnChange, InputType } from './InputStroke.svelte';
-	import type { StrokeStyle } from '$lib/components/template/types';
+	import type { NumberCssUnit, StrokeStyle } from '$lib/components/template/types';
 
 	export let inputType: InputType[] = ['color', 'input', 'stroke'];
 	export let isLinked: boolean = true;
 	export let corner: boolean = false;
+	export let removePercentUnit: boolean = false;
 
 	type Position = 'one' | 'two' | 'three' | 'four';
-	type InputUnit = 'px' | 'rem';
-
 	let defaultColorValue: string = '#000';
 	let defaultInputValue: number = 0;
-	let defaultInputUnit: InputUnit = 'px';
+	let defaultInputUnit: NumberCssUnit = 'px';
 	let defaultStroke: StrokeStyle = 'solid';
 
 	let lastValueColor: string = defaultColorValue;
@@ -34,10 +33,10 @@
 	export let threeInputValue: number = defaultInputValue;
 	export let fourInputValue: number = defaultInputValue;
 
-	export let oneInputUnit: InputUnit = defaultInputUnit;
-	export let twoInputUnit: InputUnit = defaultInputUnit;
-	export let threeInputUnit: InputUnit = defaultInputUnit;
-	export let fourInputUnit: InputUnit = defaultInputUnit;
+	export let oneInputUnit: NumberCssUnit = defaultInputUnit;
+	export let twoInputUnit: NumberCssUnit = defaultInputUnit;
+	export let threeInputUnit: NumberCssUnit = defaultInputUnit;
+	export let fourInputUnit: NumberCssUnit = defaultInputUnit;
 
 	export let oneStroke: StrokeStyle = defaultStroke;
 	export let twoStroke: StrokeStyle = defaultStroke;
@@ -75,6 +74,13 @@
 					fourInputValue = value;
 				}
 
+				if( type === "input-unit") {
+					oneInputUnit = value;
+					twoInputUnit = value;
+					threeInputUnit = value;
+					fourInputUnit = value;
+				}
+
 				if (type === 'stroke') {
 					oneStroke = value;
 					twoStroke = value;
@@ -109,6 +115,7 @@
 		<InputStroke
 			{hasColorInput}
 			{hasNumberInput}
+			{removePercentUnit}
 			{hasStrokeInput}
 			bind:colorValue={oneColorValue}
 			bind:inputValue={oneInputValue}
@@ -121,6 +128,7 @@
 			{hasColorInput}
 			{hasNumberInput}
 			{hasStrokeInput}
+			{removePercentUnit}
 			bind:colorValue={twoColorValue}
 			bind:inputValue={twoInputValue}
 			bind:strokeValue={twoStroke}
@@ -145,6 +153,7 @@
 			{hasColorInput}
 			{hasNumberInput}
 			{hasStrokeInput}
+			{removePercentUnit}
 			bind:colorValue={threeColorValue}
 			bind:inputValue={threeInputValue}
 			bind:strokeValue={threeStroke}
@@ -156,6 +165,7 @@
 			{hasColorInput}
 			{hasNumberInput}
 			{hasStrokeInput}
+			{removePercentUnit}
 			bind:colorValue={fourColorValue}
 			bind:inputValue={fourInputValue}
 			bind:strokeValue={fourStroke}

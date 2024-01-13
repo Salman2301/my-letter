@@ -1,12 +1,13 @@
 <script lang="ts" context="module">
-	import InputNumType, { type TypeLabel } from "./InputNumType.svelte";
-	import type { StrokeStyle } from '$lib/components/template/types';
+	import InputNumType from './InputNumType.svelte';
+	import type { NumberCssUnit, StrokeStyle } from '$lib/components/template/types';
 
 	export type InputType = 'color' | 'input' | 'stroke';
 
 	export type EventOnChange =
 		| { event: any; type: 'color'; value: string }
 		| { event: any; type: 'input'; value: number }
+		| { event: any; type: 'input-unit'; value: NumberCssUnit }
 		| { event: any; type: 'stroke'; value: StrokeStyle };
 </script>
 
@@ -22,10 +23,11 @@
 	export let hasColorInput: boolean = true;
 	export let hasNumberInput: boolean = true;
 	export let hasStrokeInput: boolean = true;
-
+	export let removePercentUnit: boolean = false;
+		
 	export let colorValue: string = '#fff';
 	export let inputValue: number = 0;
-	export let inputTypeLabel: TypeLabel = "px";
+	export let inputUnitLabel: NumberCssUnit = 'px';
 	export let strokeValue: StrokeStyle = 'solid';
 
 	export let dropStrokeOptions: DropOptions[] = [
@@ -77,6 +79,11 @@
 		dispatch('input', { event, type: 'input', value: inputValue });
 	}
 
+	function handleInputUnitChange(event: any) {
+		dispatch('change', { event, type: 'input-unit', value: inputUnitLabel });
+		dispatch('input', { event, type: 'input-unit', value: inputUnitLabel });
+	}
+
 	function handleStrokeChange(event: any) {
 		dispatch('change', { event, type: 'stroke', value: strokeValue });
 		dispatch('stroke', { event, type: 'stroke', value: strokeValue });
@@ -90,8 +97,10 @@
 	{#if hasNumberInput}
 		<InputNumType
 			bind:value={inputValue}
-			bind:typeLabel={inputTypeLabel}
-			on:change={handleInputChange}
+			bind:unitLabel={inputUnitLabel}
+			availableUnits={removePercentUnit ? ["px", "rem"] : ["px", "rem", "%"]}
+			on:valueChange={handleInputChange}
+			on:unitChange={handleInputUnitChange}
 		/>
 	{/if}
 	{#if hasStrokeInput}
