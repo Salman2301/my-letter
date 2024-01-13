@@ -52,21 +52,10 @@
 
 	
 	function handleRowClick({ idx, row, event }: {idx: number, row: Row, event: MouseEvent}) {
-		console.log("t ", event.currentTarget, event.target)
-		console.log("f", event.target.firstChild.children[1] )
-		console.log({ event });
-		// toggleRow(idx)
-		// dispatch("row_click", { row, idx })
+		toggleRow(idx)
+		dispatch("row_click", { row, idx })
 	}
 </script>
-
-<svelte:head>
-	<style>
-		*:hover {
-			@apply outline outline-white;
-		}
-	</style>
-</svelte:head>
 
 <table>
 	<thead>
@@ -99,7 +88,6 @@
 		{#each rows as row, idx}
 			<tr
 				class="row body"
-				on:click={(event)=>handleRowClick({idx, row, event})}
 			>
 				{#if tableSetting.showTableCheckbox}
 					<td class="checkbox checkbox-row" >
@@ -108,7 +96,7 @@
 				{/if}
 				{#each columns as column, idxRow}
 					{@const value = row[column.key]}
-					<td id="cell-{idx}-{idxRow}">
+					<td id="cell-{idx}-{idxRow}" 	on:click={(event)=>handleRowClick({idx, row, event})} >
 						{#if !column.type || column.type === 'text'}
 
 							{column.render ? column.render(row) :  value}
