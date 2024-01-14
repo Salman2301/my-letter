@@ -1,10 +1,12 @@
 <script lang="ts">
 	import InputCheckbox from '../form/InputCheckbox.svelte';
-	import { deepCopyObj, formatDate, getSignedImage, isSameObj, styleStr } from '$lib/helper';
+	import { genId } from "$lib/helper";
+
 	import { createEventDispatcher } from 'svelte';
 	import { LoaderIcon, SlashIcon } from 'svelte-feather-icons';
+	import { deepCopyObj, formatDate, getSignedImage, isSameObj, styleStr } from '$lib/helper';
+	
 	import type { Columns, Row, Rows, TableSetting } from './table.types';
-	import type { Mouse } from '@playwright/test';
 
 	const dispatch = createEventDispatcher();
 
@@ -25,6 +27,7 @@
 	export let checkedRowIndices: number[] = [];
 
 	export let tableChecked: boolean = false;
+	export let id: string = `table-${genId()}`;
 
 	$: if (checkedRowState) onCheckedRowStateChanged(checkedRowState);
 
@@ -33,7 +36,6 @@
 			if (curr) acc.push(idx);
 			return acc;
 		}, []);
-
 		if (!isSameObj(selectedIndices, checkedRowIndices)) {
 			checkedRowIndices = deepCopyObj(selectedIndices);
 			const allChecked = state.every((item) => item);
@@ -55,13 +57,20 @@
 		toggleRow(idx)
 		dispatch("row_click", { row, idx })
 	}
+
+	function handleRowCheckedIdx(idx: number) {
+		return function handleRowChecked(event: any) {
+			checkedRowState[idx] = event.detail.checked;
+			checkedRowState = checkedRowState;
+		}
+	}
 </script>
 
 <table>
 	<thead>
 		<tr>
 			{#if tableSetting.showTableCheckbox}
-				<th class="checkbox checkbox-header">
+				<th class="checkbox-header checkbox-cell">
 					<InputCheckbox
             bind:checked={tableChecked}
             on:change={()=>onTableCheckedChanged(tableChecked)}
@@ -90,8 +99,14 @@
 				class="row body"
 			>
 				{#if tableSetting.showTableCheckbox}
-					<td class="checkbox checkbox-row" >
-						<InputCheckbox bind:checked={checkedRowState[idx]} />
+					<td class="checkbox-cell" >
+						<label for="checkbox-row-{idx}-{id}">
+							<InputCheckbox
+								id="checkbox-row-{idx}-{id}"
+								bind:checked={checkedRowState[idx]}
+								on:change={handleRowCheckedIdx(idx)}
+							/>
+						</label>
 					</td>
 				{/if}
 				{#each columns as column, idxRow}
@@ -145,11 +160,17 @@
 		width: 100%;
 		@apply p-2;
 	}
-	.checkbox {
+	.checkbox-cell {
 		width: 40px;
 		min-width: 40px;
+    max-width: 40px;
+    @apply pl-2;
+		/* @apply flex items-center justify-center; */
 	}
-
+	.checkbox > label {
+		@apply w-full h-full;
+	}
+	
 	tr {
 		height: 60px;
 		@apply mb-2;
@@ -175,10 +196,6 @@
 	td:has(.image) {
 		@apply flex h-full items-center justify-center;
 	}
-
-  .checkbox {
-    @apply pl-2;
-  }
 
 	.image {
 		width: 50px;

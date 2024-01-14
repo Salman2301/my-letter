@@ -1,7 +1,7 @@
 import { env } from '$env/dynamic/public';
+import { supabase } from './module/supabase';
 import { asString } from '$lib/module/formatDate';
 import type { Bucket } from './constant';
-import { supabase } from './module/supabase';
 
 export function genId(len?: number): string {
 	if (typeof len !== 'number') len = 6;

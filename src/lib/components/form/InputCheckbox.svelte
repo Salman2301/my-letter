@@ -13,12 +13,11 @@
 		dispatch('change', { checked });
 		if(checked) dispatch('check', { checked });
 		else  dispatch('uncheck', { checked });
-
 	}
 </script>
 
 <div class="checkbox-container">
-	<input type="checkbox" bind:checked {id} on:change={handleChange} />
+	<input type="checkbox" bind:checked={checked} {id} on:change={handleChange} />
 	{#if hasLabel && label}
 		<slot name="label">
 			<label for={id}>{label}</label>
