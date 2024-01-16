@@ -3,11 +3,12 @@
 	import Stage1 from './stage/Stage1.svelte';
 	import Stage2 from './stage/Stage2.svelte';
 	import Stage3 from './stage/Stage3.svelte';
+	import Loader from '$lib/components/Loader.svelte';
 	import TemplateAndCustomization from "./stage/TemplateAndCustomizations.svelte";
 
-	import { getUserId, supabase } from '$lib/module/supabase';
-	import { onMount, onDestroy, tick } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { onMount, onDestroy, tick } from 'svelte';
+	import { getUserId, supabase } from '$lib/module/supabase';
 	import { Edit2Icon, SendIcon, TableIcon } from 'svelte-feather-icons';
 
 	import {
@@ -16,7 +17,6 @@
 		type LetterObj
 	} from '$lib/components/form_bind/letter/store';
 	import { deepCopyObj, setSafeDate, sleep } from '$lib/helper';
-	import Loader from '$lib/components/Loader.svelte';
 	import type { Tables } from '$lib/database.types';
 
 	type Stage = '1' | '2' | '3';
