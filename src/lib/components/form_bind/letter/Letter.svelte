@@ -53,7 +53,7 @@
 	async function handleSubmit() {
 		// Save the form to supabase
 		$letterObj._owner = await getUserId();
-
+		$letterObj.slug = 
 		$letterObj.password_hash = getHash(password);
 		const { data: saved, error } = await supabase
 			.from('letter')

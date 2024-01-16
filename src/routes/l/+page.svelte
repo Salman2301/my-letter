@@ -1,0 +1,1 @@
+All letter redirect back to user home page
