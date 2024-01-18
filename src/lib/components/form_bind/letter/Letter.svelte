@@ -53,10 +53,18 @@
 		return letterData as any as LetterObj;
 	}
 
+	function genSlug() {
+		let alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		let slug = '';
+		for (let i = 0; i < 10; i++) slug += alpha[Math.floor(Math.random() * alpha.length)];
+		return slug;
+
+	}
+
 	async function handleSubmit() {
 		// Save the form to supabase
 		$letterObj._owner = await getUserId();
-		$letterObj.slug = 
+		$letterObj.slug = genSlug();
 		$letterObj.password_hash = getHash(password);
 		const { data: saved, error } = await supabase
 			.from('letter')
