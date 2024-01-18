@@ -49,7 +49,7 @@
 			return { isValid: false, errorMessage: 'Password cannot be empty!' };
 		}
 
-		if (form.password.length < 7) {
+		if (form.password.length < 6 ) {
 			return { isValid: false, errorMessage: 'Password needs to be minimum 6 character!' };
 		}
 
