@@ -1,13 +1,20 @@
-import { error } from '@sveltejs/kit';
+import { supabase } from '$lib/module/supabase.js';
+import { error, redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
-export function load({ params }) {
-	if (params.slug === 'hello-world') {
-		return {
-			title: 'Hello world!',
-			content: 'Welcome to our blog. Lorem ipsum dolor sit amet...'
-		};
+export async function load({ params }) {
+	if (!params.slug) {
+		return redirect(301, "/app/my-letter");
 	}
 
-	error(404, 'Not found');
+	const res = await supabase.from("letter").select("*").eq("slug", params.slug);
+	
+	if (res.error) {
+		console.error(res.error);
+		return error(500, "Failed to fetch the letter.");
+	}
+
+	if (res.data.length == 0) return redirect(301, "/app/my-letter?alert=error&message=no_letter");
+
+	return res.data[0];
 }
