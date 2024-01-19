@@ -17,8 +17,9 @@
 		type LetterObj
 	} from '$lib/components/form_bind/letter/store';
 	import { deepCopyObj, setSafeDate, sleep } from '$lib/helper';
-	import type { Tables } from '$lib/database.types';
 	import { showSidebar } from '$lib/components/sidebar/store';
+
+	import type { Tables } from '$lib/database.types';
 
 	type Stage = '1' | '2' | '3';
 
@@ -130,6 +131,7 @@
 					<div
 						class="section-item"
 						class:complete={Number(stage) >= Number(item.stage)}
+						class:active={Number(stage) === Number(item.stage)}
 						on:click={() => (stage = item.stage)}
 						role="button"
 						tabindex="0"
@@ -168,7 +170,6 @@
 
 <style lang="postcss">
 	.container {
-		@apply my-4;
 		@apply flex justify-around;
 	}
 
@@ -180,22 +181,23 @@
 
 	.section-menu {
 		@apply flex justify-evenly gap-2;
-		@apply my-4;
 	}
 	.section-item {
-		@apply flex flex-col gap-2;
+		@apply flex items-center gap-2;
 		@apply text-gray-500;
+		@apply px-2 my-2;
 	}
 	.complete {
 		@apply text-white;
+	}
+	.active {
+		@apply border-b-2 border-white;
 	}
 	.section-item .title {
 		@apply text-center;
 	}
 	.icon {
-		@apply h-14 w-14;
-		@apply rounded-full;
-		@apply bg-secondary;
+		@apply h-8 w-8;
 		@apply text-center;
 		@apply flex items-center justify-center;
 	}
