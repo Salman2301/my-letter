@@ -18,6 +18,7 @@
 	} from '$lib/components/form_bind/letter/store';
 	import { deepCopyObj, setSafeDate, sleep } from '$lib/helper';
 	import type { Tables } from '$lib/database.types';
+	import { showSidebar } from '$lib/components/sidebar/store';
 
 	type Stage = '1' | '2' | '3';
 
@@ -40,6 +41,7 @@
 			$letterObj = setLetterObj(data[0]);
 			await tick(); // Wait for the HTML to be rendered
 		}
+		$showSidebar = false;
 		isLoading = false;
 	});
 
