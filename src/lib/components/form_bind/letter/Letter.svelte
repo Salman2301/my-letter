@@ -148,8 +148,10 @@
 				{/if}
 
 				<div class="action">
-					<Button label="Prev" on:click={handlePrev} disabled={stage === '1'} />
-					<Button label="Next" on:click={handleNext} disabled={stage === '3'} />
+					{#if stage !== '3'}
+						<Button label="Prev" on:click={handlePrev} disabled={stage === '1'} />
+						<Button label="Next" on:click={handleNext} />
+					{/if}
 				</div>
 			</div>
 			
