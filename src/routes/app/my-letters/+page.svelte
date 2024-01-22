@@ -24,6 +24,10 @@
 			name: 'Title'
 		},
 		{
+			key: 'slug',
+			name: 'Slug'
+		},
+		{
 			key: 'created_at',
 			name: 'Date',
 			type: 'date'
